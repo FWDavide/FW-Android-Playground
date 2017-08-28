@@ -16,6 +16,7 @@ similar project structure means onboarding new developers is a lot easier, this 
 - [ ] section about code style
 - [ ] useful plugins
 - [ ] code style plugins
+- [ ] .gitingore coverage
 
 ## Code Organisation
 
