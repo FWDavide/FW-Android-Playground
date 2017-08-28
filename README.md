@@ -42,7 +42,7 @@ This package will contain code related to dependency injection that is used thro
 RxJava specific code goes here. Examples are `SchedulerProvider` (used for specifying the schedulers that a specific call should use). Check the Wiki to see how to use it.  
 // TODO
 
-####presentation
+#### presentation  
 This package contains all the code related to the app features and UI. Sub-packages will be organised by feature not by component type.
 Sub-packages can be very simple(like the login sub-package) or very complex (TODO insert example here).
 You should aim to have all feature-related code in a single package, except if the feature uses some common components.
@@ -169,4 +169,3 @@ Example :
 ```feature: #134582695, check that page is !=null before trying to delete it ```  
 
 Try to avoid extra long commit messages.
-
