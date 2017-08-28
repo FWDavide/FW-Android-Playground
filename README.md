@@ -38,7 +38,7 @@ This package will contain all code related to data production as far as the app 
  **dagger**  
 This package will contain code related to dependency injection that is used throughout the application (modules or components that provide data stores or repositories). Custom scopes and annotations should also be defined here.
 
- **rx**
+ **rx**  
 RxJava specific code goes here. Examples are `SchedulerProvider` (used for specifying the schedulers that a specific call should use). Check the Wiki to see how to use it.  
 
 
