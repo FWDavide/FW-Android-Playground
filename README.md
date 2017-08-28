@@ -14,6 +14,8 @@ similar project structure means onboarding new developers is a lot easier, this 
 - [ ] wiki for Dagger usage
 - [ ] section for testing + wiki
 - [ ] section about code style
+- [ ] useful plugins
+- [ ] code style plugins
 
 ## Code Organisation
 
