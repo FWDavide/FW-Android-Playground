@@ -40,7 +40,7 @@ This package will contain code related to dependency injection that is used thro
 
  **rx**
 RxJava specific code goes here. Examples are `SchedulerProvider` (used for specifying the schedulers that a specific call should use). Check the Wiki to see how to use it.  
-// TODO
+
 
 #### presentation  
 This package contains all the code related to the app features and UI. Sub-packages will be organised by feature not by component type.
@@ -93,7 +93,7 @@ To use a dependency defined in this file you need to add the following to your `
     compile retrofit
     testCompile test.junit
     
-##CI
+##CI  
 The CI will handle minor versining, app signing and publishing of the apk.  
 In order to enable CI integration you need to define a `gradle.properties`  file with the following properties at the root of your project:  
 
