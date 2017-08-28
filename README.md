@@ -9,7 +9,7 @@ No project is ever going to have the same requirements so this is not to be view
 The guidelines described here have the purpose of maintaining a common denominator for all the projects that we develop at FW. The advantages are pretty obvius if you think at the business model of the company:  
 similar project structure means onboarding new developers is a lot easier, this also applies to project hand-offs, code reviews,etc.
 
-##TODO  
+## TODO
 - [ ] wiki for SchedulerProvider
 - [ ] wiki for Dagger usage
 - [ ] section for testing + wiki
