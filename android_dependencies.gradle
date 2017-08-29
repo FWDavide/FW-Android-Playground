@@ -4,7 +4,7 @@ rootProject.ext {
     supportLibrary = '26.0.1'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
-    retrofitVersion = '2.1.0'
+    retrofitVersion = '2.3.0'
     okHttpVersion = '3.4.1'
     playServicesVersion = '10.2.4'
     picassoVersion = '2.5.2'
@@ -12,8 +12,7 @@ rootProject.ext {
     mpChartVersion = '2.0.8'
     recycleViewHeaderVersion = '1.2.0'
     multidexVersion = '1.0.1'
-    daggerVersion = '2.0.2'
-    daggerCompilerVersion = '2.0.2'
+    daggerVersion = '2.11'
     annotationProcessorVersion = '1.0'
     permissionDispatcherVersion = '2.0.6'
     permissionAnnotationProcesorVersion = '2.0.6'
@@ -48,7 +47,7 @@ rootProject.ext {
                     "com.android.support:cardview-v7:$supportLibrary",
             appCompat             :
                     "com.android.support:appcompat-v7:$supportLibrary",
-            constraintLayout             :
+            constraintLayout      :
                     "com.android.support.constraint:constraint-layout:$constraintlayoutVersion",
             supportAnnotation     :
                     "com.android.support:support-annotations:$supportLibrary",
@@ -82,7 +81,7 @@ rootProject.ext {
             retrofit             :
                     "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitRxAdapter    :
-                    "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+                    "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
             retrofitGsonConverter:
                     "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitXmlConverter :
@@ -109,11 +108,16 @@ rootProject.ext {
             dagger               :
                     "com.google.dagger:dagger:$daggerVersion",
             daggerCompiler       :
-                    "com.google.dagger:dagger-compiler:$daggerCompilerVersion",
+                    "com.google.dagger:dagger-compiler:$daggerVersion",
+            daggerAndroidSupport :
+                    "com.google.dagger:dagger-android-support:$daggerVersion",
+            daggerAndroidProcessor:
+                    "com.google.dagger.dagger-android-processor:$daggerVersion",
+
             annotationProcesor   :
                     "javax.annotation:jsr250-api:$annotationProcessorVersion",
             rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxAndroid             : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
             tesseract            :
                     "com.rmtheis:tess-two:$tesseractVersion",
             box                  :
@@ -127,7 +131,7 @@ rootProject.ext {
             junit             : "junit:junit:$junitVersion",
             mockito           : "org.mockito:mockito-core:$mockitoVersion",
             testRunner        : "com.android.support.test:runner:$testRunnerVersion",
-            supportAnnotations: "com.android.support:support-annotations:$supportLibraryVersion"
+            supportAnnotations: "com.android.support:support-annotations:$supportLibrary"
     ]
 
 }

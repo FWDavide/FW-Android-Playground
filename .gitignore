@@ -8,8 +8,9 @@ gen-external-apklibs
 
 #Gradle
 .gradle
-local.properties
 build
 
 #Other
 .DS_Store
+/.gradle/
+*.properties
