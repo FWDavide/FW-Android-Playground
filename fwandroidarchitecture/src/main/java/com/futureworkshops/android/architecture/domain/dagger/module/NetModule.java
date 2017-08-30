@@ -3,11 +3,15 @@ package com.futureworkshops.android.architecture.domain.dagger.module;
 import android.content.Context;
 
 import com.futureworkshops.android.architecture.BuildConfig;
+import com.futureworkshops.android.architecture.domain.network.RestApi;
+import com.futureworkshops.android.architecture.domain.network.RestManager;
+import com.futureworkshops.android.architecture.domain.rx.scheduler.WorkerSchedulerProvider;
 import com.futureworkshops.android.architecture.presentation.utils.NetworkUtil;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,11 +32,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    private String mBaseUrl;
+    private final static String NAME_INTERCEPTOR_HTTPLOGGING = "HttpLoggingInterceptor";
+    private final static String NAME_INTERCEPTOR_CACHE = "cacheInterceptor";
+    private final static String NAME_INTERCEPTOR_AUTH = "AuthInteceptor";
 
-    public NetModule(String url) {
-        this.mBaseUrl = url;
-    }
+    private String mBaseUrl = "http://www.baseUrl.com";
 
     private static final String HEADER_CACHE_CONTROL = "Cache-Control";
     private static final int CACHE_SIZE = 50 * 1024 * 1024; //50 MB
@@ -64,6 +68,7 @@ public class NetModule {
     }
 
     @Singleton
+    @Named(NAME_INTERCEPTOR_HTTPLOGGING)
     @Provides
     HttpLoggingInterceptor providesHttpLoggingInterceptor() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -75,11 +80,13 @@ public class NetModule {
     }
 
     @Singleton
+    @Named(NAME_INTERCEPTOR_AUTH)
     @Provides
     Interceptor providesAuthInterceptor() {
         return new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
+                //TODO
                 return null;
             }
         };
@@ -87,21 +94,9 @@ public class NetModule {
 
     @Singleton
     @Provides
-    OkHttpClient providesOkHttpClient(Interceptor interceptor, Cache cache) {
-
-        OkHttpClient.Builder client = new OkHttpClient.Builder();
-
-        final HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-
-        if (BuildConfig.DEBUG) {
-            //For Web Debugging.
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        } else {
-            logging.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
-
-        return client
-                .addInterceptor(logging)
+    OkHttpClient providesOkHttpClient(@Named(NAME_INTERCEPTOR_CACHE) Interceptor interceptor, @Named(NAME_INTERCEPTOR_HTTPLOGGING) HttpLoggingInterceptor loggingInterceptor, Cache cache) {
+        return new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
                 .addNetworkInterceptor(interceptor)
                 .cache(cache)
                 .build();
@@ -118,10 +113,17 @@ public class NetModule {
                 .build();
     }
 
-//    @Singleton
-//    @Provides
-//    YourRetrofitService providesBehanceApiService(Retrofit retrofit) {
-//        return retrofit.create(YourRetrofitService.class);
-//    }
+    @Singleton
+    @Provides
+    RestApi providesApiService(Retrofit retrofit) {
+        return retrofit.create(RestApi.class);
+    }
+
+
+    @Singleton
+    @Provides
+    RestManager providesRestManager(RestApi restApi) {
+        return new RestManager(restApi, new WorkerSchedulerProvider());
+    }
 
 }
