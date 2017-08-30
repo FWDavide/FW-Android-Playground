@@ -12,7 +12,7 @@ rootProject.ext {
     mpChartVersion = '2.0.8'
     recycleViewHeaderVersion = '1.2.0'
     multidexVersion = '1.0.1'
-    daggerVersion = '2.11'
+    daggerVersion = "2.11"
     annotationProcessorVersion = '1.0'
     permissionDispatcherVersion = '2.0.6'
     permissionAnnotationProcesorVersion = '2.0.6'
@@ -31,7 +31,8 @@ rootProject.ext {
     minimalJsonVersion = '0.9.1'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
-    testRunnerVersion = '0.5'
+    espressoCoreVersion = "3.0.0"
+    testRunnerVersion = "1.0.0"
 
     uiDependencies = [
 
@@ -76,53 +77,52 @@ rootProject.ext {
 
     domainDependencies = [
 
-            gson                 :
+            gson                  :
                     "com.google.code.gson:gson:$gsonVersion",
-            retrofit             :
+            retrofit              :
                     "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            retrofitRxAdapter    :
+            retrofitRxAdapter     :
                     "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-            retrofitGsonConverter:
+            retrofitGsonConverter :
                     "com.squareup.retrofit2:converter-gson:$retrofitVersion",
-            retrofitXmlConverter :
+            retrofitXmlConverter  :
                     "com.squareup.retrofit2:converter-simplexml:$retrofitVersion",
-            okHttpUrlConnection  :
+            okHttpUrlConnection   :
                     "com.squareup.okhttp3:okhttp-urlconnection:$okHttpVersion",
-            okHttp               :
+            okHttp                :
                     "com.squareup.okhttp3:okhttp:$okHttpVersion",
-            okHttpLogger         :
+            okHttpLogger          :
                     "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
-            playServices_full    :
+            playServices_full     :
                     "com.google.android.gms:play-services:$playServicesVersion",
-            playServices_gcm     :
+            playServices_gcm      :
                     "com.google.android.gms:play-services-gcm:$playServicesVersion",
-            playServices_maps    :
+            playServices_maps     :
                     "com.google.android.gms:play-services-maps:$playServicesVersion",
-            playServices_location:
+            playServices_location :
                     "com.google.android.gms:play-services-location:$playServicesVersion",
-            playServices_vision  :
+            playServices_vision   :
                     "com.google.android.gms:play-services-vision:$playServicesVersion",
-            multidex             :
+            multidex              :
                     "com.android.support:multidex:$multidexVersion",
-
-            dagger               :
+            dagger                :
                     "com.google.dagger:dagger:$daggerVersion",
-            daggerCompiler       :
+            daggerCompiler        :
                     "com.google.dagger:dagger-compiler:$daggerVersion",
-            daggerAndroidSupport :
-                    "com.google.dagger:dagger-android-support:$daggerVersion",
+            daggerAndroid  :
+                    "com.google.dagger:dagger-android:$daggerVersion",
             daggerAndroidProcessor:
-                    "com.google.dagger.dagger-android-processor:$daggerVersion",
+                    "com.google.dagger:dagger-android-processor:$daggerVersion",
 
-            annotationProcesor   :
+            annotationProcesor    :
                     "javax.annotation:jsr250-api:$annotationProcessorVersion",
-            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
-            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-            tesseract            :
+            rxJava                : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+            rxAndroid             : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+            tesseract             :
                     "com.rmtheis:tess-two:$tesseractVersion",
-            box                  :
+            box                   :
                     "com.box:box-android-sdk:$boxVersion",
-            minimalJson          :
+            minimalJson           :
                     "com.eclipsesource.minimal-json:minimal-json:$minimalJsonVersion",
     ]
 
@@ -131,7 +131,8 @@ rootProject.ext {
             junit             : "junit:junit:$junitVersion",
             mockito           : "org.mockito:mockito-core:$mockitoVersion",
             testRunner        : "com.android.support.test:runner:$testRunnerVersion",
-            supportAnnotations: "com.android.support:support-annotations:$supportLibrary"
+            supportAnnotations: "com.android.support:support-annotations:$supportLibrary",
+            espressoCore      : "com.android.support.test.espresso:espresso-core:$espressoCoreVersion"
     ]
 
 }

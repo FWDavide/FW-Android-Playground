@@ -62,7 +62,7 @@ dependencies {
     annotationProcessor uiDependencies.butterKnifeApt
 
     implementation domainDependencies.dagger
-    implementation domainDependencies.daggerAndroidSupport
+    implementation domainDependencies.daggerAndroid
     annotationProcessor domainDependencies.daggerCompiler
     annotationProcessor domainDependencies.daggerAndroidProcessor
 
@@ -74,4 +74,9 @@ dependencies {
     implementation domainDependencies.retrofitRxAdapter
     implementation domainDependencies.rxJava
     implementation domainDependencies.rxAndroid
+
+    //Testing
+    testImplementation testDependecies.junit
+    androidTestImplementation testDependecies.espressoCore
+    androidTestImplementation testDependecies.testRunner
 }
