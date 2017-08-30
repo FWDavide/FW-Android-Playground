@@ -1,6 +1,8 @@
 package com.futureworkshops.android.architecture.presentation;
 
-import android.app.Application;
+
+import com.futureworkshops.android.architecture.domain.dagger.AppComponent;
+import com.futureworkshops.android.architecture.domain.dagger.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
@@ -12,7 +14,14 @@ import dagger.android.DaggerApplication;
 public class FwAndroidArchitetureApp extends DaggerApplication {
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return null;
+        AppComponent appComponent = DaggerAppComponent.builder().application(this).build();
+        appComponent.inject(this);
+        return appComponent;
     }
 }
