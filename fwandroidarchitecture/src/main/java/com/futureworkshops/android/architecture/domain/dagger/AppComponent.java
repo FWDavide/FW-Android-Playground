@@ -17,18 +17,19 @@ import dagger.android.DaggerApplication;
 
 /**
  * Created by dimitrios on 22/08/2017.
- * <p>
+ *
  * Taken From https://github.com/googlesamples/android-architecture/blob/todo-mvp-dagger/
- * <p>
- * This is a Dagger component. Refer to {@link FwAndroidArchitetureApp} for the list of Dagger components
- * used in this application.
- * <p>
- * Even though Dagger allows annotating a {@link Component} as a singleton, the code
- * itself must ensure only one instance of the class is created. This is done in {@link com.futureworkshops.android.architecture.presentation.FwAndroidArchitetureApp}.
- * <p>
- * //{@link AndroidInjectionModule}
- * // is the module from Dagger.Android that helps with the generation
- * // and location of subcomponents.
+ *
+ * This is our top-level (top of the dependency graph) component and the only component we need to define.
+ *
+ * Here we can find 2 new Modules that weren't used previous to Dagger v2.11.
+ *
+ * {@link ActivityComponentBindModule}: Defines a mapping between Modules and Activities/Fragments who use them.
+ * This way Dagger can generate subcomponents that will be added in the graph below their parent-component. In our
+ * case, the AppComponent.
+ *
+ * {@link AndroidInjectionModule}: is the module from Dagger.Android that helps with the generation
+ * and location of subcomponents.
  */
 @Singleton
 @Component(modules = {
