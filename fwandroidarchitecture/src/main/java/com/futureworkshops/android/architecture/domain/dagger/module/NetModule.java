@@ -41,29 +41,12 @@ public class NetModule {
 
     private String mBaseUrl = "http://www.baseUrl.com";
 
-    private static final String HEADER_CACHE_CONTROL = "Cache-Control";
     private static final int CACHE_SIZE = 50 * 1024 * 1024; //50 MB
-    private static final int CACHE_MAX_AGE = 60 * 60 * 24; //24 Hours
 
     @Singleton
     @Named(NAME_RETROFIT_DEFAULT)
     @Provides
     Retrofit providesRetrofit(final Context context) {
-
-        Interceptor cacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-
-                if (NetworkUtil.isNetworkAvailable(context)) {
-                    request = request.newBuilder().header(HEADER_CACHE_CONTROL, "public, max-age=" + CACHE_MAX_AGE).build();
-                } else {
-                    request = request.newBuilder().header(HEADER_CACHE_CONTROL, "public, only-if-cached, max-stale=" + CACHE_MAX_AGE * 2).build();
-                }
-
-                return chain.proceed(request);
-            }
-        };
 
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -74,7 +57,6 @@ public class NetModule {
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
-                .addNetworkInterceptor(cacheInterceptor)
                 .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
                 .build();
 
