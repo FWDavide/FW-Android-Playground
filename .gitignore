@@ -13,4 +13,3 @@ build
 #Other
 .DS_Store
 /.gradle/
-*.properties
