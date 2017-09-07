@@ -1,6 +1,7 @@
 package com.futureworkshops.android.architecture.domain.network;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
@@ -10,6 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -19,15 +24,14 @@ import io.reactivex.Single;
  */
 public class RestManager {
 
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
 
     private final RestApi restService;
     private final SchedulersProvider schedulersProvider;
 
     public RestManager(@NonNull RestApi restService,
-                       @NonNull SchedulersProvider schedulersProvider
-                       ) {
+                       @NonNull SchedulersProvider schedulersProvider) {
         this.restService = restService;
         this.schedulersProvider = schedulersProvider;
     }
@@ -38,10 +42,43 @@ public class RestManager {
         fieldMap.put(USERNAME, username);
         fieldMap.put(PASSWORD, password);
 
-        return restService.login("application/x-www-form-urlencoded", fieldMap)
-//                .doOnSuccess(userPreferences::putLoginDetails)
-                .compose(new SingleWorkerTransformer<User>(schedulersProvider));
+        return restService
+                // this is an upstream method call relative to when the schedulers are applied
+                .login("application/x-www-form-urlencoded", fieldMap)
+                // this is an upstream method call relative to when the schedulers are applied
+                .map(new Function<User, User>() {
+                    @Override
+                    public User apply(User user) throws Exception {
+                        // this will execute on a worker scheduler
+                        Log.e("Threading", "Before applying transformer " + Thread.currentThread().getName());
+                        return user;
+                    }
+                })
+                .doOnSuccess(new Consumer<User>() {
+                    @Override
+                    public void accept(User user) throws Exception {
+                        // this will execute on a worker scheduler
+                        Log.e("Threading", "Do on success before applying transformer " + Thread.currentThread().getName());
+                    }
+                })
+                .compose(new SingleWorkerTransformer<User>(schedulersProvider))
+                // this is an downstream method call relative to when the schedulers are applied
+                .map(new Function<User, User>() {
+                    @Override
+                    public User apply(User user) throws Exception {
+                        // this will execute on the main scheduler
+                        Log.e("Threading", "After applying transformer " + Thread.currentThread().getName());
+                        return user;
+                    }
+                })
+                // this is an downstream method call relative to when the schedulers are applied
+                .doOnSuccess(new Consumer<User>() {
+                    @Override
+                    public void accept(User user) throws Exception {
+                        // this will execute on the main scheduler
+                        Log.e("Threading", "Do on success after applying transformer " + Thread.currentThread().getName());
+                    }
+                });
+
     }
-
-
 }
