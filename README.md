@@ -10,14 +10,14 @@ The guidelines described here have the purpose of maintaining a common denominat
 similar project structure means onboarding new developers is a lot easier, this also applies to project hand-offs, code reviews,etc.
 
 ## TODO
-- [ ] wiki for SchedulerProvider - Vlad
-- [ ] wiki for Dagger usage  - Dimitrios
+- [ ] wiki for SchedulerProvider - **Vlad**
+- [ ] wiki for Dagger usage  - **Dimitrios**
 - [ ] section for testing + wiki
 - [ ] section about code style
 - [ ] useful plugins
 - [ ] code style plugins
 - [ ] .gitingore coverage
-- [ ] Navigator section + Wiki - Jose
+- [ ] Navigator section + Wiki - **Jose**
 
 ## Code Organisation
 
