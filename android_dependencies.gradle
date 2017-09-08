@@ -4,7 +4,7 @@ rootProject.ext {
     supportLibraryVersion = '26.0.1'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
-    retrofitVersion = '2.1.0'
+    retrofitVersion = '2.3.0'
     okHttpVersion = '3.4.1'
     playServicesVersion = '10.2.4'
     picassoVersion = '2.5.2'
@@ -82,7 +82,7 @@ rootProject.ext {
             retrofit             :
                     "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitRxAdapter    :
-                    "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion",
+                    "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
             retrofitGsonConverter:
                     "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitXmlConverter :
@@ -122,7 +122,7 @@ rootProject.ext {
                     "com.eclipsesource.minimal-json:minimal-json:$minimalJsonVersion",
     ]
 
-    testDependecies = [
+    testDependencies = [
 
             junit             : "junit:junit:$junitVersion",
             mockito           : "org.mockito:mockito-core:$mockitoVersion",

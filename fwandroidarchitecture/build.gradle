@@ -12,10 +12,9 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-    }
-
-    packagingOptions{
-        exclude 'META-INF/rxjava.properties'
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
 
     signingConfigs {
@@ -56,6 +55,7 @@ android {
 dependencies {
     def uiDependencies = rootProject.ext.uiDependencies
     def domainDependencies = rootProject.ext.domainDependencies
+    def testDependencies = rootProject.ext.testDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -77,4 +77,7 @@ dependencies {
     implementation domainDependencies.retrofitRxAdapter
     implementation domainDependencies.rxJava
     implementation domainDependencies.rxAndroid
+
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
 }
