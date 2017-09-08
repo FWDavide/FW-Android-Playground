@@ -11,10 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.SingleSource;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -39,9 +38,6 @@ public class RestManager {
     public Single<User> login(@NonNull String username, @NonNull String password) {
         Map<String, String> fieldMap = new HashMap<>();
 
-        fieldMap.put(USERNAME, username);
-        fieldMap.put(PASSWORD, password);
-
         return restService
                 // this is an upstream method call relative to when the schedulers are applied
                 .login("application/x-www-form-urlencoded", fieldMap)
@@ -49,6 +45,7 @@ public class RestManager {
                 .map(new Function<User, User>() {
                     @Override
                     public User apply(User user) throws Exception {
+                        user.getName();
                         // this will execute on a worker scheduler
                         Log.e("Threading", "Before applying transformer " + Thread.currentThread().getName());
                         return user;
@@ -57,6 +54,7 @@ public class RestManager {
                 .doOnSuccess(new Consumer<User>() {
                     @Override
                     public void accept(User user) throws Exception {
+                        user.getAddress();
                         // this will execute on a worker scheduler
                         Log.e("Threading", "Do on success before applying transformer " + Thread.currentThread().getName());
                     }
@@ -66,9 +64,30 @@ public class RestManager {
                 .map(new Function<User, User>() {
                     @Override
                     public User apply(User user) throws Exception {
+                        user.getEmail();
                         // this will execute on the main scheduler
                         Log.e("Threading", "After applying transformer " + Thread.currentThread().getName());
                         return user;
+                    }
+                })
+                .flatMap(new Function<User, SingleSource<? extends User>>() {
+                    @Override
+                    public SingleSource<? extends User> apply(User user) throws Exception {
+                        return Single.just(user).map(new Function<User, User>() {
+                            @Override
+                            public User apply(User user) throws Exception {
+                                Log.e("Threading", "After applying outer transformer and before applying inner transformer "
+                                        + Thread.currentThread().getName());
+                                return user;
+                            }
+                        }).compose(new SingleWorkerTransformer<User>(schedulersProvider))
+                                .doOnSuccess(new Consumer<User>() {
+                                    @Override
+                                    public void accept(User user) throws Exception {
+                                        Log.e("Threading", "After applying outer transformer and after applying inner transformer "
+                                                + Thread.currentThread().getName());
+                                    }
+                                });
                     }
                 })
                 // this is an downstream method call relative to when the schedulers are applied
