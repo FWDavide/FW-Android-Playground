@@ -1,7 +1,6 @@
 package com.futureworkshops.android.architecture.domain.network;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
@@ -11,9 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 
 
 /**
@@ -39,65 +35,7 @@ public class RestManager {
         Map<String, String> fieldMap = new HashMap<>();
 
         return restService
-                // this is an upstream method call relative to when the schedulers are applied
                 .login("application/x-www-form-urlencoded", fieldMap)
-                // this is an upstream method call relative to when the schedulers are applied
-                .map(new Function<User, User>() {
-                    @Override
-                    public User apply(User user) throws Exception {
-                        user.getName();
-                        // this will execute on a worker scheduler
-                        Log.e("Threading", "Before applying transformer " + Thread.currentThread().getName());
-                        return user;
-                    }
-                })
-                .doOnSuccess(new Consumer<User>() {
-                    @Override
-                    public void accept(User user) throws Exception {
-                        user.getAddress();
-                        // this will execute on a worker scheduler
-                        Log.e("Threading", "Do on success before applying transformer " + Thread.currentThread().getName());
-                    }
-                })
-                .compose(new SingleWorkerTransformer<User>(schedulersProvider))
-                // this is an downstream method call relative to when the schedulers are applied
-                .map(new Function<User, User>() {
-                    @Override
-                    public User apply(User user) throws Exception {
-                        user.getEmail();
-                        // this will execute on the main scheduler
-                        Log.e("Threading", "After applying transformer " + Thread.currentThread().getName());
-                        return user;
-                    }
-                })
-                .flatMap(new Function<User, SingleSource<? extends User>>() {
-                    @Override
-                    public SingleSource<? extends User> apply(User user) throws Exception {
-                        return Single.just(user).map(new Function<User, User>() {
-                            @Override
-                            public User apply(User user) throws Exception {
-                                Log.e("Threading", "After applying outer transformer and before applying inner transformer "
-                                        + Thread.currentThread().getName());
-                                return user;
-                            }
-                        }).compose(new SingleWorkerTransformer<User>(schedulersProvider))
-                                .doOnSuccess(new Consumer<User>() {
-                                    @Override
-                                    public void accept(User user) throws Exception {
-                                        Log.e("Threading", "After applying outer transformer and after applying inner transformer "
-                                                + Thread.currentThread().getName());
-                                    }
-                                });
-                    }
-                })
-                // this is an downstream method call relative to when the schedulers are applied
-                .doOnSuccess(new Consumer<User>() {
-                    @Override
-                    public void accept(User user) throws Exception {
-                        // this will execute on the main scheduler
-                        Log.e("Threading", "Do on success after applying transformer " + Thread.currentThread().getName());
-                    }
-                });
-
+                .compose(new SingleWorkerTransformer<User>(schedulersProvider));
     }
 }
