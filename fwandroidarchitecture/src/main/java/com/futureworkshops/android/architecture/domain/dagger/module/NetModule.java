@@ -39,84 +39,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    private final static String NAME_RETROFIT_DEFAULT = "NAME_RETROFIT_DEFAULT";
-
-    private static final String HEADER_CACHE_CONTROL = "Cache-Control";
-
-    private String mBaseUrl = "http://www.baseUrl.com";
-
-    private static final int CACHE_SIZE = 50 * 1024 * 1024; //50 MB
-    private static final int CACHE_MAX_AGE = 60 * 60 * 24; //24 Hours
-
-
-    @Singleton
-    @Named(NAME_RETROFIT_DEFAULT)
-    @Provides
-    Retrofit providesRetrofit(final Context context) {
-
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        if (BuildConfig.DEBUG) {
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        } else {
-            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
-        }
-
-        final Interceptor cacheNetworkInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-
-                Response response = chain.proceed(chain.request());
-
-                CacheControl cacheControl = new CacheControl.Builder()
-                        .maxAge(1, TimeUnit.DAYS)
-                        .build();
-                return response.newBuilder()
-                        .header(HEADER_CACHE_CONTROL, cacheControl.toString())
-                        .build();
-            }
-        };
-
-        Interceptor offlineCacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (NetworkUtil.isNetworkAvailable(context)) {
-                    CacheControl cacheControl = new CacheControl.Builder()
-                            .maxStale(1, TimeUnit.DAYS)
-                            .build();
-                    request = request.newBuilder().header(HEADER_CACHE_CONTROL, cacheControl.toString()).build();
-                }
-                return chain.proceed(request);
-            }
-        };
-
-
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(offlineCacheInterceptor)
-                .addNetworkInterceptor(cacheNetworkInterceptor)
-                .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
-                .build();
-
-        return new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-    }
-
     @Singleton
     @Provides
-    RestApi providesApiService(@Named(NAME_RETROFIT_DEFAULT) Retrofit retrofit) {
-        return retrofit.create(RestApi.class);
-    }
-
-
-    @Singleton
-    @Provides
-    RestManager providesRestManager(RestApi restApi) {
-        return new RestManager(restApi, new WorkerSchedulerProvider());
+    RestManager providesRestManager(Context context) {
+        return new RestManager(context, new WorkerSchedulerProvider());
     }
 
 }

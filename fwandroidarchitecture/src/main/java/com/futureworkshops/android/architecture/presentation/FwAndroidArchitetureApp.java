@@ -9,8 +9,11 @@ import dagger.android.DaggerApplication;
 
 /**
  * Created by stelian on 28/08/2017.
+ *
+ * extending {@link DaggerApplication} is the equivilent of implementing {@link dagger.android.HasActivityInjector} and
+ * injecting a {@link dagger.android.DispatchingAndroidInjector}. What this means, is our Application will provide
+ * {@link AndroidInjector} to our Activities.
  */
-
 public class FwAndroidArchitetureApp extends DaggerApplication {
 
     @Override
@@ -18,6 +21,10 @@ public class FwAndroidArchitetureApp extends DaggerApplication {
         super.onCreate();
     }
 
+    /**
+     * This method needs to be implemented (the implementation needs to build our top-level AppComponent) in
+     * order to allow our Application class to provide AndroidInjectors.
+     */
     @Override
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         AppComponent appComponent = DaggerAppComponent.builder().application(this).build();
