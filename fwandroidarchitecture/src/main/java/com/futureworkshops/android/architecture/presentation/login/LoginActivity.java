@@ -1,23 +1,14 @@
 package com.futureworkshops.android.architecture.presentation.login;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.futureworkshops.android.architecture.R;
-import com.futureworkshops.android.architecture.domain.network.RestManager;
-import com.futureworkshops.android.architecture.domain.rx.FakeRestApi;
-import com.futureworkshops.android.architecture.domain.rx.scheduler.WorkerSchedulerProvider;
 import com.futureworkshops.android.architecture.presentation.common.BaseActivity;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.futureworkshops.android.architecture.domain.network.RestManager.PASSWORD;
-import static com.futureworkshops.android.architecture.domain.network.RestManager.USERNAME;
-
 import dagger.android.AndroidInjection;
 
 /**
@@ -69,7 +60,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @OnClick(R.id.email_sign_in_button)
     public void onLoginClicked() {
-        loginPresenter.login(USERNAME, PASSWORD);
+        loginPresenter.login("user", "pass");
     }
 }
 
