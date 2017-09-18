@@ -2,6 +2,8 @@ package com.futureworkshops.android.architecture.presentation.login;
 
 import android.support.annotation.NonNull;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.observers.DisposableCompletableObserver;
 
 /**
@@ -11,9 +13,11 @@ import io.reactivex.observers.DisposableCompletableObserver;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private final LoginInteractor loginInteractor;
+    private final WeakReference<LoginContract.View> mViewWeakReference;
 
-    public LoginPresenter(LoginInteractor loginInteractor) {
+    public LoginPresenter(LoginInteractor loginInteractor, LoginContract.View view) {
         this.loginInteractor = loginInteractor;
+        mViewWeakReference = new WeakReference<LoginContract.View>(view);
     }
 
     @Override
