@@ -1,6 +1,7 @@
 package com.futureworkshops.android.architecture.domain.dagger.module;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.domain.network.RestManager;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
@@ -23,8 +24,9 @@ public class NetModule {
 
     @Singleton
     @Provides
-    RestManager providesRestManager(Context context, SchedulersProvider schedulersProvider) {
-        return new RestManager(context, schedulersProvider);
+    RestManager providesRestManager(Context context, SchedulersProvider schedulersProvider,
+                                    @NonNull String serverUrl, boolean useFakeRest) {
+        return new RestManager(context, serverUrl, schedulersProvider, useFakeRest);
     }
 
 }
