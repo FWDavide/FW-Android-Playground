@@ -5,6 +5,7 @@ import android.app.Application;
 import com.futureworkshops.android.architecture.domain.dagger.module.ActivityComponentBindModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.NetModule;
+import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.presentation.FwAndroidArchitetureApp;
 import com.futureworkshops.android.architecture.presentation.movies.dagger.MoviesActivityModule;
 
@@ -43,11 +44,17 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
     void inject(FwAndroidArchitetureApp application);
 
+    /**
+     * This interface is used to provide parameters for modules.
+     */
     @Component.Builder
     interface Builder {
 
         @BindsInstance
         AppComponent.Builder application(Application application);
+
+        @BindsInstance
+        AppComponent.Builder schedulerProvider(SchedulersProvider schedulersProvider);
 
         AppComponent build();
 
