@@ -18,6 +18,8 @@ public class SingleWorkerTransformer<T> implements SingleTransformer<T, T> {
 
     @Override
     public SingleSource<T> apply(Single<T> upstream) {
+        // subscribeOn will cause all upstream calls to run on an io thread.
+        // observeOn will cause all the downstream calls to run on the main thread.
         return upstream.subscribeOn(schedulersProvider.io())
                 .observeOn(schedulersProvider.ui());
     }

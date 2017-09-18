@@ -1,12 +1,16 @@
 package com.futureworkshops.android.architecture.domain.network;
 
 import android.content.Context;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.futureworkshops.android.architecture.BuildConfig;
 import com.futureworkshops.android.architecture.BuildConfig;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
 import com.futureworkshops.android.architecture.model.User;
+import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
+import com.google.gson.Gson;
 import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
 import com.google.gson.Gson;
 
@@ -27,7 +31,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 /**
  * This class acts as an intermediate between user input and the actual network requests.
  * <p/>
@@ -45,13 +48,12 @@ public class RestManager {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
 
-    private Retrofit mRetrofitSingleton;
-
     private final RestApi restService;
+    private Retrofit mRetrofitSingleton;
     private final SchedulersProvider schedulersProvider;
 
     public RestManager(@NonNull Context context,
-                       @NonNull SchedulersProvider schedulersProvider) {
+                       @NonNull SchedulersProvider schedulersProvider){
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(getHttpLogginInterceptor())
@@ -81,6 +83,7 @@ public class RestManager {
                 .compose(new SingleWorkerTransformer<User>(schedulersProvider));
     }
 
+
     private Interceptor getHttpLogginInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -107,7 +110,6 @@ public class RestManager {
             }
         };
     }
-
 
     public Interceptor getOfflineCacheInterceptor(final Context context) {
         return new Interceptor() {

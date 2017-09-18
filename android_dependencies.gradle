@@ -1,7 +1,7 @@
 rootProject.ext {
 
     butterKnifeVersion = '8.4.0'
-    supportLibrary = '26.0.1'
+    supportLibraryVersion = '26.0.1'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
     retrofitVersion = '2.3.0'
@@ -41,19 +41,19 @@ rootProject.ext {
             butterKnifeApt        :
                     "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
             recyclerView          :
-                    "com.android.support:recyclerview-v7:$supportLibrary",
+                    "com.android.support:recyclerview-v7:$supportLibraryVersion",
             gridLayout            :
-                    "com.android.support:gridlayout-v7:$supportLibrary",
+                    "com.android.support:gridlayout-v7:$supportLibraryVersion",
             cardView              :
-                    "com.android.support:cardview-v7:$supportLibrary",
+                    "com.android.support:cardview-v7:$supportLibraryVersion",
             appCompat             :
-                    "com.android.support:appcompat-v7:$supportLibrary",
-            constraintLayout      :
+                    "com.android.support:appcompat-v7:$supportLibraryVersion",
+            constraintLayout             :
                     "com.android.support.constraint:constraint-layout:$constraintlayoutVersion",
             supportAnnotation     :
-                    "com.android.support:support-annotations:$supportLibrary",
+                    "com.android.support:support-annotations:$supportLibraryVersion",
             designCompat          :
-                    "com.android.support:design:$supportLibrary",
+                    "com.android.support:design:$supportLibraryVersion",
             picasso               :
                     "com.squareup.picasso:picasso:$picassoVersion",
             picassoDownloader     :
@@ -77,13 +77,13 @@ rootProject.ext {
 
     domainDependencies = [
 
-            gson                  :
+            gson                 :
                     "com.google.code.gson:gson:$gsonVersion",
-            retrofit              :
+            retrofit             :
                     "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            retrofitRxAdapter     :
+            retrofitRxAdapter    :
                     "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-            retrofitGsonConverter :
+            retrofitGsonConverter:
                     "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitXmlConverter  :
                     "com.squareup.retrofit2:converter-simplexml:$retrofitVersion",
@@ -126,12 +126,12 @@ rootProject.ext {
                     "com.eclipsesource.minimal-json:minimal-json:$minimalJsonVersion",
     ]
 
-    testDependecies = [
+    testDependencies = [
 
             junit             : "junit:junit:$junitVersion",
             mockito           : "org.mockito:mockito-core:$mockitoVersion",
             testRunner        : "com.android.support.test:runner:$testRunnerVersion",
-            supportAnnotations: "com.android.support:support-annotations:$supportLibrary",
+            supportAnnotations: "com.android.support:support-annotations:$supportLibraryVersion",
             espressoCore      : "com.android.support.test.espresso:espresso-core:$espressoCoreVersion"
     ]
 

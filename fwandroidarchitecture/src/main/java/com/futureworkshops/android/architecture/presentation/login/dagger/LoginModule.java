@@ -30,4 +30,5 @@ public abstract class LoginModule {
         return new LoginInteractor(restManager);
     }
 
+    // FIXME :  inject presenter
 }

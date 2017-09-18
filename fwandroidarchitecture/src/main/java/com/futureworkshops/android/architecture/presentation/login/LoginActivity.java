@@ -1,9 +1,22 @@
 package com.futureworkshops.android.architecture.presentation.login;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.futureworkshops.android.architecture.R;
+import com.futureworkshops.android.architecture.domain.network.RestManager;
+import com.futureworkshops.android.architecture.domain.rx.FakeRestApi;
+import com.futureworkshops.android.architecture.domain.rx.scheduler.WorkerSchedulerProvider;
 import com.futureworkshops.android.architecture.presentation.common.BaseActivity;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.futureworkshops.android.architecture.domain.network.RestManager.PASSWORD;
+import static com.futureworkshops.android.architecture.domain.network.RestManager.USERNAME;
 
 import dagger.android.AndroidInjection;
 
@@ -12,6 +25,14 @@ import dagger.android.AndroidInjection;
  */
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
+    @Inject
+    LoginPresenter loginPresenter;
+
+//    LoginPresenter loginPresenter =
+//            new LoginPresenter(
+//                    new LoginInteractor(
+//                            new RestManager(new FakeRestApi(), new WorkerSchedulerProvider())));
+//
     /**
      * ALWAYS call AndroidInjection.inject(this) before ANYTHING else inside your Activity/Fragment.
      * {@link AndroidInjection} is the Dagger class responsible for injecting fields into Android Framework Components.
@@ -23,6 +44,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -43,6 +65,11 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void showServerError() {
 
+    }
+
+    @OnClick(R.id.email_sign_in_button)
+    public void onLoginClicked() {
+        loginPresenter.login(USERNAME, PASSWORD);
     }
 }
 

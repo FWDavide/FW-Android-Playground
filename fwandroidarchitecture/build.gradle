@@ -12,6 +12,13 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
 
     signingConfigs {
@@ -52,6 +59,7 @@ android {
 dependencies {
     def uiDependencies = rootProject.ext.uiDependencies
     def domainDependencies = rootProject.ext.domainDependencies
+    def testDependencies = rootProject.ext.testDependencies
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -76,7 +84,9 @@ dependencies {
     implementation domainDependencies.rxAndroid
 
     //Testing
-    testImplementation testDependecies.junit
-    androidTestImplementation testDependecies.espressoCore
-    androidTestImplementation testDependecies.testRunner
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.testRunner
+
 }
