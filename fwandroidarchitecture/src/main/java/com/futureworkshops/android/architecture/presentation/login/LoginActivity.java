@@ -1,6 +1,7 @@
 package com.futureworkshops.android.architecture.presentation.login;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.futureworkshops.android.architecture.R;
 import com.futureworkshops.android.architecture.presentation.common.BaseActivity;
@@ -24,6 +25,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 //                    new LoginInteractor(
 //                            new RestManager(new FakeRestApi(), new WorkerSchedulerProvider())));
 //
+
     /**
      * ALWAYS call AndroidInjection.inject(this) before ANYTHING else inside your Activity/Fragment.
      * {@link AndroidInjection} is the Dagger class responsible for injecting fields into Android Framework Components.
@@ -39,8 +41,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void onLogin() {
-
+    public void onLogin(String username) {
+        Toast.makeText(this, "Logged in user : " + username, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -54,8 +56,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     @Override
-    public void showServerError() {
-
+    public void showServerError(String message) {
+        Toast.makeText(this, "Error on login : " + message, Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.email_sign_in_button)
