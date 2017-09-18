@@ -3,8 +3,9 @@ package com.futureworkshops.android.architecture.presentation.login;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.domain.network.RestManager;
+import com.futureworkshops.android.architecture.model.User;
 
-import io.reactivex.Completable;
+import io.reactivex.Single;
 
 /**
  * Created by stelian on 28/08/2017.
@@ -18,7 +19,7 @@ public class LoginInteractor {
         this.restManager = restManager;
     }
 
-    public Completable login(@NonNull String username, @NonNull String password) {
-        return restManager.login(username, password).toCompletable();
+    public Single<User> login(@NonNull String username, @NonNull String password) {
+        return restManager.login(username, password);
     }
 }

@@ -1,1 +1,15 @@
-/build
+#Android Studio
+.idea
+*.iml
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+
+#Gradle
+.gradle
+local.properties
+build
+
+#Other
+.DS_Store

@@ -2,12 +2,9 @@ package com.futureworkshops.android.architecture.domain.dagger.module;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 
 /**
  * Created by dimitrios on 22/08/2017.

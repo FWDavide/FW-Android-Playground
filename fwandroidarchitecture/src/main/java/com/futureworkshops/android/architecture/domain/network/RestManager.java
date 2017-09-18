@@ -1,16 +1,14 @@
 package com.futureworkshops.android.architecture.domain.network;
 
 import android.content.Context;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.BuildConfig;
-import com.futureworkshops.android.architecture.BuildConfig;
+import com.futureworkshops.android.architecture.domain.network.config.NetworkConfig;
+import com.futureworkshops.android.architecture.domain.rx.FakeRestApi;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
 import com.futureworkshops.android.architecture.model.User;
-import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
-import com.google.gson.Gson;
 import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
 import com.google.gson.Gson;
 
@@ -40,7 +38,7 @@ public class RestManager {
 
     private static final String HEADER_CACHE_CONTROL = "Cache-Control";
 
-    private String mBaseUrl = "http://www.baseUrl.com";
+    private String mBaseUrl;
 
     private static final int CACHE_SIZE = 50 * 1024 * 1024; //50 MB
     private static final int CACHE_MAX_AGE = 60 * 60 * 24; //24 Hours
@@ -48,29 +46,35 @@ public class RestManager {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
 
-    private final RestApi restService;
+    private final RestApi mRestService;
     private Retrofit mRetrofitSingleton;
-    private final SchedulersProvider schedulersProvider;
+    private final SchedulersProvider mSchedulersProvider;
 
-    public RestManager(@NonNull Context context,
-                       @NonNull SchedulersProvider schedulersProvider){
+    public RestManager(@NonNull Context context, @NonNull NetworkConfig networkConfig,
+                       @NonNull SchedulersProvider schedulersProvider) {
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(getHttpLogginInterceptor())
-                .addInterceptor(getOfflineCacheInterceptor(context))
-                .addNetworkInterceptor(getNetworkCacheInterceptor())
-                .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
-                .build();
+        mBaseUrl = networkConfig.getEndpoint();
 
-        mRetrofitSingleton = new Retrofit.Builder()
-                .baseUrl(mBaseUrl)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
+        mSchedulersProvider = schedulersProvider;
+        if (networkConfig.useFakeRest()) {
+            mRestService = new FakeRestApi();
+        } else {
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(getHttpLogginInterceptor())
+                    .addInterceptor(getOfflineCacheInterceptor(context))
+                    .addNetworkInterceptor(getNetworkCacheInterceptor())
+                    .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
+                    .build();
 
-        this.restService = mRetrofitSingleton.create(RestApi.class);
-        this.schedulersProvider = schedulersProvider;
+            mRetrofitSingleton = new Retrofit.Builder()
+                    .baseUrl(mBaseUrl)
+                    .client(client)
+                    .addConverterFactory(GsonConverterFactory.create(new Gson()))
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .build();
+
+            mRestService = mRetrofitSingleton.create(RestApi.class);
+        }
     }
 
     public Single<User> login(@NonNull String username, @NonNull String password) {
@@ -79,8 +83,8 @@ public class RestManager {
         fieldMap.put(USERNAME, username);
         fieldMap.put(PASSWORD, password);
 
-        return restService.login("application/x-www-form-urlencoded", fieldMap)
-                .compose(new SingleWorkerTransformer<User>(schedulersProvider));
+        return mRestService.login("application/x-www-form-urlencoded", fieldMap)
+                .compose(new SingleWorkerTransformer<User>(mSchedulersProvider));
     }
 
 
