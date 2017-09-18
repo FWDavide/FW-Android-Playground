@@ -1,6 +1,7 @@
 package com.futureworkshops.android.architecture.domain.dagger;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.domain.dagger.module.ActivityComponentBindModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
@@ -54,7 +55,13 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
         AppComponent.Builder application(Application application);
 
         @BindsInstance
-        AppComponent.Builder schedulerProvider(SchedulersProvider schedulersProvider);
+        AppComponent.Builder schedulerProvider(@NonNull SchedulersProvider schedulersProvider);
+
+        @BindsInstance
+        AppComponent.Builder restUrl(@NonNull String networkUrl);
+
+        @BindsInstance
+        AppComponent.Builder useFakeRest(boolean useFakeRest);
 
         AppComponent build();
 
