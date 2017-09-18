@@ -1,16 +1,12 @@
 package com.futureworkshops.android.architecture.domain.network;
 
 import android.content.Context;
-import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.futureworkshops.android.architecture.BuildConfig;
 import com.futureworkshops.android.architecture.BuildConfig;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
 import com.futureworkshops.android.architecture.model.User;
-import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
-import com.google.gson.Gson;
 import com.futureworkshops.android.architecture.presentation.util.NetworkUtil;
 import com.google.gson.Gson;
 
@@ -48,9 +44,9 @@ public class RestManager {
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
 
-    private final RestApi restService;
+    private final RestApi mRestService;
     private Retrofit mRetrofitSingleton;
-    private final SchedulersProvider schedulersProvider;
+    private final SchedulersProvider mSchedulersProvider;
 
     public RestManager(@NonNull Context context,
                        @NonNull SchedulersProvider schedulersProvider){
@@ -69,8 +65,8 @@ public class RestManager {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        this.restService = mRetrofitSingleton.create(RestApi.class);
-        this.schedulersProvider = schedulersProvider;
+        this.mRestService = mRetrofitSingleton.create(RestApi.class);
+        this.mSchedulersProvider = schedulersProvider;
     }
 
     public Single<User> login(@NonNull String username, @NonNull String password) {
@@ -79,8 +75,8 @@ public class RestManager {
         fieldMap.put(USERNAME, username);
         fieldMap.put(PASSWORD, password);
 
-        return restService.login("application/x-www-form-urlencoded", fieldMap)
-                .compose(new SingleWorkerTransformer<User>(schedulersProvider));
+        return mRestService.login("application/x-www-form-urlencoded", fieldMap)
+                .compose(new SingleWorkerTransformer<User>(mSchedulersProvider));
     }
 
 
