@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.futureworkshops.android.architecture.domain.dagger.module.ActivityComponentBindModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.NetModule;
+import com.futureworkshops.android.architecture.domain.network.config.NetworkConfig;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.presentation.FwAndroidArchitetureApp;
 import com.futureworkshops.android.architecture.presentation.movies.dagger.MoviesActivityModule;
@@ -47,6 +48,9 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
     /**
      * This interface is used to provide parameters for modules.
+     * <p> Every method annotated with {@link BindsInstance} will link the method return type
+     * to the method input type for the entire dependency graph - this means that we can't have
+     * 2 methods with {@link BindsInstance} that accept the same type of parameters !!</p>
      */
     @Component.Builder
     interface Builder {
@@ -54,14 +58,19 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
         @BindsInstance
         AppComponent.Builder application(Application application);
 
+        /**
+         * Specify the {@link SchedulersProvider} to be used across the AppComponent graph.
+         */
         @BindsInstance
         AppComponent.Builder schedulerProvider(@NonNull SchedulersProvider schedulersProvider);
 
-        @BindsInstance
-        AppComponent.Builder restUrl(@NonNull String networkUrl);
 
+        /**
+         * Specify the {@link NetworkConfig} to be used across the AppComponent graph.
+         */
         @BindsInstance
-        AppComponent.Builder useFakeRest(boolean useFakeRest);
+        AppComponent.Builder networkConfiguration(@NonNull NetworkConfig networkConfig);
+
 
         AppComponent build();
 

@@ -3,6 +3,7 @@ package com.futureworkshops.android.architecture.presentation;
 
 import com.futureworkshops.android.architecture.domain.dagger.AppComponent;
 import com.futureworkshops.android.architecture.domain.dagger.DaggerAppComponent;
+import com.futureworkshops.android.architecture.domain.network.config.DebugNetworkConfig;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.WorkerSchedulerProvider;
 
 import dagger.android.AndroidInjector;
@@ -30,9 +31,8 @@ public class FwAndroidArchitetureApp extends DaggerApplication {
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         AppComponent appComponent = DaggerAppComponent.builder()
                 .application(this)
-                .restUrl("http://www.baseUrl.com")
+                .networkConfiguration(new DebugNetworkConfig())
                 .schedulerProvider(new WorkerSchedulerProvider())
-                .useFakeRest(true)
                 .build();
         appComponent.inject(this);
         return appComponent;
