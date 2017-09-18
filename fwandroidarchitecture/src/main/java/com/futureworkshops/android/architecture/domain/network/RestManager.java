@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.BuildConfig;
+import com.futureworkshops.android.architecture.domain.network.config.NetworkConfig;
 import com.futureworkshops.android.architecture.domain.rx.FakeRestApi;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.android.architecture.domain.rx.transformers.SingleWorkerTransformer;
@@ -49,13 +50,13 @@ public class RestManager {
     private Retrofit mRetrofitSingleton;
     private final SchedulersProvider mSchedulersProvider;
 
-    public RestManager(@NonNull Context context, @NonNull String serverUrl,
-                       @NonNull SchedulersProvider schedulersProvider, boolean useFakeRest) {
+    public RestManager(@NonNull Context context, @NonNull NetworkConfig networkConfig,
+                       @NonNull SchedulersProvider schedulersProvider) {
 
-        mBaseUrl = serverUrl;
+        mBaseUrl = networkConfig.getEndpoint();
 
         mSchedulersProvider = schedulersProvider;
-        if (useFakeRest) {
+        if (networkConfig.useFakeRest()) {
             mRestService = new FakeRestApi();
         } else {
             OkHttpClient client = new OkHttpClient.Builder()
