@@ -30,7 +30,9 @@ public class FwAndroidArchitetureApp extends DaggerApplication {
     protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
         AppComponent appComponent = DaggerAppComponent.builder()
                 .application(this)
+                .restUrl("http://www.baseUrl.com")
                 .schedulerProvider(new WorkerSchedulerProvider())
+                .useFakeRest(true)
                 .build();
         appComponent.inject(this);
         return appComponent;
