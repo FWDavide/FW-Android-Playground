@@ -1,10 +1,34 @@
 package com.futureworkshops.android.architecture.presentation;
 
-import android.app.Application;
+
+import com.futureworkshops.android.architecture.domain.dagger.AppComponent;
+import com.futureworkshops.android.architecture.domain.dagger.DaggerAppComponent;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 
 /**
  * Created by stelian on 28/08/2017.
+ *
+ * extending {@link DaggerApplication} is the equivilent of implementing {@link dagger.android.HasActivityInjector} and
+ * injecting a {@link dagger.android.DispatchingAndroidInjector}. What this means, is our Application will provide
+ * {@link AndroidInjector} to our Activities.
  */
+public class FwAndroidArchitetureApp extends DaggerApplication {
 
-public class FwAndroidArchitetureApp extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    /**
+     * This method needs to be implemented (the implementation needs to build our top-level AppComponent) in
+     * order to allow our Application class to provide AndroidInjectors.
+     */
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        AppComponent appComponent = DaggerAppComponent.builder().application(this).build();
+        appComponent.inject(this);
+        return appComponent;
+    }
 }

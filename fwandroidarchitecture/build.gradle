@@ -59,12 +59,13 @@ dependencies {
     implementation uiDependencies.designCompat
     implementation uiDependencies.constraintLayout
     implementation uiDependencies.butterKnife
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor uiDependencies.butterKnifeApt
 
-
-    annotationProcessor domainDependencies.daggerCompiler
     implementation domainDependencies.dagger
+    implementation domainDependencies.daggerAndroid
+    annotationProcessor domainDependencies.daggerCompiler
+    annotationProcessor domainDependencies.daggerAndroidProcessor
+
     implementation domainDependencies.gson
     implementation domainDependencies.okHttp
     implementation domainDependencies.okHttpUrlConnection
@@ -73,4 +74,9 @@ dependencies {
     implementation domainDependencies.retrofitRxAdapter
     implementation domainDependencies.rxJava
     implementation domainDependencies.rxAndroid
+
+    //Testing
+    testImplementation testDependecies.junit
+    androidTestImplementation testDependecies.espressoCore
+    androidTestImplementation testDependecies.testRunner
 }

@@ -1,53 +1,56 @@
 package com.futureworkshops.android.architecture.domain.dagger;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.app.Application;
 
-import com.ds.drumcussacapp.guide.view.ContactActivity;
-import com.ds.drumcussacapp.guide.view.EmergencyContactsActivity;
-import com.ds.drumcussacapp.guide.view.FactBoxActivity;
-import com.ds.drumcussacapp.internal.network.RestManager;
-import com.ds.drumcussacapp.internal.rx.transformer.scheduler.SchedulersProvider;
-import com.ds.drumcussacapp.placeholder.PlaceholderActivity;
-import com.ds.drumcussacapp.refresh.RefreshTokenSyncAdapter;
-import com.ds.drumcussacapp.state.requirement.Requirement;
-import com.ds.drumcussacapp.tracking.model.TrackingEvent;
-import com.jakewharton.rxrelay2.Relay;
+import com.futureworkshops.android.architecture.domain.dagger.module.ActivityComponentBindModule;
+import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
+import com.futureworkshops.android.architecture.domain.dagger.module.NetModule;
+import com.futureworkshops.android.architecture.presentation.FwAndroidArchitetureApp;
+import com.futureworkshops.android.architecture.presentation.movies.dagger.MoviesActivityModule;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 
+/**
+ * Created by dimitrios on 22/08/2017.
+ * <p>
+ * Taken From https://github.com/googlesamples/android-architecture/blob/todo-mvp-dagger/
+ * <p>
+ * This is our top-level (top of the dependency graph) component and the only component we need to define.
+ * <p>
+ * Here we can find 2 new Modules that weren't used previous to Dagger v2.11.
+ * <p>
+ * {@link ActivityComponentBindModule}: Defines a mapping between Modules and Activities/Fragments who use them.
+ * This way Dagger can generate subcomponents that will be added in the graph below their parent-component. In our
+ * case, the AppComponent.
+ * <p>
+ * {@link AndroidInjectionModule}: is the module from Dagger.Android that helps with the generation
+ * and location of subcomponents.
+ */
 @Singleton
-@Component(modules = AppModule.class)
-public interface AppComponent {
+@Component(modules = {
+        ApplicationModule.class,
+        NetModule.class,
+        MoviesActivityModule.class,
+        ActivityComponentBindModule.class,
+        AndroidInjectionModule.class})
+public interface AppComponent extends AndroidInjector<DaggerApplication> {
 
-    Context context();
+    void inject(FwAndroidArchitetureApp application);
 
-    RestManager restManager();
+    @Component.Builder
+    interface Builder {
 
-    @Named(NamedDependency.DEFAULT_PREFERENCES)
-    SharedPreferences defaultSharedPreferences();
+        @BindsInstance
+        AppComponent.Builder application(Application application);
 
-    @Named(NamedDependency.FILTERS)
-    SharedPreferences filterPreferences();
+        AppComponent build();
 
-    Relay<Requirement> stateRelay();
+    }
 
-    Relay<TrackingEvent> trackingRelay();
-
-    Relay<Integer> sosRelay();
-
-    SchedulersProvider schedulerProvider();
-
-    void inject(PlaceholderActivity activity);
-
-    void inject(EmergencyContactsActivity activity);
-
-    void inject(ContactActivity activity);
-
-    void inject(RefreshTokenSyncAdapter syncAdapter);
-
-    void inject(FactBoxActivity factBoxActivity);
 }
