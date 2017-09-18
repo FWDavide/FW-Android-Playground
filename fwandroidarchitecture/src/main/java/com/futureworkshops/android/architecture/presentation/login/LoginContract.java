@@ -10,13 +10,13 @@ public class LoginContract {
 
     public interface View {
 
-        void onLogin();
+        void onLogin(String username);
 
         void showEmptyUsernameOrPassword();
 
         void showInvalidLoginInput();
 
-        void showServerError();
+        void showServerError(String message);
 
     }
 
