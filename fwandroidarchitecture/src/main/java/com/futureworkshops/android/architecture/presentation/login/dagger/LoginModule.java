@@ -7,6 +7,7 @@ import com.futureworkshops.android.architecture.domain.network.RestManager;
 import com.futureworkshops.android.architecture.presentation.login.LoginActivity;
 import com.futureworkshops.android.architecture.presentation.login.LoginContract;
 import com.futureworkshops.android.architecture.presentation.login.LoginInteractor;
+import com.futureworkshops.android.architecture.presentation.login.LoginPresenter;
 
 import dagger.Binds;
 import dagger.Module;
@@ -30,5 +31,8 @@ public abstract class LoginModule {
         return new LoginInteractor(restManager);
     }
 
-    // FIXME :  inject presenter
+    @Provides
+    static LoginPresenter providesLoginPresenter(LoginInteractor interactor,LoginContract.View view){
+        return new LoginPresenter(interactor,view);
+    }
 }
