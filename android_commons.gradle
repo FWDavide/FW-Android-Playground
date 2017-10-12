@@ -46,4 +46,5 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 
+    buildToolsVersion '26.0.2'
 }
