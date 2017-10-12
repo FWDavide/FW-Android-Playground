@@ -7,4 +7,10 @@
     android:layout_height="match_parent"
     tools:context="com.futureworkshops.android.architecture.presentation.movies.view.MoviesActivity">
 
+    <FrameLayout
+        android:id="@+id/tvShowsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+    </FrameLayout>
 </android.support.constraint.ConstraintLayout>

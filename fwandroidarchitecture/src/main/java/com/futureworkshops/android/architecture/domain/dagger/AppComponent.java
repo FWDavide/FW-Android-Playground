@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.futureworkshops.android.architecture.domain.dagger.module.ActivityComponentBindModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
+import com.futureworkshops.android.architecture.domain.dagger.module.FragmentComponentBindModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.NetModule;
 import com.futureworkshops.android.architecture.domain.network.config.NetworkConfig;
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
@@ -41,6 +42,7 @@ import dagger.android.DaggerApplication;
         NetModule.class,
         MoviesActivityModule.class,
         ActivityComponentBindModule.class,
+        FragmentComponentBindModule.class,
         AndroidInjectionModule.class})
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
 

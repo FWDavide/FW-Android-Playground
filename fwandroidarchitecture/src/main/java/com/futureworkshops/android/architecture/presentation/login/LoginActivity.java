@@ -1,10 +1,12 @@
 package com.futureworkshops.android.architecture.presentation.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.futureworkshops.android.architecture.R;
 import com.futureworkshops.android.architecture.presentation.common.BaseActivity;
+import com.futureworkshops.android.architecture.presentation.movies.view.MoviesActivity;
 
 import javax.inject.Inject;
 
@@ -43,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     @Override
     public void onLogin(String username) {
         Toast.makeText(this, "Logged in user : " + username, Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, MoviesActivity.class));
     }
 
     @Override

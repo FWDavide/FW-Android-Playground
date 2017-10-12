@@ -48,7 +48,6 @@ android {
             buildConfigField "boolean", "IS_DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
     }
 }
 
