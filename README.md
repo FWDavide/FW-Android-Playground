@@ -103,10 +103,6 @@ In order to enable CI integration you need to define a `gradle.properties`  file
 
 - project.buildversion  
 - project.buildnumber   
-- signing.keystore.path 
-- signing.keystore.password 
-- signing.keystore.alias 
-- signing.privatekey.password
 
 All properties except **project.buildversion** will be injected by the CI and don't need to be updated manually. **buildversion** needs to be incremented manually!  
 
@@ -115,22 +111,12 @@ To complete the integration, your `build.gradle` file needs to use the values de
     android {
     	defaultConfig {
         	versionCode Integer.parseInt(project.property('project.buildnumber'))
-        	versionName project.property('project.buildversion')
-             
+        	versionName project.property('project.buildversion')    
     	}
-
-    	signingConfigs {
-        	release {
-            	storeFile file(project.property('signing.keystore.path'))
-          	storePassword project.property('signing.keystore.password')
-           	keyAlias project.property('signing.keystore.alias')
-            	keyPassword project.property('signing.privatekey.password')
-        	}
-     	}
-    }    
+   }    
 
 
-##Testing
+## Testing
 
 ## Code style  
 
