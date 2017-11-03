@@ -134,6 +134,10 @@ To complete the integration, your `build.gradle` file needs to use the values de
 
 ## Code style  
 
+Download [this file](files/fw_codestyle.jar) and import it in the following manner:
+`AndroidStudio -> File -> Import Settings...`     
+navigate to the downloaded file.
+
 ## GIT
 We use an internal instance of Gitlab and a customized `git-flow`.  
 
