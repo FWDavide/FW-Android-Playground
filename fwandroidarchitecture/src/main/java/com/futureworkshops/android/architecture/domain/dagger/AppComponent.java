@@ -66,16 +66,12 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
         @BindsInstance
         AppComponent.Builder schedulerProvider(@NonNull SchedulersProvider schedulersProvider);
 
-
         /**
          * Specify the {@link NetworkConfig} to be used across the AppComponent graph.
          */
         @BindsInstance
         AppComponent.Builder networkConfiguration(@NonNull NetworkConfig networkConfig);
 
-
         AppComponent build();
-
     }
-
 }

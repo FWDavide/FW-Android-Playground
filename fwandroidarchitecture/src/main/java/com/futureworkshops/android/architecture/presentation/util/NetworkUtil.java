@@ -9,11 +9,17 @@ import android.support.annotation.NonNull;
  * Created by dimitrios on 05/09/2017.
  */
 
-public class NetworkUtil {
+public final class NetworkUtil {
+
+    private NetworkUtil() {
+    }
 
     public static boolean isNetworkAvailable(@NonNull Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager == null) return false;
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null){
+            return false;
+        }
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }

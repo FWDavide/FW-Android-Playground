@@ -24,7 +24,13 @@ allprojects {
             options.addStringOption('Xdoclint:none', '-quiet')
         }
     }
+}
 
+subprojects {
+    apply from: new File(rootDir, "gradle/checkstyle.gradle")
+    afterEvaluate {
+        tasks.findByName('check').dependsOn('checkstyle')
+    }
 }
 
 task clean(type: Delete) {

@@ -1,9 +1,6 @@
 package com.futureworkshops.android.architecture.presentation.movies.view;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.futureworkshops.android.architecture.model.Movie;
@@ -18,11 +15,9 @@ import java.util.List;
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MovieItem> mMovieItems;
-    private LayoutInflater mLayoutInflater;
 
-    public MovieRecyclerAdapter(@NonNull Context context) {
+    public MovieRecyclerAdapter() {
         mMovieItems = new ArrayList<>();
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public void setMovieItems(List<Movie> movies) {
@@ -39,16 +34,13 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyItemRangeInserted(0, movies.size());
     }
 
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
     }
 
     @Override

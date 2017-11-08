@@ -38,22 +38,19 @@ public class RestManager {
 
     private static final String HEADER_CACHE_CONTROL = "Cache-Control";
 
-    private String mBaseUrl;
-
-    private static final int CACHE_SIZE = 50 * 1024 * 1024; //50 MB
-    private static final int CACHE_MAX_AGE = 60 * 60 * 24; //24 Hours
+    private static final int CACHE_SIZE = 50 * 1024 * 1024;
+    private static final int CACHE_MAX_AGE = 60 * 60 * 24;
 
     private static final String USERNAME = "username";
     private static final String PASSWORD = "password";
 
     private final RestApi mRestService;
-    private Retrofit mRetrofitSingleton;
     private final SchedulersProvider mSchedulersProvider;
 
     public RestManager(@NonNull Context context, @NonNull NetworkConfig networkConfig,
                        @NonNull SchedulersProvider schedulersProvider) {
 
-        mBaseUrl = networkConfig.getEndpoint();
+        String mBaseUrl = networkConfig.getEndpoint();
 
         mSchedulersProvider = schedulersProvider;
         if (networkConfig.useFakeRest()) {
@@ -66,7 +63,7 @@ public class RestManager {
                     .cache(new Cache(context.getCacheDir(), CACHE_SIZE))
                     .build();
 
-            mRetrofitSingleton = new Retrofit.Builder()
+            Retrofit mRetrofitSingleton = new Retrofit.Builder()
                     .baseUrl(mBaseUrl)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(new Gson()))
@@ -87,7 +84,6 @@ public class RestManager {
                 .compose(new SingleWorkerTransformer<User>(mSchedulersProvider));
     }
 
-
     private Interceptor getHttpLogginInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -101,7 +97,7 @@ public class RestManager {
     private Interceptor getNetworkCacheInterceptor() {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
 
                 Response response = chain.proceed(chain.request());
 
@@ -115,10 +111,10 @@ public class RestManager {
         };
     }
 
-    public Interceptor getOfflineCacheInterceptor(final Context context) {
+    private Interceptor getOfflineCacheInterceptor(final Context context) {
         return new Interceptor() {
             @Override
-            public Response intercept(Chain chain) throws IOException {
+            public Response intercept(@NonNull Chain chain) throws IOException {
                 Request request = chain.request();
                 if (NetworkUtil.isNetworkAvailable(context)) {
                     CacheControl cacheControl = new CacheControl.Builder()
