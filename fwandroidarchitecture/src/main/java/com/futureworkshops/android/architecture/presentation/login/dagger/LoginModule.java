@@ -17,8 +17,7 @@ import dagger.Provides;
  * are not already covered by our {@link ApplicationModule} and {@link NetModule}
  */
 @Module
-public abstract class
-LoginModule {
+public abstract class LoginModule {
 
     /**
      * This method binds the LoginActivity to LoginContract.View. When the LoginContract.View is requested,
