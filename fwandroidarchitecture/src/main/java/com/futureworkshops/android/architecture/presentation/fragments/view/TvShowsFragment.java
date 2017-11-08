@@ -33,7 +33,9 @@ public class TvShowsFragment extends Fragment implements TvShowsContract.View{
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_tvshows, null);
         ButterKnife.bind(this, view);
@@ -49,5 +51,4 @@ public class TvShowsFragment extends Fragment implements TvShowsContract.View{
     public static TvShowsFragment newInstance(){
         return new TvShowsFragment();
     }
-
 }

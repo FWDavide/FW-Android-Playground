@@ -1,6 +1,5 @@
 package com.futureworkshops.android.architecture.presentation.login.dagger;
 
-
 import com.futureworkshops.android.architecture.domain.dagger.module.ApplicationModule;
 import com.futureworkshops.android.architecture.domain.dagger.module.NetModule;
 import com.futureworkshops.android.architecture.domain.network.RestManager;
@@ -18,10 +17,12 @@ import dagger.Provides;
  * are not already covered by our {@link ApplicationModule} and {@link NetModule}
  */
 @Module
-public abstract class LoginModule {
+public abstract class
+LoginModule {
 
     /**
-     * This method binds the LoginActivity to LoginContract.View. When the LoginContract.View is requested, the activity is returned.
+     * This method binds the LoginActivity to LoginContract.View. When the LoginContract.View is requested,
+     * the activity is returned.
      */
     @Binds
     abstract LoginContract.View providesContractView(LoginActivity activity);

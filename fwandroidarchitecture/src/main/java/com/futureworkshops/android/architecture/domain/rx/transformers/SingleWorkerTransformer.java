@@ -1,12 +1,10 @@
 package com.futureworkshops.android.architecture.domain.rx.transformers;
 
-
 import com.futureworkshops.android.architecture.domain.rx.scheduler.SchedulersProvider;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
-
 
 public class SingleWorkerTransformer<T> implements SingleTransformer<T, T> {
 

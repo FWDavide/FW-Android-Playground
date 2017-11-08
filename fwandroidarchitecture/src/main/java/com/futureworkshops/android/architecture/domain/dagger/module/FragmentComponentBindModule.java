@@ -2,8 +2,6 @@ package com.futureworkshops.android.architecture.domain.dagger.module;
 
 import com.futureworkshops.android.architecture.presentation.fragments.dagger.TvShowsModule;
 import com.futureworkshops.android.architecture.presentation.fragments.view.TvShowsFragment;
-import com.futureworkshops.android.architecture.presentation.login.LoginActivity;
-import com.futureworkshops.android.architecture.presentation.login.dagger.LoginModule;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
