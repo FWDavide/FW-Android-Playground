@@ -1,6 +1,5 @@
 package com.futureworkshops.android.architecture.presentation;
 
-
 import com.futureworkshops.android.architecture.domain.dagger.AppComponent;
 import com.futureworkshops.android.architecture.domain.dagger.DaggerAppComponent;
 import com.futureworkshops.android.architecture.domain.network.config.DebugNetworkConfig;

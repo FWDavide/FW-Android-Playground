@@ -12,7 +12,6 @@ import android.view.View;
 /**
  * Base class that handles permission requests required by an Activity that wants to use the Camera.
  */
-
 public abstract class BaseCameraActivity extends BaseActivity {
     public static final int RC_HANDLE_CAMERA_PERM = 2;
     public static final int RC_HANDLE_STORAGE_PERM = 3;
@@ -85,7 +84,8 @@ public abstract class BaseCameraActivity extends BaseActivity {
 
         final String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        if (!ActivityCompat.shouldShowRequestPermissionRationale(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
             ActivityCompat.requestPermissions(this, permissions, RC_HANDLE_STORAGE_PERM);
             return;
         }
@@ -131,7 +131,8 @@ public abstract class BaseCameraActivity extends BaseActivity {
             return;
         }
 
-        final boolean permissionGranted = grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+        final boolean permissionGranted = grantResults.length != 0 &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED;
 
         if (requestCode == RC_HANDLE_CAMERA_PERM) {
             if (permissionGranted) {
@@ -149,8 +150,6 @@ public abstract class BaseCameraActivity extends BaseActivity {
                 handleStoragePermissionNotGranted(grantResults);
             }
         }
-
-
     }
 
     private void handleCameraPermissionNotGranted(@NonNull int[] grantResults) {
@@ -186,5 +185,4 @@ public abstract class BaseCameraActivity extends BaseActivity {
 //                .setPositiveButton(R.string.action_ok, listener)
 //                .show();
     }
-
 }

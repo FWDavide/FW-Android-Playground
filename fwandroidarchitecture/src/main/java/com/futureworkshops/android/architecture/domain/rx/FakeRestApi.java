@@ -7,7 +7,6 @@ import java.util.Map;
 
 import io.reactivex.Single;
 
-
 public class FakeRestApi implements RestApi {
 
     @Override
