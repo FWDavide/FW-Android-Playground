@@ -1,10 +1,18 @@
-#Android Studio
-.idea
+# IDEA/Android Studio ignores
 *.iml
 *.ipr
 *.iws
-classes
-gen-external-apklibs
+/.idea/*
+
+# IDEA/Android Studio Ignore exceptions
+!/.idea/vcs.xml
+!/.idea/fileTemplates/
+!/.idea/inspectionProfiles/
+!/.idea/scopes/
+!/.idea/codeStyleSettings.xml
+!/.idea/encodings.xml
+!/.idea/copyright/
+!/.idea/compiler.xml
 
 #Gradle
 .gradle
