@@ -17,33 +17,12 @@ android {
         }
     }
 
-    signingConfigs {
-
-        debug {}
-
-        release {
-            storeFile file(project.property('signing.keystore.path'))
-            storePassword project.property('signing.keystore.password')
-            keyAlias project.property('signing.keystore.alias')
-            keyPassword project.property('signing.privatekey.password')
-        }
-
-    }
-
     buildTypes {
         debug {
             buildConfigField "boolean", "IS_DEBUG", "true"
-            signingConfig signingConfigs.debug
         }
 
         release {
-            minifyEnabled false
-            buildConfigField "boolean", "IS_DEBUG", "false"
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        releaseUnsigned {
             minifyEnabled false
             buildConfigField "boolean", "IS_DEBUG", "false"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
