@@ -120,9 +120,38 @@ To complete the integration, your `build.gradle` file needs to use the values de
 
 ## Code style  
 
-Download [this file](files/fw_codestyle.jar) and import it in the following manner:
-`AndroidStudio -> File -> Import Settings...`     
-navigate to the downloaded file.
+### First time setup
+
+The general FW code style settings can be downloaded from [this jar](files/``fw_codestyle.jar) and imported like this:
+`AndroidStudio -> File -> Import Settings...` 
+
+This approach is recommended if you just joined FW and need to configure your Android Studio instalation.
+
+### Project specific code style 
+Because projects can have different code style requirements we sync these settings using Github.
+
+Each project can contain files that define a specific code style, a custom copyright notice,etc. -> these files are placed inside the **.idea** folder. 
+Based on [InteliJ Documentation](https://www.jetbrains.com/help/idea/2016.1/synchronizing-and-sharing-settings.html) the files shown in the snippet below are safe to commit to version control.
+
+We do that by configuring the root *.gitignore* file to include the files we need and exclude everything else from the *.idea* folder. 
+
+<img src="art/gitignore.png" alt="gitignore"/>
+
+You can see the actual file [here](.gitignore).
+
+### Checkstyle settings
+You can add `checkstyle` rules to your project by copying the **config/checkstyle** folder to your project and then modify the root `build.gradle` to include:
+
+    subprojects {
+        apply from: new File(rootDir, "config/checkstyle/checkstyle.gradle")
+        afterEvaluate {
+            tasks.findByName('check').dependsOn('checkstyle')
+        }
+    }
+
+The rules are defined in [checkstyle.xml](config/checkstyle/checkstyle.xml) and [supressions.xml](config/checkstyle/supressions.xml) and they can be easily configured to match the project requirements.
+
+To run checkstyle you can open a terminal and run `gradlew checkstyle`.
 
 ## GIT
 We use an internal instance of Gitlab and a customized `git-flow`.  
