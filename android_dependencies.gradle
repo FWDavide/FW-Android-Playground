@@ -1,7 +1,7 @@
 rootProject.ext {
 
     butterKnifeVersion = '8.4.0'
-    supportLibraryVersion = '26.0.1'
+    supportLibraryVersion = '27.0.2'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
     retrofitVersion = '2.3.0'
@@ -31,8 +31,8 @@ rootProject.ext {
     minimalJsonVersion = '0.9.1'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
-    espressoCoreVersion = "3.0.0"
-    testRunnerVersion = "1.0.0"
+    espressoCoreVersion = "3.0.1"
+    testRunnerVersion = "1.0.1"
 
     uiDependencies = [
 
