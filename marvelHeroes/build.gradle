@@ -10,12 +10,12 @@ android {
     
     defaultConfig {
         applicationId "com.futureworkshops.marvelheroes"
-    
+        
         versionCode Integer.parseInt(project.property('project.buildnumber'))
         versionName project.property('project.buildversion')
         
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    
+        
         testOptions {
             unitTests.returnDefaultValues = true
         }
@@ -23,9 +23,20 @@ android {
     }
     
     buildTypes {
+        
+        debug {
+            buildConfigField "String", "MARVEL_HEROES_ENDPOINT", project.property('marvelHeroes.endpoint')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_ID", project.property('marvelHeroes.clientId')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_SECRET", project.property('marvelHeroes.clientSecret')
+        }
+        
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            
+            buildConfigField "String", "MARVEL_HEROES_ENDPOINT", project.property('marvelHeroes.endpoint')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_ID", project.property('marvelHeroes.clientId')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_SECRET", project.property('marvelHeroes.clientSecret')
         }
     }
     
@@ -57,7 +68,6 @@ dependencies {
     implementation domainDependencies.retrofitRxAdapter
     implementation domainDependencies.rxJava
     implementation domainDependencies.rxAndroid
-    
     
     // Test dependencies
     testImplementation testDependencies.junit
