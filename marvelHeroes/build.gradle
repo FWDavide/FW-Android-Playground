@@ -1,0 +1,67 @@
+/*
+ * Copyright (c) 2018 FutureWorkshops. All rights reserved.
+ */
+
+apply plugin: 'com.android.application'
+apply from: '../android_commons.gradle'
+apply from: '../android_dependencies.gradle'
+
+android {
+    
+    defaultConfig {
+        applicationId "com.futureworkshops.marvelheroes"
+    
+        versionCode Integer.parseInt(project.property('project.buildnumber'))
+        versionName project.property('project.buildversion')
+        
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+        
+    }
+    
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    
+}
+
+dependencies {
+    def uiDependencies = rootProject.ext.uiDependencies
+    def domainDependencies = rootProject.ext.domainDependencies
+    def testDependencies = rootProject.ext.testDependencies
+    
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
+    implementation uiDependencies.appCompat
+    implementation uiDependencies.designCompat
+    implementation uiDependencies.constraintLayout
+    implementation uiDependencies.butterKnife
+    annotationProcessor uiDependencies.butterKnifeApt
+    
+    implementation domainDependencies.dagger
+    implementation domainDependencies.daggerAndroid
+    annotationProcessor domainDependencies.daggerCompiler
+    annotationProcessor domainDependencies.daggerAndroidProcessor
+    
+    implementation domainDependencies.gson
+    implementation domainDependencies.okHttp
+    implementation domainDependencies.okHttpUrlConnection
+    implementation domainDependencies.okHttpLogger
+    implementation domainDependencies.retrofitGsonConverter
+    implementation domainDependencies.retrofitRxAdapter
+    implementation domainDependencies.rxJava
+    implementation domainDependencies.rxAndroid
+    
+    
+    // Test dependencies
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.testRunner
+}

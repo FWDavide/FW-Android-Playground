@@ -1,2 +1,2 @@
-include  ':fwandroidarchitecture'
+include  ':fwandroidarchitecture', ':marvelHeroes'
 //include ':datacap'
