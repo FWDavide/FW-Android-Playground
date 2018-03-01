@@ -8,6 +8,8 @@
   <color name="colorPrimaryDark">#d32f2f</color>
   <color name="colorAccent">#536DFE</color>
   
+  <color name="ic_launcher_background">#F44336</color>
+  
   <color name="textColorPrimary">#212121</color>
   <color name="textColorSecondary">#757575</color>
   <color name="icons">#FFFFFF</color>
