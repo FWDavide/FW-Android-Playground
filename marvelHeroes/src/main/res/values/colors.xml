@@ -4,11 +4,11 @@
   -->
 
 <resources>
-  <color name="colorPrimary">#f44336</color>
-  <color name="colorPrimaryDark">#d32f2f</color>
-  <color name="colorAccent">#536DFE</color>
+  <color name="colorPrimary">#fff</color>
+  <color name="colorPrimaryDark">#fff</color>
+  <color name="colorAccent">#FF5252</color>
   
-  <color name="ic_launcher_background">#F44336</color>
+  <color name="ic_launcher_background">#FFFDFE</color>
   
   <color name="textColorPrimary">#212121</color>
   <color name="textColorSecondary">#757575</color>
