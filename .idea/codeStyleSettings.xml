@@ -4,7 +4,7 @@
     <option name="PER_PROJECT_SETTINGS">
       <value>
         <option name="PREFER_LONGER_NAMES" value="false" />
-        <option name="VISIBILITY" value="private" />
+        <option name="VISIBILITY" value="EscalateVisible" />
         <option name="REPLACE_INSTANCEOF" value="true" />
         <option name="INSERT_INNER_CLASS_IMPORTS" value="true" />
         <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
