@@ -21,7 +21,9 @@ public class Character {
     
     private String resourceUri;
     
-    private String thumbnailUrl;
+    private String imageUrl;
+    
+    private String landscapeImageUrl;
     
     public String getId() {
         return id;
@@ -63,11 +65,19 @@ public class Character {
         this.resourceUri = resourceUri;
     }
     
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
     
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    
+    public String getLandscapeImageUrl() {
+        return landscapeImageUrl;
+    }
+    
+    public void setLandscapeImageUrl(String landscapeImageUrl) {
+        this.landscapeImageUrl = landscapeImageUrl;
     }
 }
