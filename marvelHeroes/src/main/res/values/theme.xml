@@ -5,20 +5,27 @@
 <resources>
   
   <!-- Base application theme. -->
-  <style name="MarvelTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <style name="BaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
     
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
-  
+    
     <item name="android:textColorPrimary">@color/textColorPrimary</item>
     <item name="android:textColorSecondary">@color/textColorSecondary</item>
-  
+    
     <item name="android:windowContentTransitions">true</item>
   </style>
   
-  <style name="MarvelTheme.Splashscreen">
+  
+  <style name="MarvelTheme" parent="BaseTheme"/>
+
+  
+  <style name="SplashscreenBase" parent="MarvelTheme">
     <item name="android:windowBackground">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimary</item>
   </style>
+  
+  <style name="MarvelTheme.Splashscreen" parent="SplashscreenBase"/>
 
 </resources>
