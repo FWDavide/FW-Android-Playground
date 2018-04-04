@@ -18,4 +18,7 @@
   <!-- splashscreen svg -->
   <color name="splash_stroke_color">#8fbdbdbd</color>
   <color name="splash_fill_color">#FF5252</color>
+  
+  
+  <color name="text_protection_overlay_color">#6d212121</color>
 </resources>
