@@ -20,18 +20,18 @@ public class ImageLoader {
     public void loadThumbnail(@NonNull ImageView target, @NonNull String imagePath) {
         GlideApp.with(target)
             .load(imagePath)
+            .placeholder(R.drawable.default_thumbnail_placeholder)
             .signature(getThumbnailCacheKey(imagePath))
             .centerCrop()
-            .placeholder(R.drawable.default_thumbnail_placeholder)
             .into(target);
     }
     
     public void loadLandscapeImage(@NonNull ImageView target, @NonNull String imagePath) {
         GlideApp.with(target)
             .load(imagePath)
+            .placeholder(R.drawable.default_thumbnail_placeholder)
             .signature(getLandscapeCacheKey(imagePath))
             .centerCrop()
-            .placeholder(R.drawable.default_thumbnail_placeholder)
             .into(target);
     }
     
