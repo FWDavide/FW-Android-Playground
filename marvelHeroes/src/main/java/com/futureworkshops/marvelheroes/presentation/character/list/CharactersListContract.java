@@ -32,6 +32,7 @@ public class CharactersListContract {
         
         void hideRefreshing();
     
+        void showError(String message);
     }
     
     public interface Presenter {
