@@ -54,6 +54,7 @@ dependencies {
     implementation uiDependencies.constraintLayout
     implementation uiDependencies.butterKnife
     annotationProcessor uiDependencies.butterKnifeApt
+    implementation uiDependencies.fillableLoaders
     
     implementation domainDependencies.dagger
     implementation domainDependencies.daggerAndroid

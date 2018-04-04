@@ -33,6 +33,7 @@ rootProject.ext {
     mockitoVersion = '1.10.19'
     espressoCoreVersion = "3.0.1"
     testRunnerVersion = "1.0.1"
+    fillableLoadersVersion = "1.03@aar"
 
     uiDependencies = [
 
@@ -72,6 +73,7 @@ rootProject.ext {
                     "uk.co.chrisjenx:calligraphy:$caligraphyVersion",
             fabMenu               : "com.github.clans:fab:$fabMenuVersion",
             stickyHeader          : "com.brandongogetap:stickyheaders:$stickyHeaderVersion",
+            fillableLoaders          : "com.github.jorgecastilloprz:fillableloaders:$fillableLoadersVersion",
     ]
 
 
