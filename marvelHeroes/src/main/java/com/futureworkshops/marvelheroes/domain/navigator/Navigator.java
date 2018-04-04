@@ -4,7 +4,10 @@
 
 package com.futureworkshops.marvelheroes.domain.navigator;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
+
+import com.futureworkshops.marvelheroes.presentation.CharactersActivity;
 
 import javax.inject.Inject;
 
@@ -19,14 +22,14 @@ import javax.inject.Inject;
 
 public class Navigator {
     
-    private Context context;
+    private Activity baseActivity;
     
     @Inject
-    public Navigator(Context context) {
-        this.context = context;
+    public Navigator(Activity activity) {
+        this.baseActivity = activity;
     }
     
     public void showCharacterScreen() {
-        // TODO: 04/04/2018 start characters activity
+        baseActivity.startActivity(new Intent(baseActivity, CharactersActivity.class));
     }
 }
