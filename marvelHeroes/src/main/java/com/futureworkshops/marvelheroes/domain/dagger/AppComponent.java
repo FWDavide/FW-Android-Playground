@@ -7,7 +7,6 @@ package com.futureworkshops.marvelheroes.domain.dagger;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-
 import com.futureworkshops.marvelheroes.data.network.NetworkConfig;
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.marvelheroes.presentation.MarvelHeroesApp;
@@ -38,14 +37,15 @@ import dagger.android.DaggerApplication;
  */
 @Singleton
 @Component(modules = {
-        ApplicationModule.class,
-        NetModule.class,
-        ActivityComponentBindModule.class,
-        AndroidInjectionModule.class})
+    ApplicationModule.class,
+    NetModule.class,
+    ImageModule.class,
+    ActivityComponentBindModule.class,
+    AndroidInjectionModule.class})
 public interface AppComponent extends AndroidInjector<DaggerApplication> {
-
+    
     void inject(MarvelHeroesApp application);
-
+    
     /**
      * This interface is used to provide parameters for modules.
      * <p> Every method annotated with {@link BindsInstance} will link the method return type
@@ -54,24 +54,24 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
      */
     @Component.Builder
     interface Builder {
-
+        
         @BindsInstance
         AppComponent.Builder application(Application application);
-
+        
         /**
          * Specify the {@link SchedulersProvider} to be used across the AppComponent graph.
          */
         @BindsInstance
         AppComponent.Builder schedulerProvider(@NonNull SchedulersProvider schedulersProvider);
-    
-    
+        
+        
         /**
          * Specify the {@link NetworkConfig} to be used across the AppComponent graph.
          */
         @BindsInstance
         AppComponent.Builder networkConfiguration(@NonNull NetworkConfig networkConfig);
-    
-    
+        
+        
         AppComponent build();
     }
 }
