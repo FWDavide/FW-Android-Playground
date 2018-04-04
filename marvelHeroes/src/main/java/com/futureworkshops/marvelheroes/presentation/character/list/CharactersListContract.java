@@ -20,7 +20,7 @@ public class CharactersListContract {
     
         void onCharactersLoaded(List<Character> characters);
         
-        void showNoInternetCOnnection();
+        void showNoInternetConnection();
         
         void hideNoInternetConnection();
         

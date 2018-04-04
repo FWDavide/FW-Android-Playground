@@ -35,7 +35,7 @@ public class CharactersActivity extends BaseActivity implements CharactersListCo
     }
     
     @Override
-    public void showNoInternetCOnnection() {
+    public void showNoInternetConnection() {
     
     }
     
