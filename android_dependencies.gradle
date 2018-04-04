@@ -34,6 +34,7 @@ rootProject.ext {
     espressoCoreVersion = "3.0.1"
     testRunnerVersion = "1.0.1"
     fillableLoadersVersion = "1.03@aar"
+    timberVersion = '4.6.0'
 
     uiDependencies = [
 
@@ -126,6 +127,8 @@ rootProject.ext {
                     "com.box:box-android-sdk:$boxVersion",
             minimalJson           :
                     "com.eclipsesource.minimal-json:minimal-json:$minimalJsonVersion",
+            timber               :
+                "com.jakewharton.timber:timber:$timberVersion",
     ]
 
     testDependencies = [

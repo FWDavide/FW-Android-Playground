@@ -56,6 +56,8 @@ dependencies {
     annotationProcessor uiDependencies.butterKnifeApt
     implementation uiDependencies.fillableLoaders
     
+    implementation domainDependencies.timber
+    
     implementation domainDependencies.dagger
     implementation domainDependencies.daggerAndroid
     annotationProcessor domainDependencies.daggerCompiler
