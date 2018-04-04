@@ -8,7 +8,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.marvelheroes.BuildConfig;
-import com.futureworkshops.marvelheroes.data.network.dto.ApiResponse;
 import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer;
@@ -61,13 +60,16 @@ public class RestManager {
         restservice = retrofit.create(RestApi.class);
     }
     
-    public Single<ApiResponse<List<CharacterDto>>> getCharactersWithQuery(@NonNull Map<String, Object> characterQuery) {
+    public Single<List<CharacterDto>> getCharactersWithQuery(@NonNull Map<String, Object> characterQuery) {
         return restservice.getCharacters(characterQuery)
+            .flatMap(response -> Single.just(response.getResponse()))  // extract ApiCollection<List<CharactersDto>>
+            .flatMap(response -> Single.just(response.getResponse()))  // extract List<CharactersDto>
             .compose(new SingleWorkerTransformer<>(schedulersProvider));
     }
     
-    public Single<ApiResponse<List<CharacterDto>>> getCharacterDetails(@NonNull String characterId) {
+    public Single<List<CharacterDto>> getCharacterDetails(@NonNull String characterId) {
         return restservice.getCharacter(characterId)
+            .flatMap(response -> Single.just(response.getResponse()))  // extract List<CharactersDto>
             .compose(new SingleWorkerTransformer<>(schedulersProvider));
     }
     

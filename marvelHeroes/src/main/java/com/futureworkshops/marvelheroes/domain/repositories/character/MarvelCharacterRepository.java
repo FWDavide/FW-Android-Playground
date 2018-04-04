@@ -7,7 +7,6 @@ package com.futureworkshops.marvelheroes.domain.repositories.character;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.marvelheroes.data.network.RestManager;
-import com.futureworkshops.marvelheroes.data.network.dto.ApiResponse;
 import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
 import com.futureworkshops.marvelheroes.domain.model.Character;
 
@@ -37,35 +36,15 @@ public class MarvelCharacterRepository {
         CharacterQuery filter = new CharacterQuery.Builder()
             .serie(AVENGERS__SERIES_ID)
             .orderByName(true)
+            .limit(50)
             .build();
-    
-        return getCharactersWithQuery(filter)
-            .flatMap(response -> {
-                final List<CharacterDto> characterDtoList = response.getResponse();
-                final List<Character> characters = new ArrayList<>();
-            
-                for (CharacterDto dto : characterDtoList) {
-                    characters.add(CharacterMapper.dtoToCharacter(dto));
-                }
-            
-                return Single.just(characters);
-            
-            });
+        
+        return getCharactersWithQuery(filter);
     }
     
     public Single<List<Character>> getCharacterDetails(int characterId) {
         return restManager.getCharacterDetails(String.valueOf(characterId))
-            .flatMap(response -> {
-                final List<CharacterDto> characterDtoList = response.getResponse();
-                final List<Character> characters = new ArrayList<>();
-                
-                for (CharacterDto dto : characterDtoList) {
-                    characters.add(CharacterMapper.dtoToCharacter(dto));
-                }
-                
-                return Single.just(characters);
-                
-            });
+            .flatMap(response -> Single.just(mapDtoToModel(response)));
     }
     
     public Single<List<Character>> getAllCharacters(int offset, int limit) {
@@ -74,23 +53,23 @@ public class MarvelCharacterRepository {
             .limit(limit)
             .build();
         
-        return getCharactersWithQuery(filter)
-            .flatMap(response -> {
-                final List<CharacterDto> characterDtoList = response.getResponse();
-                final List<Character> characters = new ArrayList<>();
-                
-                for (CharacterDto dto : characterDtoList) {
-                    characters.add(CharacterMapper.dtoToCharacter(dto));
-                }
-                
-                return Single.just(characters);
-                
-            });
+        return getCharactersWithQuery(filter);
     }
     
     
-    private Single<ApiResponse<List<CharacterDto>>> getCharactersWithQuery(@NonNull CharacterQuery characterQuery) {
-        return restManager.getCharactersWithQuery(characterQuery.toMap());
+    private Single<List<Character>> getCharactersWithQuery(@NonNull CharacterQuery characterQuery) {
+        return restManager.getCharactersWithQuery(characterQuery.toMap())
+            .flatMap(response -> Single.just(mapDtoToModel(response)));
+    }
+    
+    @NonNull
+    private List<Character> mapDtoToModel(List<CharacterDto> characterDtos) {
+        final List<Character> characters = new ArrayList<>();
+        
+        for (CharacterDto dto : characterDtos) {
+            characters.add(CharacterMapper.dtoToCharacter(dto));
+        }
+        return characters;
     }
     
 }

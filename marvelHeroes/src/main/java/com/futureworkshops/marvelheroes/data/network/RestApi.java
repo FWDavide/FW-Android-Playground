@@ -4,6 +4,7 @@
 
 package com.futureworkshops.marvelheroes.data.network;
 
+import com.futureworkshops.marvelheroes.data.network.dto.ApiCollection;
 import com.futureworkshops.marvelheroes.data.network.dto.ApiResponse;
 import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
 
@@ -24,7 +25,7 @@ public interface RestApi {
     String API_VERSION = "v1/public";
     
     @GET(API_VERSION + "/characters")
-    Single<ApiResponse<List<CharacterDto>>> getCharacters(@QueryMap Map<String, Object> characterFilter);
+    Single<ApiResponse<ApiCollection<List<CharacterDto>>>> getCharacters(@QueryMap Map<String, Object> characterFilter);
     
     @GET(API_VERSION + "/characters/{id}")
     Single<ApiResponse<List<CharacterDto>>> getCharacter(@Path("id") String characterId);
