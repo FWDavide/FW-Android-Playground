@@ -8,7 +8,7 @@ import com.futureworkshops.marvelheroes.domain.navigator.Navigator;
 import com.futureworkshops.marvelheroes.domain.repositories.character.MarvelCharacterRepository;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListInteractor;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
-import com.futureworkshops.marvelheroes.presentation.character.list.CharactersActivity;
+import com.futureworkshops.marvelheroes.presentation.character.list.view.CharactersActivity;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
 
 import dagger.Binds;
