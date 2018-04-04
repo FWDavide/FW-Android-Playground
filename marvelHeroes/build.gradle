@@ -49,12 +49,16 @@ dependencies {
     
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
+    annotationProcessor uiDependencies.butterKnifeApt
+    annotationProcessor uiDependencies.glideProcessor
+    
     implementation uiDependencies.appCompat
     implementation uiDependencies.designCompat
+    implementation uiDependencies.cardView
     implementation uiDependencies.constraintLayout
     implementation uiDependencies.butterKnife
-    annotationProcessor uiDependencies.butterKnifeApt
     implementation uiDependencies.fillableLoaders
+    implementation uiDependencies.glide
     
     implementation domainDependencies.timber
     
