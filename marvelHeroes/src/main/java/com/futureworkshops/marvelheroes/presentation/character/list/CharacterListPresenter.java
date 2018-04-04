@@ -10,25 +10,37 @@ import com.futureworkshops.marvelheroes.domain.navigator.Navigator;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 
 public class CharacterListPresenter implements CharactersListContract.Presenter {
     
     private Navigator navigator;
     private CharacterListInteractor characterListInteractor;
-    private final CharactersListContract.View viewReference;
+    private final CharactersListContract.View view;
     
     @Inject
     public CharacterListPresenter(CharacterListInteractor interactor, Navigator navigator,
                                   CharactersListContract.View view) {
         this.characterListInteractor = interactor;
         this.navigator = navigator;
-        this.viewReference = view;
+        this.view = view;
     }
     
     
     @Override
     public void loadAvengerCharacters() {
-    
+        view.showRefreshing();
+        characterListInteractor.loadAvengersCharacters()
+            .subscribe((characters, throwable) -> {
+                view.hideRefreshing();
+                if (throwable != null) {
+                    Timber.e(throwable);
+                    view.showError(throwable.getMessage());
+                } else {
+                    view.onCharactersLoaded(characters);
+                }
+            });
     }
     
     @Override
