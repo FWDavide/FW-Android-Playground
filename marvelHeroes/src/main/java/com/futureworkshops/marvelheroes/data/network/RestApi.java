@@ -10,7 +10,7 @@ import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Call;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
@@ -24,9 +24,9 @@ public interface RestApi {
     String API_VERSION = "v1/public";
     
     @GET("characters")
-    Call<ApiResponse<List<CharacterDto>>> getCharacters(@QueryMap Map<String, Object> characterFilter);
+    Single<ApiResponse<List<CharacterDto>>> getCharacters(@QueryMap Map<String, Object> characterFilter);
     
     @GET(API_VERSION + "/characters/{id}")
-    Call<ApiResponse<List<CharacterDto>>> getCharacter(@Path("id") String characterId);
+    Single<ApiResponse<List<CharacterDto>>> getCharacter(@Path("id") String characterId);
     
 }

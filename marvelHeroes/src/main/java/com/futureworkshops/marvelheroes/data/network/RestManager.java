@@ -8,14 +8,20 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.marvelheroes.BuildConfig;
-import com.futureworkshops.marvelheroes.domain.rx.scheduler.SchedulersProvider;
+import com.futureworkshops.marvelheroes.data.network.dto.ApiResponse;
+import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
+import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
+import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
 
+import io.reactivex.Single;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -55,6 +61,20 @@ public class RestManager {
         restservice = retrofit.create(RestApi.class);
     }
     
+    public Single<ApiResponse<List<CharacterDto>>> getCharactersWithQuery(@NonNull Map<String, Object> characterQuery) {
+        return restservice.getCharacters(characterQuery)
+            .compose(new SingleWorkerTransformer<>(schedulersProvider));
+    }
+    
+    public Single<ApiResponse<List<CharacterDto>>> getCharacterDetails(@NonNull String characterId) {
+        return restservice.getCharacter(characterId)
+            .compose(new SingleWorkerTransformer<>(schedulersProvider));
+    }
+    
+    /**
+     * Add logs for DBEUG builds.
+     * @return
+     */
     private Interceptor getHttpLogginInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         if (BuildConfig.DEBUG) {
@@ -65,6 +85,13 @@ public class RestManager {
         return httpLoggingInterceptor;
     }
     
+    /**
+     * Add authentication to every request.
+     * @param context
+     * @param apiKey
+     * @param apiSecret
+     * @return
+     */
     private Interceptor getAuthInterceptor(Context context, final String apiKey, final String apiSecret) {
         return new AuthInterceptor(apiKey, apiSecret);
     }
