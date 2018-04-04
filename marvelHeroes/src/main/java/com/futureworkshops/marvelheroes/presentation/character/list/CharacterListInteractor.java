@@ -4,9 +4,14 @@
 
 package com.futureworkshops.marvelheroes.presentation.character.list;
 
+import com.futureworkshops.marvelheroes.domain.model.Character;
 import com.futureworkshops.marvelheroes.domain.repositories.character.MarvelCharacterRepository;
 
+import java.util.List;
+
 import javax.inject.Inject;
+
+import io.reactivex.Single;
 
 /**
  * Created by stelian on 04/04/2018.
@@ -19,5 +24,9 @@ public class CharacterListInteractor {
     @Inject
     public CharacterListInteractor(MarvelCharacterRepository marvelCharacterRepository) {
         this.marvelCharacterRepository = marvelCharacterRepository;
+    }
+    
+    Single<List<Character>> loadAvengersCharacters() {
+        return marvelCharacterRepository.getAvengersCharacters();
     }
 }
