@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
+import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
 import com.futureworkshops.marvelheroes.domain.model.Character;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract.View;
@@ -35,6 +36,9 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
     
     @Inject
     CharacterListPresenter characterListPresenter;
+    
+    @Inject
+    ImageLoader imageLoader;
     
     private CharacterListAdapter characterListAdapter;
     
@@ -103,7 +107,7 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
     }
     
     private void initRecyclerView() {
-        characterListAdapter = new CharacterListAdapter(this);
+        characterListAdapter = new CharacterListAdapter(this, imageLoader);
         characterListAdapter.setCharacterClickListener(this);
         
         final GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
