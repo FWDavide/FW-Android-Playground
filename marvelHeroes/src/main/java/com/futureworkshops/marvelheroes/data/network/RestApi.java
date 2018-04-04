@@ -23,7 +23,7 @@ public interface RestApi {
     
     String API_VERSION = "v1/public";
     
-    @GET("characters")
+    @GET(API_VERSION + "/characters")
     Single<ApiResponse<List<CharacterDto>>> getCharacters(@QueryMap Map<String, Object> characterFilter);
     
     @GET(API_VERSION + "/characters/{id}")
