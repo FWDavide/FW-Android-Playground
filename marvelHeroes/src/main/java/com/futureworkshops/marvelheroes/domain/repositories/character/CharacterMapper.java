@@ -99,6 +99,7 @@ public class CharacterMapper {
         character.setDescription(dto.getDescription());
         character.setModified(dto.getModified());
         character.setResourceUri(dto.getResourceUri());
+        character.setThumbnailUrl(getThumbnailUrl(dto.getThumbnail()));
         character.setImageUrl(getImageUrl(dto.getThumbnail()));
         character.setLandscapeImageUrl(getLandscapeImageUrl(dto.getThumbnail()));
         
@@ -113,6 +114,10 @@ public class CharacterMapper {
         }
     }
     
+    private static String getThumbnailUrl(ImageDto imageDto) {
+        return getImageUrl(imageDto, PORTRAIT_UNCANNY);
+    }
+    
     private static String getImageUrl(ImageDto imageDto) {
         return getImageUrl(imageDto, FULLSIZE);
         
@@ -122,6 +127,5 @@ public class CharacterMapper {
         return getImageUrl(imageDto, LANDSCAPE_INCREDIBLE);
     }
     
- 
     
 }

@@ -21,6 +21,8 @@ public class Character {
     
     private String resourceUri;
     
+    private String thumbnailUrl;
+    
     private String imageUrl;
     
     private String landscapeImageUrl;
@@ -65,6 +67,22 @@ public class Character {
         this.resourceUri = resourceUri;
     }
     
+    /**
+     * Get an URL pointing to a portrait thumbnail image of the character.
+     * @return
+     */
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+    
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+    
+    /**
+     * Return a URL pointing to a full resolution image of the character.
+     * @return
+     */
     public String getImageUrl() {
         return imageUrl;
     }
@@ -73,6 +91,10 @@ public class Character {
         this.imageUrl = imageUrl;
     }
     
+    /**
+     * Return an URL pointing to a landscape image of the character.
+     * @return
+     */
     public String getLandscapeImageUrl() {
         return landscapeImageUrl;
     }
