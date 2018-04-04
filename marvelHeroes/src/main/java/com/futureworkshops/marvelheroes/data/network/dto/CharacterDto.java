@@ -32,51 +32,51 @@ public class CharacterDto {
     @SerializedName("thumbnail")
     private ImageDto thumbnail;
     
-    private String getId() {
+    public String getId() {
         return id;
     }
     
-    private void setId(String id) {
+    public void setId(String id) {
         this.id = id;
     }
     
-    private String getName() {
+    public String getName() {
         return name;
     }
     
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
     
-    private String getDescription() {
+    public String getDescription() {
         return description;
     }
     
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
     
-    private String getModified() {
+    public String getModified() {
         return modified;
     }
     
-    private void setModified(String modified) {
+    public void setModified(String modified) {
         this.modified = modified;
     }
     
-    private String getResourceUri() {
+    public String getResourceUri() {
         return resourceUri;
     }
     
-    private void setResourceUri(String resourceUri) {
+    public void setResourceUri(String resourceUri) {
         this.resourceUri = resourceUri;
     }
     
-    private ImageDto getThumbnail() {
+    public ImageDto getThumbnail() {
         return thumbnail;
     }
     
-    private void setThumbnail(ImageDto thumbnail) {
+    public void setThumbnail(ImageDto thumbnail) {
         this.thumbnail = thumbnail;
     }
 }
