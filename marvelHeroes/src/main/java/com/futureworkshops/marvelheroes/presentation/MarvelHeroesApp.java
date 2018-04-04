@@ -4,12 +4,10 @@
 
 package com.futureworkshops.marvelheroes.presentation;
 
-import android.app.Application;
-
 import com.futureworkshops.marvelheroes.data.network.NetworkConfig;
 import com.futureworkshops.marvelheroes.domain.dagger.AppComponent;
 import com.futureworkshops.marvelheroes.domain.dagger.DaggerAppComponent;
-import com.futureworkshops.marvelheroes.domain.rx.scheduler.WorkerSchedulerProvider;
+import com.futureworkshops.marvelheroes.data.network.rx.scheduler.WorkerSchedulerProvider;
 
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;

@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 
 
 import com.futureworkshops.marvelheroes.data.network.NetworkConfig;
-import com.futureworkshops.marvelheroes.domain.rx.scheduler.SchedulersProvider;
+import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.marvelheroes.presentation.MarvelHeroesApp;
 
 import javax.inject.Singleton;

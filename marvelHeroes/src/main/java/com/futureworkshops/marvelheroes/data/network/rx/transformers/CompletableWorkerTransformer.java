@@ -2,11 +2,11 @@
  * Copyright (c) 2018 FutureWorkshops. All rights reserved.
  */
 
-package com.futureworkshops.marvelheroes.domain.rx.transformers;
+package com.futureworkshops.marvelheroes.data.network.rx.transformers;
 
 
 
-import com.futureworkshops.marvelheroes.domain.rx.scheduler.SchedulersProvider;
+import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
 
 import io.reactivex.Completable;
 import io.reactivex.CompletableSource;
