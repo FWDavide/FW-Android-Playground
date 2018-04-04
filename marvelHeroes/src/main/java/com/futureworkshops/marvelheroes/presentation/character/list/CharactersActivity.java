@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FutureWorkshops. All rights reserved.
  */
 
-package com.futureworkshops.marvelheroes.presentation;
+package com.futureworkshops.marvelheroes.presentation.character.list;
 
 import android.os.Bundle;
 

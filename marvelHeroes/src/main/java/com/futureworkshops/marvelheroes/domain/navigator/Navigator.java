@@ -7,7 +7,7 @@ package com.futureworkshops.marvelheroes.domain.navigator;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.futureworkshops.marvelheroes.presentation.CharactersActivity;
+import com.futureworkshops.marvelheroes.presentation.character.list.CharactersActivity;
 
 import javax.inject.Inject;
 
