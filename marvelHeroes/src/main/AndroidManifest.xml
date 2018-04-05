@@ -29,7 +29,8 @@
     </activity>
     <activity
       android:name=".presentation.character.list.view.CharactersActivity"
-      android:screenOrientation="portrait"/>
+      android:screenOrientation="portrait"
+      android:exported="true"/>
   </application>
 
 </manifest>

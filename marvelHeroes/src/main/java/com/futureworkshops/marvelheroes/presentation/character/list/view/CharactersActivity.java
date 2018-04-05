@@ -5,9 +5,14 @@
 package com.futureworkshops.marvelheroes.presentation.character.list.view;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
@@ -26,13 +31,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 
-public class CharactersActivity extends BaseActivity implements View, CharacterClickListener {
+public class CharactersActivity extends BaseActivity implements View, CharacterClickListener, OnNavigationItemSelectedListener {
     
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     
     @BindView(R.id.characterRv)
     RecyclerView characterRv;
+    
+    @BindView(R.id.bottomNavigation)
+    BottomNavigationView bottomNavigationView;
     
     @Inject
     CharacterListPresenter characterListPresenter;
@@ -52,6 +60,8 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
         initSwipeRefreshLayout();
         
         initRecyclerView();
+        
+        initBottomNavigation();
     }
     
     @Override
@@ -59,6 +69,21 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
         super.onStart();
         //  request data
         loadAvengersCharacters();
+    }
+    
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_characters:
+                loadAvengersCharacters();
+                break;
+            case R.id.action_show_favorites:
+                break;
+            case R.id.action_search:
+                break;
+        }
+        
+        return false;
     }
     
     @Override
@@ -122,7 +147,27 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
         });
     }
     
+    private void initBottomNavigation() {
+        final Menu menu = bottomNavigationView.getMenu();
+        for (int i = 0; i < menu.size(); i++) {
+            final MenuItem item = menu.getItem(i);
+            
+            if (item.getItemId() == R.id.action_show_characters) {
+                bottomNavigationView.setSelectedItemId(item.getItemId());
+            } else {
+                // TODO: 05/04/2018 remove this when functionality is added
+                item.setEnabled(false);
+            }
+        }
+        
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        
+        
+    }
+    
     private void loadAvengersCharacters() {
         characterListPresenter.loadAvengerCharacters();
     }
+    
+    
 }

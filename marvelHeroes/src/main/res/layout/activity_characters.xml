@@ -2,8 +2,7 @@
 <!--
   ~ Copyright (c) 2018 FutureWorkshops. All rights reserved.
   -->
-
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
@@ -11,40 +10,56 @@
   android:layout_height="match_parent"
   tools:context="com.futureworkshops.marvelheroes.presentation.character.list.view.CharactersActivity">
   
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:background="?attr/colorPrimary"
-    android:elevation="@dimen/default_elevation"
-    android:minHeight="?attr/actionBarSize"
-    android:theme="?attr/actionBarTheme"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:background="?attr/colorPrimary"
+      android:elevation="0dp"
+      android:minHeight="?attr/actionBarSize"
+      android:theme="?attr/actionBarTheme"
+      app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+      tools:text="Marvel stuff"
+      tools:textColor="@color/colorAccent"/>
+  
+  </android.support.design.widget.AppBarLayout>
   
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar"
-    >
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:paddingBottom="?attr/actionBarSize"
+   >
     
     <android.support.v7.widget.RecyclerView
       android:id="@+id/characterRv"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginBottom="@dimen/default_padding"
-      android:padding="@dimen/default_padding"
       tools:itemCount="13"
       tools:layoutManager="android.support.v7.widget.GridLayoutManager"
       tools:listitem="@layout/list_item_character"
-      tools:spanCount="2"/>
+      tools:spanCount="2"
+      />
   
   </android.support.v4.widget.SwipeRefreshLayout>
+  
+  <android.support.design.widget.BottomNavigationView
+    android:id="@+id/bottomNavigation"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    app:itemBackground="@color/colorPrimary"
+    app:itemIconTint="@drawable/navigation_state_selector"
+    app:itemTextColor="@drawable/navigation_state_selector"
+    app:menu="@menu/bottom_navigation_main"
+    app:layout_anchor="@id/swipeRefreshLayout"
+    app:layout_anchorGravity="bottom"/>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
+
