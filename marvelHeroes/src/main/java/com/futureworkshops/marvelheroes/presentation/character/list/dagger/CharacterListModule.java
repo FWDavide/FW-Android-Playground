@@ -8,8 +8,8 @@ import com.futureworkshops.marvelheroes.domain.navigator.Navigator;
 import com.futureworkshops.marvelheroes.domain.repositories.character.MarvelCharacterRepository;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListInteractor;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
-import com.futureworkshops.marvelheroes.presentation.character.list.view.CharactersActivity;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
+import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
 
 import dagger.Binds;
 import dagger.Module;
@@ -22,12 +22,12 @@ import dagger.Provides;
 public abstract class CharacterListModule {
     
     @Provides
-    static Navigator providesNavigator(CharactersActivity activity) {
-        return new Navigator(activity);
+    static Navigator providesNavigator(CharacterListFragment fragment) {
+        return new Navigator(fragment.getActivity());
     }
     
     @Binds
-    abstract CharactersListContract.View providesContractView(CharactersActivity activity);
+    abstract CharactersListContract.View providesContractView(CharacterListFragment fragment);
     
     @Provides
     static CharacterListInteractor providesInteractor(MarvelCharacterRepository newsRepository) {

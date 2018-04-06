@@ -9,11 +9,10 @@ import android.util.Log;
 import com.futureworkshops.marvelheroes.BuildConfig;
 import com.futureworkshops.marvelheroes.data.network.NetworkConfig;
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.WorkerSchedulerProvider;
-import com.futureworkshops.marvelheroes.domain.dagger.AppComponent;
 import com.futureworkshops.marvelheroes.domain.dagger.DaggerAppComponent;
 
 import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+import dagger.android.support.DaggerApplication;
 import timber.log.Timber;
 
 /**
@@ -22,23 +21,13 @@ import timber.log.Timber;
 
 public class MarvelHeroesApp extends DaggerApplication {
     
+    
     @Override
     public void onCreate() {
         super.onCreate();
-        
         initTimber();
     }
     
-    @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        AppComponent appComponent = DaggerAppComponent.builder()
-            .application(this)
-            .schedulerProvider(new WorkerSchedulerProvider())
-            .networkConfiguration(new NetworkConfig())
-            .build();
-        appComponent.inject(this);
-        return appComponent;
-    }
     
     private void initTimber() {
         if (BuildConfig.DEBUG) {
@@ -46,6 +35,15 @@ public class MarvelHeroesApp extends DaggerApplication {
         } else {
             Timber.plant(new ReleaseLogTree());
         }
+    }
+    
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+        return DaggerAppComponent.builder()
+            .application(this)
+            .schedulerProvider(new WorkerSchedulerProvider())
+            .networkConfiguration(new NetworkConfig())
+            .build();
     }
     
     public class ReleaseLogTree extends Timber.Tree {
@@ -74,7 +72,7 @@ public class MarvelHeroesApp extends DaggerApplication {
                 }
                 
                 int length = message.length();
-                for (int i = 0;  i < length; i++) {
+                for (int i = 0; i < length; i++) {
                     int newLine = message.indexOf('\n', i);
                     newLine = newLine != -1 ? newLine : length;
                     do {

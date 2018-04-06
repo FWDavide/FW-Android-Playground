@@ -6,22 +6,22 @@ package com.futureworkshops.marvelheroes.presentation.character.list.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
 import com.futureworkshops.marvelheroes.domain.model.Character;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
-import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract.View;
+import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListAdapter.CharacterClickListener;
-import com.futureworkshops.marvelheroes.presentation.common.BaseActivity;
 
 import java.util.List;
 
@@ -29,18 +29,19 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.AndroidInjection;
+import dagger.android.support.AndroidSupportInjection;
 
-public class CharactersActivity extends BaseActivity implements View, CharacterClickListener, OnNavigationItemSelectedListener {
+/**
+ * Created by stelian on 05/04/2018.
+ */
+
+public class CharacterListFragment extends Fragment implements CharactersListContract.View, CharacterClickListener {
     
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     
     @BindView(R.id.characterRv)
     RecyclerView characterRv;
-    
-    @BindView(R.id.bottomNavigation)
-    BottomNavigationView bottomNavigationView;
     
     @Inject
     CharacterListPresenter characterListPresenter;
@@ -50,40 +51,34 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
     
     private CharacterListAdapter characterListAdapter;
     
+    public static CharacterListFragment newInstance() {
+        return new CharacterListFragment();
+    }
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_characters);
-        ButterKnife.bind(this);
+    }
+    
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_character_list, container, false);
+        ButterKnife.bind(this, view);
         
         initSwipeRefreshLayout();
         
         initRecyclerView();
         
-        initBottomNavigation();
+        return view;
     }
     
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
-        //  request data
-        loadAvengersCharacters();
-    }
-    
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_show_characters:
-                loadAvengersCharacters();
-                break;
-            case R.id.action_show_favorites:
-                break;
-            case R.id.action_search:
-                break;
-        }
         
-        return false;
+        loadAvengersCharacters();
     }
     
     @Override
@@ -123,7 +118,7 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
     
     @Override
     public void showError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
     
     @Override
@@ -132,10 +127,10 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
     }
     
     private void initRecyclerView() {
-        characterListAdapter = new CharacterListAdapter(this, imageLoader);
+        characterListAdapter = new CharacterListAdapter(getContext(), imageLoader);
         characterListAdapter.setCharacterClickListener(this);
         
-        final GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         
         characterRv.setLayoutManager(layoutManager);
         characterRv.setAdapter(characterListAdapter);
@@ -147,27 +142,7 @@ public class CharactersActivity extends BaseActivity implements View, CharacterC
         });
     }
     
-    private void initBottomNavigation() {
-        final Menu menu = bottomNavigationView.getMenu();
-        for (int i = 0; i < menu.size(); i++) {
-            final MenuItem item = menu.getItem(i);
-            
-            if (item.getItemId() == R.id.action_show_characters) {
-                bottomNavigationView.setSelectedItemId(item.getItemId());
-            } else {
-                // TODO: 05/04/2018 remove this when functionality is added
-                item.setEnabled(false);
-            }
-        }
-        
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        
-        
-    }
-    
     private void loadAvengersCharacters() {
         characterListPresenter.loadAvengerCharacters();
     }
-    
-    
 }

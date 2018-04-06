@@ -4,8 +4,8 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.futureworkshops.marvelheroes">
   
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
   
   <application
     android:name=".presentation.MarvelHeroesApp"
@@ -15,7 +15,6 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/MarvelTheme">
-    
     <activity
       android:name=".presentation.splashscreen.SplashActivity"
       android:noHistory="true"
@@ -28,9 +27,9 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".presentation.character.list.view.CharactersActivity"
-      android:screenOrientation="portrait"
-      android:exported="true"/>
+      android:name=".presentation.character.CharactersActivity"
+      android:exported="true"
+      android:screenOrientation="portrait"/>
   </application>
 
 </manifest>
