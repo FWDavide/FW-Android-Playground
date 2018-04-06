@@ -49,7 +49,6 @@ dependencies {
     
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor uiDependencies.butterKnifeApt
     annotationProcessor uiDependencies.glideProcessor
     
@@ -66,7 +65,7 @@ dependencies {
     
     implementation domainDependencies.dagger
     annotationProcessor domainDependencies.daggerCompiler
-
+    
     implementation domainDependencies.daggerAndroid
     implementation domainDependencies.daggerAndroidSupport
     annotationProcessor domainDependencies.daggerAndroidProcessor

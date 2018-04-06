@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.futureworkshops.marvelheroes.R;
+import com.futureworkshops.marvelheroes.presentation.character.favorite.FavoriteCharactersFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
 import com.futureworkshops.marvelheroes.presentation.common.BaseActivity;
 
@@ -24,6 +26,7 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     BottomNavigationView bottomNavigationView;
     
     private CharacterListFragment characterListFragment;
+    private FavoriteCharactersFragment favoriteCharactersFragment;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,11 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     }
     
     private void showFavoritesFragment() {
-    
+        if (favoriteCharactersFragment == null) {
+            favoriteCharactersFragment = FavoriteCharactersFragment.newInstance();
+        }
+        
+        replaceFragment(favoriteCharactersFragment);
     }
     
     private void showCharactersFragment() {
@@ -64,8 +71,12 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
             characterListFragment = CharacterListFragment.newInstance();
         }
         
+        replaceFragment(characterListFragment);
+    }
+    
+    private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.fragmentContainer, characterListFragment)
+            .replace(R.id.fragmentContainer, fragment)
             .commit();
     }
     
