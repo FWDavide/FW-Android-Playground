@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.presentation.character.favorite.FavoriteCharactersFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
+import com.futureworkshops.marvelheroes.presentation.character.search.SearchCharacterFragment;
 import com.futureworkshops.marvelheroes.presentation.common.BaseActivity;
 
 import butterknife.BindView;
@@ -27,6 +28,7 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     
     private CharacterListFragment characterListFragment;
     private FavoriteCharactersFragment favoriteCharactersFragment;
+    private SearchCharacterFragment searchCharacterFragment;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +57,11 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     }
     
     private void showSearchFragment() {
-    
+        if (searchCharacterFragment == null) {
+            searchCharacterFragment = SearchCharacterFragment.newInstance();
+        }
+        
+        replaceFragment(searchCharacterFragment);
     }
     
     private void showFavoritesFragment() {
