@@ -6,7 +6,8 @@ import com.futureworkshops.android.architecture.domain.network.config.DebugNetwo
 import com.futureworkshops.android.architecture.domain.rx.scheduler.WorkerSchedulerProvider;
 
 import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+import dagger.android.support.DaggerApplication;
+
 
 /**
  * Created by stelian on 28/08/2017.

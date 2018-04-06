@@ -45,6 +45,7 @@ dependencies {
 
     implementation domainDependencies.dagger
     implementation domainDependencies.daggerAndroid
+    implementation domainDependencies.daggerAndroidSupport
     annotationProcessor domainDependencies.daggerCompiler
     annotationProcessor domainDependencies.daggerAndroidProcessor
 
