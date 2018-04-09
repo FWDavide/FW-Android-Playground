@@ -5,11 +5,13 @@
 package com.futureworkshops.marvelheroes.domain.model;
 
 
+import java.io.Serializable;
+
 /**
  * Created by stelian on 03/04/2018.
  */
 
-public class Character {
+public class Character implements Serializable {
     
     private String id;
     
