@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.Key;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.signature.ObjectKey;
 import com.futureworkshops.marvelheroes.R;
 
@@ -26,9 +27,10 @@ public class ImageLoader {
             .into(target);
     }
     
-    public void loadLandscapeImage(@NonNull ImageView target, @NonNull String imagePath) {
+    public void loadLandscapeImage(@NonNull ImageView target, @NonNull String imagePath, @NonNull RequestListener listener) {
         GlideApp.with(target)
             .load(imagePath)
+            .listener(listener)
             .placeholder(R.drawable.default_thumbnail_placeholder)
             .signature(getLandscapeCacheKey(imagePath))
             .centerCrop()
