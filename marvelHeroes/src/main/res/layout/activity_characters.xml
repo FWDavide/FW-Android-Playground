@@ -30,7 +30,6 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary"
     android:minHeight="?attr/actionBarSize"
-    app:itemBackground="@color/colorPrimary"
     app:itemIconTint="@drawable/navigation_state_selector"
     app:itemTextColor="@drawable/navigation_state_selector"
     app:menu="@menu/bottom_navigation_main"
