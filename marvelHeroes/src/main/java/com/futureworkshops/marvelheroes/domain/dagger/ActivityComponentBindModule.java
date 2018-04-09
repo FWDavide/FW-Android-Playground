@@ -6,6 +6,8 @@ package com.futureworkshops.marvelheroes.domain.dagger;
 
 
 import com.futureworkshops.marvelheroes.presentation.character.CharactersActivity;
+import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
+import com.futureworkshops.marvelheroes.presentation.character.detail.dagger.CharacterDetailsModule;
 import com.futureworkshops.marvelheroes.presentation.character.list.dagger.CharacterListModule;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
 import com.futureworkshops.marvelheroes.presentation.splashscreen.SplashActivity;
@@ -33,5 +35,9 @@ public abstract class ActivityComponentBindModule {
     
     @ContributesAndroidInjector(modules = CharacterListModule.class)
     abstract CharacterListFragment bindCharactersListFragment();
+    
+    
+    @ContributesAndroidInjector(modules = CharacterDetailsModule.class)
+    abstract CharacterDetailFragment bindCharactersDetailFragment();
 
 }
