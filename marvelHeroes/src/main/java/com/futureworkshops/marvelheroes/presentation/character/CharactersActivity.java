@@ -7,6 +7,7 @@ package com.futureworkshops.marvelheroes.presentation.character;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomNavigationView.OnNavigationItemReselectedListener;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -20,8 +21,9 @@ import com.futureworkshops.marvelheroes.presentation.common.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
-public class CharactersActivity extends BaseActivity implements OnNavigationItemSelectedListener {
+public class CharactersActivity extends BaseActivity implements OnNavigationItemSelectedListener, OnNavigationItemReselectedListener {
     
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
@@ -43,17 +45,35 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_show_characters:
+                Timber.d("select characters");
                 showCharactersFragment();
                 break;
             case R.id.action_show_favorites:
+                Timber.d("select favorites");
                 showFavoritesFragment();
                 break;
             case R.id.action_search:
+                Timber.d("select search");
                 showSearchFragment();
                 break;
         }
         
         return true;
+    }
+    
+    @Override
+    public void onNavigationItemReselected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_show_characters:
+               Timber.d("reselect characters");
+                break;
+            case R.id.action_show_favorites:
+                Timber.d("reselect favorites");
+                break;
+            case R.id.action_search:
+                Timber.d("reselect search");
+                break;
+        }
     }
     
     private void showSearchFragment() {
@@ -99,9 +119,8 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
         }
         
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        
+//        bottomNavigationView.setOnNavigationItemReselectedListener(this);
         
     }
-    
     
 }
