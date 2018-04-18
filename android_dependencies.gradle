@@ -1,18 +1,13 @@
 rootProject.ext {
 
     butterKnifeVersion = '8.4.0'
-    supportLibraryVersion = '26.0.1'
+    supportLibraryVersion = '27.0.2'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
     retrofitVersion = '2.3.0'
     okHttpVersion = '3.4.1'
     playServicesVersion = '10.2.4'
-    picassoVersion = '2.5.2'
-    picassoDownloaderVersion = '1.0.2'
-    mpChartVersion = '2.0.8'
-    recycleViewHeaderVersion = '1.2.0'
-    multidexVersion = '1.0.1'
-    daggerVersion = "2.11"
+    daggerVersion = "2.15"
     annotationProcessorVersion = '1.0'
     permissionDispatcherVersion = '2.0.6'
     permissionAnnotationProcesorVersion = '2.0.6'
@@ -31,8 +26,11 @@ rootProject.ext {
     minimalJsonVersion = '0.9.1'
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
-    espressoCoreVersion = "3.0.0"
-    testRunnerVersion = "1.0.0"
+    espressoCoreVersion = "3.0.1"
+    testRunnerVersion = "1.0.1"
+    fillableLoadersVersion = "1.03@aar"
+    timberVersion = '4.6.0'
+    glideVersion = '4.6.1'
 
     uiDependencies = [
 
@@ -54,24 +52,9 @@ rootProject.ext {
                     "com.android.support:support-annotations:$supportLibraryVersion",
             designCompat          :
                     "com.android.support:design:$supportLibraryVersion",
-            picasso               :
-                    "com.squareup.picasso:picasso:$picassoVersion",
-            picassoDownloader     :
-                    "com.jakewharton.picasso:picasso2-okhttp3-downloader:$picassoDownloaderVersion",
-            mpChart               :
-                    "com.github.PhilJay:MPAndroidChart:v$mpChartVersion",
-            recycleViewHeader     :
-                    "com.bartoszlipinski.recyclerviewheader:library:$recycleViewHeaderVersion",
-            kenBurnsView          :
-                    "com.flaviofaria:kenburnsview:$kenBurnsViewVersion",
-            circularProgressButton:
-                    "com.github.dmytrodanylyk.circular-progress-button:library:$circularProgressButtonVersion",
-            inkPageIndicator      :
-                    "com.pacioianu.david:ink-page-indicator:$inkPageIndicatorVersion",
-            caligraphy            :
-                    "uk.co.chrisjenx:calligraphy:$caligraphyVersion",
-            fabMenu               : "com.github.clans:fab:$fabMenuVersion",
-            stickyHeader          : "com.brandongogetap:stickyheaders:$stickyHeaderVersion",
+            fillableLoaders          : "com.github.jorgecastilloprz:fillableloaders:$fillableLoadersVersion",
+            glide            : "com.github.bumptech.glide:glide:$glideVersion",
+            glideProcessor   : "com.github.bumptech.glide:compiler:$glideVersion"
     ]
 
 
@@ -93,24 +76,14 @@ rootProject.ext {
                     "com.squareup.okhttp3:okhttp:$okHttpVersion",
             okHttpLogger          :
                     "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
-            playServices_full     :
-                    "com.google.android.gms:play-services:$playServicesVersion",
-            playServices_gcm      :
-                    "com.google.android.gms:play-services-gcm:$playServicesVersion",
-            playServices_maps     :
-                    "com.google.android.gms:play-services-maps:$playServicesVersion",
-            playServices_location :
-                    "com.google.android.gms:play-services-location:$playServicesVersion",
-            playServices_vision   :
-                    "com.google.android.gms:play-services-vision:$playServicesVersion",
-            multidex              :
-                    "com.android.support:multidex:$multidexVersion",
             dagger                :
-                    "com.google.dagger:dagger:$daggerVersion",
+                "com.google.dagger:dagger:$daggerVersion",
             daggerCompiler        :
-                    "com.google.dagger:dagger-compiler:$daggerVersion",
+                "com.google.dagger:dagger-compiler:$daggerVersion",
             daggerAndroid  :
                     "com.google.dagger:dagger-android:$daggerVersion",
+            daggerAndroidSupport  :
+                    "com.google.dagger:dagger-android-support:$daggerVersion",
             daggerAndroidProcessor:
                     "com.google.dagger:dagger-android-processor:$daggerVersion",
 
@@ -118,12 +91,9 @@ rootProject.ext {
                     "javax.annotation:jsr250-api:$annotationProcessorVersion",
             rxJava                : "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
             rxAndroid             : "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-            tesseract             :
-                    "com.rmtheis:tess-two:$tesseractVersion",
-            box                   :
-                    "com.box:box-android-sdk:$boxVersion",
-            minimalJson           :
-                    "com.eclipsesource.minimal-json:minimal-json:$minimalJsonVersion",
+        
+            timber               :
+                "com.jakewharton.timber:timber:$timberVersion",
     ]
 
     testDependencies = [
