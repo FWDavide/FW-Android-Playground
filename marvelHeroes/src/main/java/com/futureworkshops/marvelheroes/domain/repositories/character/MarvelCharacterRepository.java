@@ -45,12 +45,6 @@ public class MarvelCharacterRepository {
             .build();
         
         return getCharactersWithQuery(filter);
-    
-        Single<String> tst = Single.just(new Token())
-            .flatMap(token -> {
-                Log.d("", "getAvengersCharacters: "+token.token);
-                return Single.just(token.token);
-            });
         
     }
     
