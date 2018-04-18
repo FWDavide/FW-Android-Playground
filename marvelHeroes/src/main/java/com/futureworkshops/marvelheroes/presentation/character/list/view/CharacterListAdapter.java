@@ -6,6 +6,7 @@ package com.futureworkshops.marvelheroes.presentation.character.list.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.HapticFeedbackConstants;
@@ -37,7 +38,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
      */
     public interface CharacterClickListener {
         
-        void onCharacterClicked(Character character);
+        void onCharacterClicked(Character character, ImageView listImageView);
     }
     
     
@@ -84,11 +85,13 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
         
         // load character thumbnail
         imageLoader.loadThumbnail(viewHolder.image, character.getThumbnailUrl());
+    
+//        ViewCompat.setTransitionName(viewHolder.image, "transition23234");
         
         viewHolder.itemView.setOnClickListener(v -> {
             v.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP);
             if (characterClickListener != null) {
-                characterClickListener.onCharacterClicked(character);
+                characterClickListener.onCharacterClicked(character, viewHolder.image);
             }
         });
     }

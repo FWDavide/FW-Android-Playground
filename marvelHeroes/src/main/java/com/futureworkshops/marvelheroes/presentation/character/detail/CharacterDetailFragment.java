@@ -13,6 +13,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.transition.TransitionInflater;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.futureworkshops.marvelheroes.R;
+import com.futureworkshops.marvelheroes.domain.image.GlideApp;
 import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
 import com.futureworkshops.marvelheroes.domain.model.Character;
 
@@ -41,17 +43,14 @@ import dagger.android.support.AndroidSupportInjection;
  */
 public class CharacterDetailFragment extends Fragment implements CharacterDetailContract.View, RequestListener {
     
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_CHARACTER = "param1";
-    private static final String ARG_TRANSITION_NAME = "param2";
+    private static final String ARG_CHARACTER = "character";
     
     @BindView(R.id.app_bar_layout)
     AppBarLayout appBarLayout;
-    
+
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
-    
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     
@@ -59,22 +58,19 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
     ImageView imageView;
     
     @BindView(R.id.title)
-    TextView dtitleTv;
+    TextView titleTv;
     
     @BindView(R.id.description)
     TextView descriptionTv;
-    
+
     @BindView(R.id.fab)
     FloatingActionButton favoriteFab;
-    
-    @Inject
-    ImageLoader imageLoader;
+//
+//    @Inject
+//    ImageLoader imageLoader;
     
     
     private Character character;
-    
-    private String transitionName;
-    
     
     public CharacterDetailFragment() {
         // Required empty public constructor
@@ -84,50 +80,75 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      * @param character Parameter 1.
-     * @param transitionName Parameter 2.
      * @return A new instance of fragment CharacterDetailFragment.
      */
-    public static CharacterDetailFragment newInstance(Character character, String transitionName) {
+    public static CharacterDetailFragment newInstance(Character character) {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CHARACTER, character);
-        args.putString(ARG_TRANSITION_NAME, transitionName);
         fragment.setArguments(args);
         return fragment;
     }
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AndroidSupportInjection.inject(this);
+//        AndroidSupportInjection.inject(this);
         super.onCreate(savedInstanceState);
         
+        postponeEnterTransition();
+    
+        setSharedElementEnterTransition(
+            TransitionInflater.from(getContext())
+                .inflateTransition(android.R.transition.move));
         // we target SDK > 21 so we don't need to check anything
-        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        
     }
     
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_character_detail, container, false);
-        ButterKnife.bind(this, view);
-        
-        return view;
+      return  inflater.inflate(R.layout.fragment_character_detail, container, false);
     }
     
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    
+        ButterKnife.bind(this, view);
         
         if (getArguments() != null) {
             character = (Character) getArguments().getSerializable(ARG_CHARACTER);
-            transitionName = getArguments().getString(ARG_TRANSITION_NAME);
             
-            imageView.setTransitionName(transitionName);
+            initToolbars();
             
-            imageLoader.loadLandscapeImage(imageView, character.getLandscapeImageUrl(), this);
+//            imageView.setTransitionName("transition23234");
+//
+//            imageLoader.loadLandscapeImage(imageView, character.getLandscapeImageUrl(), this);
+    
+    
+            GlideApp.with(imageView)
+                .load(character.getImageUrl())
+                .fitCenter()
+                .dontAnimate()
+                .listener(this)
+                .placeholder(R.drawable.default_thumbnail_placeholder)
+                .into(imageView);
+            
+            titleTv.setText(character.getName());
+            descriptionTv.setText(character.getDescription());
             
         }
+    }
+    
+    private void initToolbars() {
+        final AppCompatActivity appCompatActivity = (AppCompatActivity) getActivity();
+        appCompatActivity.setSupportActionBar(toolbar);
+        appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        appCompatActivity.getSupportActionBar().setDisplayShowHomeEnabled(false);
+
+        collapsingToolbarLayout.setTitle(character.getName());
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
     }
     
     @Override

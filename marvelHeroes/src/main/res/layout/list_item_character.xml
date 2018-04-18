@@ -18,6 +18,7 @@
     android:layout_height="match_parent"
     tools:src="@drawable/default_thumbnail_placeholder"
     android:scaleType="center"
+   android:transitionName="@string/transition_character_hero"
     />
   
   <TextView

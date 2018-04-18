@@ -10,12 +10,17 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemReselectedListener;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 import com.futureworkshops.marvelheroes.R;
+import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.favorite.FavoriteCharactersFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
+import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment.CharacterDetailListener;
 import com.futureworkshops.marvelheroes.presentation.character.search.SearchCharacterFragment;
 import com.futureworkshops.marvelheroes.presentation.common.BaseActivity;
 
@@ -23,7 +28,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class CharactersActivity extends BaseActivity implements OnNavigationItemSelectedListener, OnNavigationItemReselectedListener {
+public class CharactersActivity extends BaseActivity implements OnNavigationItemSelectedListener,
+    OnNavigationItemReselectedListener, CharacterDetailListener {
     
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
@@ -35,6 +41,7 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        postponeEnterTransition();
         setContentView(R.layout.activity_characters);
         ButterKnife.bind(this);
         
@@ -65,7 +72,8 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     public void onNavigationItemReselected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_show_characters:
-               Timber.d("reselect characters");
+                // TODO: 09/04/2018 reset character list fragment to original state
+                Timber.d("reselect characters");
                 break;
             case R.id.action_show_favorites:
                 Timber.d("reselect favorites");
@@ -81,7 +89,7 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
             searchCharacterFragment = SearchCharacterFragment.newInstance();
         }
         
-        replaceFragment(searchCharacterFragment);
+        replaceFragment(searchCharacterFragment, "SEARCH_ROOT");
     }
     
     private void showFavoritesFragment() {
@@ -89,20 +97,21 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
             favoriteCharactersFragment = FavoriteCharactersFragment.newInstance();
         }
         
-        replaceFragment(favoriteCharactersFragment);
+        replaceFragment(favoriteCharactersFragment, "FAVORITES_ROOT");
     }
     
     private void showCharactersFragment() {
         if (characterListFragment == null) {
             characterListFragment = CharacterListFragment.newInstance();
+            characterListFragment.setCharacterDetailListener(this);
         }
         
-        replaceFragment(characterListFragment);
+        replaceFragment(characterListFragment, "CHARACTERS_ROOT");
     }
     
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String tag) {
         getSupportFragmentManager().beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.fragmentContainer, fragment, tag)
             .commit();
     }
     
@@ -119,8 +128,21 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
         }
         
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//        bottomNavigationView.setOnNavigationItemReselectedListener(this);
+        bottomNavigationView.setOnNavigationItemReselectedListener(this);
         
     }
     
+    @Override
+    public void onShowCharacterDetail(@NonNull Character character, @NonNull ImageView thumbnail) {
+        final String transitionName = ViewCompat.getTransitionName(thumbnail);
+        
+        CharacterDetailFragment characterDetailFragment = CharacterDetailFragment.newInstance(character);
+        getSupportFragmentManager()
+            .beginTransaction()
+            .addSharedElement(thumbnail, transitionName)
+            .addToBackStack(null)
+            .add(R.id.fragmentContainer, characterDetailFragment)
+            .commit();
+        
+    }
 }

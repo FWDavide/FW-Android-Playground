@@ -7,4 +7,5 @@
   <string name="title_search">Search</string>
   <string name="title_favorites">Favourites</string>
   <string name="title_characters">Heroes</string>
+  <string name="transition_character_hero">characterSharedTransition</string>
 </resources>

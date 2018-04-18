@@ -5,6 +5,7 @@
 package com.futureworkshops.marvelheroes.domain.repositories.character;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.futureworkshops.marvelheroes.data.network.RestManager;
 import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto;
@@ -27,6 +28,10 @@ public class MarvelCharacterRepository {
     
     private RestManager restManager;
     
+    class Token {
+        String token;
+    }
+    
     @Inject
     public MarvelCharacterRepository(RestManager restManager) {
         this.restManager = restManager;
@@ -40,6 +45,13 @@ public class MarvelCharacterRepository {
             .build();
         
         return getCharactersWithQuery(filter);
+    
+        Single<String> tst = Single.just(new Token())
+            .flatMap(token -> {
+                Log.d("", "getAvengersCharacters: "+token.token);
+                return Single.just(token.token);
+            });
+        
     }
     
     public Single<List<Character>> getCharacterDetails(int characterId) {
@@ -52,6 +64,9 @@ public class MarvelCharacterRepository {
             .offset(offset)
             .limit(limit)
             .build();
+        
+        
+        
         
         return getCharactersWithQuery(filter);
     }

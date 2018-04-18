@@ -8,17 +8,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
 import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListAdapter.CharacterClickListener;
@@ -37,8 +40,14 @@ import dagger.android.support.AndroidSupportInjection;
 
 public class CharacterListFragment extends Fragment implements CharactersListContract.View, CharacterClickListener {
     
+    public interface CharacterDetailListener {
+    
+        void onShowCharacterDetail(@NonNull Character character, @NonNull ImageView thumbnail);
+    
+    }
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+    
     
     @BindView(R.id.characterRv)
     RecyclerView characterRv;
@@ -51,6 +60,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     
     private CharacterListAdapter characterListAdapter;
     
+    private CharacterDetailListener characterDetailListener;
     public static CharacterListFragment newInstance() {
         return new CharacterListFragment();
     }
@@ -79,6 +89,10 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
         super.onStart();
         
         loadAvengersCharacters();
+    }
+    
+    public void setCharacterDetailListener(CharacterDetailListener characterDetailListener) {
+        this.characterDetailListener = characterDetailListener;
     }
     
     @Override
@@ -122,8 +136,21 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     }
     
     @Override
-    public void onCharacterClicked(Character character) {
+    public void onCharacterClicked(Character character, ImageView listImageView) {
+//        if (characterDetailListener != null) {
+//            characterDetailListener.onShowCharacterDetail(character, listImageView);
+//        }
     
+        final String transitionName = ViewCompat.getTransitionName(listImageView);
+        
+        CharacterDetailFragment characterDetailFragment = CharacterDetailFragment.newInstance(character);
+        getFragmentManager()
+            .beginTransaction()
+            .addSharedElement(listImageView, transitionName)
+            .addToBackStack(null)
+            .add(R.id.fragmentContainer, characterDetailFragment)
+            .commit();
+        
     }
     
     private void initRecyclerView() {

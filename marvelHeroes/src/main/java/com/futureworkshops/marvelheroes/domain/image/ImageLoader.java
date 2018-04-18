@@ -30,10 +30,11 @@ public class ImageLoader {
     public void loadLandscapeImage(@NonNull ImageView target, @NonNull String imagePath, @NonNull RequestListener listener) {
         GlideApp.with(target)
             .load(imagePath)
+            .fitCenter()
+            .signature(getLandscapeCacheKey(imagePath))
+            .dontAnimate()
             .listener(listener)
             .placeholder(R.drawable.default_thumbnail_placeholder)
-            .signature(getLandscapeCacheKey(imagePath))
-            .centerCrop()
             .into(target);
     }
     
