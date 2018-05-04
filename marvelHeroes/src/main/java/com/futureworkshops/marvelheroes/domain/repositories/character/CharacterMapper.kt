@@ -5,9 +5,9 @@
 package com.futureworkshops.marvelheroes.domain.repositories.character
 
 import android.support.annotation.StringDef
-import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto
+import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.dto.ImageDto
-import com.futureworkshops.marvelheroes.domain.model.Character
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter
 
 /**
  * Created by stelian on 03/04/2018.
@@ -74,22 +74,24 @@ object CharacterMapper {
     private const val SEPARATOR = "/"
     private const val DOT = "."
     
-    @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-    @StringDef(PORTRAIT_SMALL, PORTRAIT_MEDIUM, PORTRAIT_XLARGE, PORTRAIT_FANTASTIC, PORTRAIT_UNCANNY, PORTRAIT_INCREDIBLE, STANDARD_SMALL, STANDARD_MEDIUM, STANDARD_LARGE, STANDARD_XLARGE, STANDARD_FANTASTIC, STANDARD_AMAZING, LANDSCAPE_SMALL, LANDSCAPE_MEDIUM, LANDSCAPE_LARGE, LANDSCAPE_XLARGE, LANDSCAPE_AMAZING, LANDSCAPE_INCREDIBLE, DETAIL, FULLSIZE)
+    @Retention(AnnotationRetention.RUNTIME)
+    @StringDef(PORTRAIT_SMALL, PORTRAIT_MEDIUM, PORTRAIT_XLARGE, PORTRAIT_FANTASTIC, PORTRAIT_UNCANNY,
+            PORTRAIT_INCREDIBLE, STANDARD_SMALL, STANDARD_MEDIUM, STANDARD_LARGE, STANDARD_XLARGE,
+            STANDARD_FANTASTIC, STANDARD_AMAZING, LANDSCAPE_SMALL, LANDSCAPE_MEDIUM, LANDSCAPE_LARGE,
+            LANDSCAPE_XLARGE, LANDSCAPE_AMAZING, LANDSCAPE_INCREDIBLE, DETAIL, FULLSIZE)
     annotation class ImageSize
     
-    fun dtoToCharacter(dto: CharacterDto): Character {
-        val character = Character()
-        character.id = dto.id
-        character.name = dto.name
-        character.description = dto.description
-        character.modified = dto.modified
-        character.resourceUri = dto.resourceUri
-        character.thumbnailUrl = getThumbnailUrl(dto.thumbnail)
-        character.imageUrl = getImageUrl(dto.thumbnail)
-        character.landscapeImageUrl = getLandscapeImageUrl(dto.thumbnail)
-        
-        return character
+    fun dtoToCharacter(dto: MarvelCharacterDto): MarvelCharacter {
+        return MarvelCharacter(
+                dto.id,
+                dto.name,
+                dto.description,
+                dto.modified,
+                dto.resourceUri,
+                getThumbnailUrl(dto.thumbnail),
+                getImageUrl(dto.thumbnail),
+                getLandscapeImageUrl(dto.thumbnail)
+        )
     }
     
     private fun getImageUrl(imageDto: ImageDto, @ImageSize size: String): String {

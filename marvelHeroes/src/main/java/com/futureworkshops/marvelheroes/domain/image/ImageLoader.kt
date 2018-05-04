@@ -27,7 +27,7 @@ class ImageLoader {
                 .into(target)
     }
     
-    fun loadLandscapeImage(target: ImageView, imagePath: String, listener: RequestListener<Drawable>) {
+    fun loadLandscaperImage(target: ImageView, imagePath: String, listener: RequestListener<Drawable>) {
         GlideApp.with(target)
                 .load(imagePath)
                 .fitCenter()

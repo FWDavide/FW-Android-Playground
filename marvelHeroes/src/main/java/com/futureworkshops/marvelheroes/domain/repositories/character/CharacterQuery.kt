@@ -71,7 +71,7 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
     
     
     /**
-     * Builder used for simplifying the Character querying process.
+     * Builder used for simplifying the MarvelCharacter querying process.
      */
     class Builder {
         

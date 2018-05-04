@@ -5,8 +5,8 @@
 package com.futureworkshops.marvelheroes.domain.repositories.character
 
 import com.futureworkshops.marvelheroes.data.network.RestManager
-import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto
-import com.futureworkshops.marvelheroes.domain.model.Character
+import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter
 import io.reactivex.Single
 import java.util.*
 import javax.inject.Inject
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class MarvelCharacterRepository @Inject
 constructor(private val restManager: RestManager) {
     
-    val avengersCharacters: Single<List<Character>>
+    val avengersCharacters: Single<List<MarvelCharacter>>
         get() {
             val filter = CharacterQuery.Builder()
                     .serie(AVENGERS__SERIES_ID)
@@ -34,12 +34,12 @@ constructor(private val restManager: RestManager) {
         var token: String? = null
     }
     
-    fun getCharacterDetails(characterId: Int): Single<List<Character>> {
+    fun getCharacterDetails(characterId: Int): Single<List<MarvelCharacter>> {
         return restManager.getCharacterDetails(characterId.toString())
                 .flatMap { response -> Single.just(mapDtoToModel(response)) }
     }
     
-    fun getAllCharacters(offset: Int, limit: Int): Single<List<Character>> {
+    fun getAllCharacters(offset: Int, limit: Int): Single<List<MarvelCharacter>> {
         val filter = CharacterQuery.Builder()
                 .offset(offset)
                 .limit(limit)
@@ -48,13 +48,13 @@ constructor(private val restManager: RestManager) {
     }
     
     
-    private fun getCharactersWithQuery(characterQuery: CharacterQuery): Single<List<Character>> {
+    private fun getCharactersWithQuery(characterQuery: CharacterQuery): Single<List<MarvelCharacter>> {
         return restManager.getCharactersWithQuery(characterQuery.toMap())
                 .flatMap { response -> Single.just(mapDtoToModel(response)) }
     }
     
-    private fun mapDtoToModel(characterDtos: List<CharacterDto>): List<Character> {
-        val characters = ArrayList<Character>()
+    private fun mapDtoToModel(characterDtos: List<MarvelCharacterDto>): List<MarvelCharacter> {
+        val characters = ArrayList<MarvelCharacter>()
         
         for (dto in characterDtos) {
             characters.add(CharacterMapper.dtoToCharacter(dto))

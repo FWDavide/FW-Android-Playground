@@ -6,7 +6,7 @@ package com.futureworkshops.marvelheroes.presentation.character.list;
 
 import android.support.annotation.NonNull;
 
-import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class CharactersListContract {
     
     public interface View {
     
-        void onCharactersLoaded(List<Character> characters);
+        void onCharactersLoaded(List<MarvelCharacter> characters);
         
         void showNoInternetConnection();
         

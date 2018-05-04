@@ -4,7 +4,7 @@
 
 package com.futureworkshops.marvelheroes.presentation.character.list;
 
-import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.domain.repositories.character.MarvelCharacterRepository;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class CharacterListInteractor {
         this.marvelCharacterRepository = marvelCharacterRepository;
     }
     
-    Single<List<Character>> loadAvengersCharacters() {
+    Single<List<MarvelCharacter>> loadAvengersCharacters() {
         return marvelCharacterRepository.getAvengersCharacters();
     }
 }

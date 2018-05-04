@@ -27,14 +27,10 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.domain.image.GlideApp;
-import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
-import com.futureworkshops.marvelheroes.domain.model.Character;
-
-import javax.inject.Inject;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.android.support.AndroidSupportInjection;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,7 +66,7 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
 //    ImageLoader imageLoader;
     
     
-    private Character character;
+    private MarvelCharacter character;
     
     public CharacterDetailFragment() {
         // Required empty public constructor
@@ -82,7 +78,7 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
      * @param character Parameter 1.
      * @return A new instance of fragment CharacterDetailFragment.
      */
-    public static CharacterDetailFragment newInstance(Character character) {
+    public static CharacterDetailFragment newInstance(MarvelCharacter character) {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CHARACTER, character);
@@ -118,7 +114,7 @@ public class CharacterDetailFragment extends Fragment implements CharacterDetail
         ButterKnife.bind(this, view);
         
         if (getArguments() != null) {
-            character = (Character) getArguments().getSerializable(ARG_CHARACTER);
+            character = (MarvelCharacter) getArguments().getSerializable(ARG_CHARACTER);
             
             initToolbars();
             

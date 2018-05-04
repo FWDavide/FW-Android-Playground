@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
  * Created by stelian on 03/04/2018.
  */
 
-class CharacterDto {
+class MarvelCharacterDto {
     
     @SerializedName("id")
     var id: String? = null

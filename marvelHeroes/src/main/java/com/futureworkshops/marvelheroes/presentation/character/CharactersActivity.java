@@ -16,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 
 import com.futureworkshops.marvelheroes.R;
-import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.favorite.FavoriteCharactersFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment;
@@ -133,7 +133,7 @@ public class CharactersActivity extends BaseActivity implements OnNavigationItem
     }
     
     @Override
-    public void onShowCharacterDetail(@NonNull Character character, @NonNull ImageView thumbnail) {
+    public void onShowCharacterDetail(@NonNull MarvelCharacter character, @NonNull ImageView thumbnail) {
         final String transitionName = ViewCompat.getTransitionName(thumbnail);
         
         CharacterDetailFragment characterDetailFragment = CharacterDetailFragment.newInstance(character);

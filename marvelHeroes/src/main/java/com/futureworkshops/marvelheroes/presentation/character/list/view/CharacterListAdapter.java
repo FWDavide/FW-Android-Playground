@@ -6,7 +6,6 @@ package com.futureworkshops.marvelheroes.presentation.character.list.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.HapticFeedbackConstants;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
-import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListAdapter.CharacterViewHolder;
 
 import java.util.ArrayList;
@@ -34,16 +33,16 @@ import butterknife.ButterKnife;
 public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
     
     /**
-     * Specialised interface to listen for Character click events.
+     * Specialised interface to listen for MarvelCharacter click events.
      */
     public interface CharacterClickListener {
         
-        void onCharacterClicked(Character character, ImageView listImageView);
+        void onCharacterClicked(MarvelCharacter character, ImageView listImageView);
     }
     
     
     private CharacterClickListener characterClickListener;
-    private List<Character> items;
+    private List<MarvelCharacter> items;
     private LayoutInflater layoutInflater;
     private ImageLoader imageLoader;
     
@@ -53,7 +52,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
         this.imageLoader = loader;
     }
     
-    void setItems(List<Character> items) {
+    void setItems(List<MarvelCharacter> items) {
         this.items.clear();
         this.items.addAll(items);
         
@@ -71,7 +70,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
     
     @Override
     public void onBindViewHolder(CharacterViewHolder holder, int position) {
-        final Character item = items.get(position);
+        final MarvelCharacter item = items.get(position);
         bindCharacter(holder, item);
     }
     
@@ -80,7 +79,7 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
         return items.size();
     }
     
-    private void bindCharacter(CharacterViewHolder viewHolder, Character character) {
+    private void bindCharacter(CharacterViewHolder viewHolder, MarvelCharacter character) {
         viewHolder.name.setText(character.getName());
         
         // load character thumbnail

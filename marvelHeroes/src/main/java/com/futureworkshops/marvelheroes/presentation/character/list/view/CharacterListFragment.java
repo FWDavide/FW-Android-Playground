@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
 import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
-import com.futureworkshops.marvelheroes.domain.model.Character;
+import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
@@ -42,7 +42,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     
     public interface CharacterDetailListener {
     
-        void onShowCharacterDetail(@NonNull Character character, @NonNull ImageView thumbnail);
+        void onShowCharacterDetail(@NonNull MarvelCharacter character, @NonNull ImageView thumbnail);
     
     }
     @BindView(R.id.swipeRefreshLayout)
@@ -96,7 +96,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     }
     
     @Override
-    public void onCharactersLoaded(List<Character> characters) {
+    public void onCharactersLoaded(List<MarvelCharacter> characters) {
         characterListAdapter.setItems(characters);
     }
     
@@ -136,7 +136,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     }
     
     @Override
-    public void onCharacterClicked(Character character, ImageView listImageView) {
+    public void onCharacterClicked(MarvelCharacter character, ImageView listImageView) {
 //        if (characterDetailListener != null) {
 //            characterDetailListener.onShowCharacterDetail(character, listImageView);
 //        }

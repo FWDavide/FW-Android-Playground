@@ -7,9 +7,10 @@ package com.futureworkshops.marvelheroes.data.network
 import android.content.Context
 import com.futureworkshops.marvelheroes.BuildConfig
 import com.futureworkshops.marvelheroes.data.network.dto.ApiCollection
-import com.futureworkshops.marvelheroes.data.network.dto.CharacterDto
+import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider
 import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer
+import com.futureworkshops.marvelheroes.extensions.md5
 import com.google.gson.Gson
 import io.reactivex.Single
 import okhttp3.Interceptor
@@ -20,11 +21,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
-import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
-import kotlin.experimental.and
-import kotlin.experimental.or
 
 /**
  * Created by stelian on 03/04/2018.
@@ -33,25 +31,21 @@ import kotlin.experimental.or
 class RestManager(context: Context, private val schedulersProvider: SchedulersProvider,
                   networkConfig: NetworkConfig) {
     
-    private val restservice: RestApi
+    private val restApiService: RestApi
     
     /**
      * Add logs for DBEUG builds.
      * @return
      */
-    private val httpLogginInterceptor: Interceptor
-        get() {
-            val httpLoggingInterceptor = HttpLoggingInterceptor()
-            if (BuildConfig.DEBUG) {
-                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-            } else {
-                httpLoggingInterceptor.level = HttpLoggingInterceptor.Level.NONE
-            }
-            return httpLoggingInterceptor
+    private val httpLogginInterceptor: Interceptor = HttpLoggingInterceptor().apply {
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
         }
+    }
     
     init {
-        
         val client = OkHttpClient.Builder()
                 .addInterceptor(getAuthInterceptor(context, networkConfig.accessKey, networkConfig.apiSecret))
                 .addInterceptor(httpLogginInterceptor)
@@ -64,18 +58,18 @@ class RestManager(context: Context, private val schedulersProvider: SchedulersPr
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
         
-        restservice = retrofit.create(RestApi::class.java)
+        restApiService = retrofit.create(RestApi::class.java)
     }
     
-    fun getCharactersWithQuery(characterQuery: Map<String, Any>): Single<List<CharacterDto>> {
-        return restservice.getCharacters(characterQuery)
-                .flatMap<ApiCollection<List<CharacterDto>>> { response -> Single.just<ApiCollection<List<CharacterDto>>>(response.response!!) }  // extract ApiCollection<List<CharactersDto>>
-                .flatMap { response -> Single.just<List<CharacterDto>>(response.response!!) }  // extract List<CharactersDto>
+    fun getCharactersWithQuery(characterQuery: Map<String, Any>): Single<List<MarvelCharacterDto>> {
+        return restApiService.getCharacters(characterQuery)
+                .flatMap<ApiCollection<List<MarvelCharacterDto>>> { response -> Single.just<ApiCollection<List<MarvelCharacterDto>>>(response.response!!) }  // extract ApiCollection<List<CharactersDto>>
+                .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response!!) }  // extract List<CharactersDto>
                 .compose(SingleWorkerTransformer(schedulersProvider))
     }
     
-    fun getCharacterDetails(characterId: String): Single<List<CharacterDto>> {
-        return restservice.getCharacter(characterId)
+    fun getCharacterDetails(characterId: String): Single<List<MarvelCharacterDto>> {
+        return restApiService.getCharacter(characterId)
                 .flatMap { response -> Single.just(response.response!!) }  // extract List<CharactersDto>
                 .compose(SingleWorkerTransformer(schedulersProvider))
     }
@@ -90,8 +84,6 @@ class RestManager(context: Context, private val schedulersProvider: SchedulersPr
     private fun getAuthInterceptor(context: Context, apiKey: String, apiSecret: String): Interceptor {
         return AuthInterceptor(apiKey, apiSecret)
     }
-    
-    
 }
 
 private class AuthInterceptor(private val accessKey: String, private val secretKey: String) : Interceptor {
@@ -125,22 +117,10 @@ private class AuthInterceptor(private val accessKey: String, private val secretK
     @Throws(Exception::class)
     private fun generateHash(timestamp: String, publicKey: String, privateKey: String): String {
         try {
-            val value = timestamp + privateKey + publicKey
-            val md5Encoder = MessageDigest.getInstance("MD5")
-            val md5Bytes = md5Encoder.digest(value.toByteArray())
-            
-            val md5 = StringBuilder()
-            for (i in md5Bytes.indices) {
-                md5.append(
-                        Integer.toHexString(((md5Bytes[i] and 0xFF.toByte() or 0x100.toByte()).toInt()))
-                        .substring(1, 3))
-            }
-            return md5.toString()
+            return (timestamp + privateKey + publicKey).md5()
         } catch (e: NoSuchAlgorithmException) {
             throw RuntimeException("cannot generate the api key", e)
-            
         }
-        
     }
     
     companion object {
