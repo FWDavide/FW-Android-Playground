@@ -4,6 +4,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: '../android_commons.gradle'
 apply from: '../android_dependencies.gradle'
 
@@ -52,8 +53,8 @@ dependencies {
     
     implementation domainDependencies.kotlinStdLib
     
-    annotationProcessor uiDependencies.butterKnifeApt
-    annotationProcessor uiDependencies.glideProcessor
+    kapt uiDependencies.butterKnifeApt
+    kapt uiDependencies.glideProcessor
     
     implementation uiDependencies.appCompat
     implementation uiDependencies.designCompat
@@ -65,13 +66,12 @@ dependencies {
     
     implementation domainDependencies.timber
     
-    
     implementation domainDependencies.dagger
-    annotationProcessor domainDependencies.daggerCompiler
+    kapt domainDependencies.daggerCompiler
     
     implementation domainDependencies.daggerAndroid
     implementation domainDependencies.daggerAndroidSupport
-    annotationProcessor domainDependencies.daggerAndroidProcessor
+    kapt domainDependencies.daggerAndroidProcessor
     
     implementation domainDependencies.gson
     implementation domainDependencies.okHttp
