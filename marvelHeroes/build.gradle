@@ -3,6 +3,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply from: '../android_commons.gradle'
 apply from: '../android_dependencies.gradle'
 
@@ -49,6 +50,8 @@ dependencies {
     
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     
+    implementation domainDependencies.kotlinStdLib
+    
     annotationProcessor uiDependencies.butterKnifeApt
     annotationProcessor uiDependencies.glideProcessor
     
@@ -84,4 +87,7 @@ dependencies {
     testImplementation testDependencies.mockito
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation testDependencies.testRunner
+}
+repositories {
+    mavenCentral()
 }

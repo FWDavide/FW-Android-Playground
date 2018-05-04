@@ -1,13 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    
+    ext.kotlin_version = "1.2.41"
+    ext.gradle_plugin_version = "3.1.2"
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "com.android.tools.build:gradle:$gradle_plugin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -17,7 +21,7 @@ allprojects {
         jcenter()
         mavenCentral()
     }
-
+    
     // turn off Javadoc lint
     if (JavaVersion.current().isJava8Compatible()) {
         tasks.withType(Javadoc) {
