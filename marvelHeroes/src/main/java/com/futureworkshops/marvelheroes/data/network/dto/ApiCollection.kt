@@ -13,27 +13,12 @@ import com.google.gson.annotations.SerializedName
  * Created by stelian on 03/04/2018.
  */
 
-class ApiCollection<T> {
+data class ApiCollection<T>(
+        @SerializedName("offset") val offset: Int,
+        @SerializedName("limit") val limit: Int,
+        @SerializedName("total") val total: Int,
+        @SerializedName("count") val count: Int,
+        @SerializedName("results") val response: T?) {
     
-    @SerializedName("offset")
-    var offset: Int = 0
-    
-    @SerializedName("limit")
-    var limit: Int = 0
-    
-    @SerializedName("total")
-    var total: Int = 0
-    
-    @SerializedName("count")
-    var count: Int = 0
-    
-    @SerializedName("results")
-    var response: T? = null
-    
-    constructor(apiCollection: ApiCollection<*>) {
-        this.offset = apiCollection.offset
-        this.limit = apiCollection.limit
-        this.total = apiCollection.total
-        this.count = apiCollection.count
-    }
+    constructor(apiCollection: ApiCollection<T>) : this(apiCollection.offset, apiCollection.limit, apiCollection.total, apiCollection.count, apiCollection.response)
 }

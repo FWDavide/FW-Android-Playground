@@ -10,13 +10,8 @@ import com.google.gson.annotations.SerializedName
  * Created by stelian on 03/04/2018.
  */
 
-class ImageDto {
-    
-    @SerializedName("path")
-    var path: String? = null
-    
-    @SerializedName("extension")
-    var extension: String? = null
+data class ImageDto(@SerializedName("path") val path: String?,
+                    @SerializedName("extension") val extension: String?) {
     
     override fun toString(): String {
         return "ImageDto{" + "path='" + path + '\''.toString() + ", extension='" + extension + '\''.toString() + '}'.toString()

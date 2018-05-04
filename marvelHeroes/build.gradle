@@ -88,6 +88,3 @@ dependencies {
     androidTestImplementation testDependencies.espressoCore
     androidTestImplementation testDependencies.testRunner
 }
-repositories {
-    mavenCentral()
-}

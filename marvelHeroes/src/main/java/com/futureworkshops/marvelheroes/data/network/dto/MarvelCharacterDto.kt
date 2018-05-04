@@ -12,23 +12,9 @@ import com.google.gson.annotations.SerializedName
  * Created by stelian on 03/04/2018.
  */
 
-class MarvelCharacterDto {
-    
-    @SerializedName("id")
-    var id: String? = null
-    
-    @SerializedName("name")
-    var name: String? = null
-    
-    @SerializedName("description")
-    var description: String? = null
-    
-    @SerializedName("modified")
-    var modified: String? = null
-    
-    @SerializedName("resourceURI")
-    var resourceUri: String? = null
-    
-    @SerializedName("thumbnail")
-    var thumbnail: ImageDto? = null
-}
+data class MarvelCharacterDto(@SerializedName("id") val id: String?,
+                              @SerializedName("name") val name: String?,
+                              @SerializedName("description") val description: String?,
+                              @SerializedName("modified") val modified: String?,
+                              @SerializedName("resourceURI") val resourceUri: String?,
+                              @SerializedName("thumbnail") val thumbnail: ImageDto?)
