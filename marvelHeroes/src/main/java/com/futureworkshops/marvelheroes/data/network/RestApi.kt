@@ -17,6 +17,8 @@ import retrofit2.http.QueryMap
  * Created by stelian on 03/04/2018.
  */
 
+const val API_VERSION = "v1/public"
+
 interface RestApi {
     
     @GET("$API_VERSION/characters")
@@ -24,10 +26,5 @@ interface RestApi {
     
     @GET("$API_VERSION/characters/{id}")
     fun getCharacter(@Path("id") characterId: String): Single<ApiResponse<List<MarvelCharacterDto>>>
-    
-    companion object {
-        
-        const val API_VERSION = "v1/public"
-    }
     
 }

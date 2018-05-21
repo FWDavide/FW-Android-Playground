@@ -22,6 +22,6 @@ public class SplashscreenPresenter implements SplashscreenContract.Presenter {
     
     @Override
     public void showCharacterScreen() {
-        navigator.showCharacterScreen();
+        navigator.showCharactersScreen();
     }
 }

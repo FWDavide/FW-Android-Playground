@@ -4,7 +4,6 @@
 
 package com.futureworkshops.marvelheroes.domain.dagger;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.futureworkshops.marvelheroes.data.network.NetworkConfig;
@@ -29,9 +28,9 @@ public class NetModule {
     
     @Singleton
     @Provides
-    RestManager providesRestManager(Context context, SchedulersProvider schedulersProvider,
+    RestManager providesRestManager(SchedulersProvider schedulersProvider,
                                     @NonNull NetworkConfig networkConfig) {
-        return new RestManager(context, schedulersProvider, networkConfig);
+        return new RestManager(schedulersProvider, networkConfig);
     }
     
 }

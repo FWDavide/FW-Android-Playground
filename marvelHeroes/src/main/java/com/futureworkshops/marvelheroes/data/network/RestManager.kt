@@ -4,13 +4,12 @@
 
 package com.futureworkshops.marvelheroes.data.network
 
-import android.content.Context
 import com.futureworkshops.marvelheroes.BuildConfig
 import com.futureworkshops.marvelheroes.data.network.dto.ApiCollection
 import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider
 import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer
-import com.futureworkshops.marvelheroes.extensions.md5
+import com.futureworkshops.marvelheroes.extension.md5
 import com.google.gson.Gson
 import io.reactivex.Single
 import okhttp3.Interceptor
@@ -28,15 +27,14 @@ import java.util.*
  * Created by stelian on 03/04/2018.
  */
 
-class RestManager(context: Context, private val schedulersProvider: SchedulersProvider,
-                  networkConfig: NetworkConfig) {
+class RestManager(
+        private val schedulersProvider: SchedulersProvider,
+        networkConfig: NetworkConfig
+) {
     
     private val restApiService: RestApi
     
-    /**
-     * Add logs for DBEUG builds.
-     * @return
-     */
+    
     private val httpLogginInterceptor: Interceptor = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
@@ -47,7 +45,7 @@ class RestManager(context: Context, private val schedulersProvider: SchedulersPr
     
     init {
         val client = OkHttpClient.Builder()
-                .addInterceptor(getAuthInterceptor(context, networkConfig.accessKey, networkConfig.apiSecret))
+                .addInterceptor(AuthInterceptor(networkConfig.accessKey, networkConfig.apiSecret))
                 .addInterceptor(httpLogginInterceptor)
                 .build()
         
@@ -63,27 +61,17 @@ class RestManager(context: Context, private val schedulersProvider: SchedulersPr
     
     fun getCharactersWithQuery(characterQuery: Map<String, Any>): Single<List<MarvelCharacterDto>> {
         return restApiService.getCharacters(characterQuery)
-                .flatMap<ApiCollection<List<MarvelCharacterDto>>> { response -> Single.just<ApiCollection<List<MarvelCharacterDto>>>(response.response!!) }  // extract ApiCollection<List<CharactersDto>>
-                .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response!!) }  // extract List<CharactersDto>
+                .flatMap { response -> Single.just<ApiCollection<List<MarvelCharacterDto>>>(response.response) }
+                .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
                 .compose(SingleWorkerTransformer(schedulersProvider))
     }
     
     fun getCharacterDetails(characterId: String): Single<List<MarvelCharacterDto>> {
         return restApiService.getCharacter(characterId)
-                .flatMap { response -> Single.just(response.response!!) }  // extract List<CharactersDto>
+                .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
                 .compose(SingleWorkerTransformer(schedulersProvider))
     }
     
-    /**
-     * Add authentication to every request.
-     * @param context
-     * @param apiKey
-     * @param apiSecret
-     * @return
-     */
-    private fun getAuthInterceptor(context: Context, apiKey: String, apiSecret: String): Interceptor {
-        return AuthInterceptor(apiKey, apiSecret)
-    }
 }
 
 private class AuthInterceptor(private val accessKey: String, private val secretKey: String) : Interceptor {

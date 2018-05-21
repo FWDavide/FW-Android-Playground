@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.futureworkshops.marvelheroes.R;
-import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
+import com.futureworkshops.marvelheroes.domain.image.GlideApp;
 import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListAdapter.CharacterViewHolder;
 
@@ -44,12 +44,10 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
     private CharacterClickListener characterClickListener;
     private List<MarvelCharacter> items;
     private LayoutInflater layoutInflater;
-    private ImageLoader imageLoader;
     
-    public CharacterListAdapter(@NonNull Context context, ImageLoader loader) {
+    public CharacterListAdapter(@NonNull Context context) {
         this.layoutInflater = LayoutInflater.from(context);
         this.items = new ArrayList<>();
-        this.imageLoader = loader;
     }
     
     void setItems(List<MarvelCharacter> items) {
@@ -83,8 +81,13 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
         viewHolder.name.setText(character.getName());
         
         // load character thumbnail
-        imageLoader.loadThumbnail(viewHolder.image, character.getThumbnailUrl());
-    
+        //TODO replace below with extension fun when we refactor the View Layer to Kotlin.
+        GlideApp.with(viewHolder.image)
+            .load(character.getThumbnailUrl())
+            .placeholder(R.drawable.default_thumbnail_placeholder)
+            .centerCrop()
+            .into(viewHolder.image);
+
 //        ViewCompat.setTransitionName(viewHolder.image, "transition23234");
         
         viewHolder.itemView.setOnClickListener(v -> {
@@ -94,6 +97,8 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHold
             }
         });
     }
+    
+    
     
     class CharacterViewHolder extends ViewHolder {
         

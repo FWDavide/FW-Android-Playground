@@ -42,7 +42,6 @@ import dagger.android.support.DaggerApplication;
 @Component(modules = {
     ApplicationModule.class,
     NetModule.class,
-    ImageModule.class,
     ActivityComponentBindModule.class,
     AndroidInjectionModule.class,
     AndroidSupportInjectionModule.class})

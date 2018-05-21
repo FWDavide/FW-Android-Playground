@@ -5,9 +5,7 @@
 package com.futureworkshops.marvelheroes.domain.repositories.character
 
 import java.text.SimpleDateFormat
-import java.util.ArrayList
-import java.util.Date
-import java.util.HashMap
+import java.util.*
 
 /**
  * Utility class used for creating queries that match the Marvel API.
@@ -24,49 +22,19 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
     
     
     fun toMap(): Map<String, Any> {
-        val returnValues = HashMap<String, Any>()
-        
-        if (name != null) {
-            returnValues[QUERY_NAME] = name
-        }
-        
-        if (nameStartWith != null) {
-            returnValues[QUERY_NAME_START_WITH] = nameStartWith
-        }
-        
-        if (modifiedSince != null) {
-            returnValues[QUERY_MODIFIED_SINCE] = modifiedSince
-        }
-        
-        if (comics != null) {
-            returnValues[QUERY_COMICS] = comics
-        }
-        
-        if (series != null) {
-            returnValues[QUERY_SERIES] = series
-        }
-        
-        if (events != null) {
-            returnValues[QUERY_EVENTS] = events
-        }
-        
-        if (stories != null) {
-            returnValues[QUERY_STORIES] = stories
-        }
-        
-        if (orderBy != null) {
-            returnValues[QUERY_ORDER_BY] = orderBy
-        }
-        
-        if (limit > 0) {
-            returnValues[QUERY_LIMIT] = limit
-        }
-        
-        if (offset > 0) {
-            returnValues[QUERY_OFFSET] = offset
-        }
-        
-        return returnValues
+        return HashMap<String, Any>()
+                .apply {
+                    name?.let { this[QUERY_NAME] = it }
+                    nameStartWith?.let { this[QUERY_NAME_START_WITH] = it }
+                    modifiedSince?.let { this[QUERY_MODIFIED_SINCE] = it }
+                    comics?.let { this[QUERY_COMICS] = it }
+                    series?.let { this[QUERY_SERIES] = it }
+                    events?.let { this[QUERY_EVENTS] = it }
+                    stories?.let { this[QUERY_STORIES] = it }
+                    orderBy?.let { this[QUERY_ORDER_BY] = it }
+                    limit.takeIf { it > 0 }?.let { this[QUERY_LIMIT] = limit }
+                    offset.takeIf { it > 0 }?.let { this[QUERY_OFFSET] = offset }
+                }
     }
     
     
@@ -87,18 +55,18 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
         private var limit: Int = 0
         private var offset: Int = 0
         
-        fun name(`val`: String): Builder {
-            name = `val`
+        fun name(name: String): Builder {
+            this.name = name
             return this
         }
         
-        fun nameStartWith(`val`: String): Builder {
-            nameStartWith = `val`
+        fun nameStartWith(nameStartWith: String): Builder {
+            this.nameStartWith = nameStartWith
             return this
         }
         
-        fun modifiedSince(`val`: Date): Builder {
-            modifiedSince = `val`
+        fun modifiedSince(modifiedSince: Date): Builder {
+            this.modifiedSince = modifiedSince
             return this
         }
         
@@ -158,18 +126,18 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
             return this
         }
         
-        fun limit(`val`: Int): Builder {
-            checkLimit(`val`)
-            limit = `val`
+        fun limit(limit: Int): Builder {
+            checkLimit(limit)
+            this.limit = limit
             return this
         }
         
-        fun offset(`val`: Int): Builder {
-            if (`val` < 0) {
+        fun offset(offset: Int): Builder {
+            if (offset < 0) {
                 throw IllegalArgumentException("offset must be bigger or equals than zero")
             }
             
-            this.offset = `val`
+            this.offset = offset
             return this
         }
         

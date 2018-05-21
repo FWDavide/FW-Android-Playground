@@ -20,7 +20,4 @@ data class ApiResponse<T>(
         @SerializedName("attributionText") val attributionText: String? = null,
         @SerializedName("attributionHTML") val getAttributionHtml: String? = null,
         @SerializedName("etag") val etag: String? = null,
-        @SerializedName("data") val response: T? = null) {
-    
-    constructor(apiResponse: ApiResponse<*>) : this(apiResponse.code, apiResponse.status, apiResponse.copyright, apiResponse.attributionText, apiResponse.getAttributionHtml, apiResponse.etag)
-}
+        @SerializedName("data") val response: T? = null)

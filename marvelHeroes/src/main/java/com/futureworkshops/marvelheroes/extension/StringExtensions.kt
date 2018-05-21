@@ -2,7 +2,7 @@
  * Copyright (c) 2018 FutureWorkshops. All rights reserved.
  */
 
-package com.futureworkshops.marvelheroes.extensions
+package com.futureworkshops.marvelheroes.extension
 
 import java.security.MessageDigest
 

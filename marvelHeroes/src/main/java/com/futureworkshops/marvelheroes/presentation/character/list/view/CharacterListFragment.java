@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.futureworkshops.marvelheroes.R;
-import com.futureworkshops.marvelheroes.domain.image.ImageLoader;
 import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter;
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListPresenter;
@@ -41,10 +40,11 @@ import dagger.android.support.AndroidSupportInjection;
 public class CharacterListFragment extends Fragment implements CharactersListContract.View, CharacterClickListener {
     
     public interface CharacterDetailListener {
-    
+        
         void onShowCharacterDetail(@NonNull MarvelCharacter character, @NonNull ImageView thumbnail);
-    
+        
     }
+    
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     
@@ -55,12 +55,10 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     @Inject
     CharacterListPresenter characterListPresenter;
     
-    @Inject
-    ImageLoader imageLoader;
-    
     private CharacterListAdapter characterListAdapter;
     
     private CharacterDetailListener characterDetailListener;
+    
     public static CharacterListFragment newInstance() {
         return new CharacterListFragment();
     }
@@ -140,7 +138,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
 //        if (characterDetailListener != null) {
 //            characterDetailListener.onShowCharacterDetail(character, listImageView);
 //        }
-    
+        
         final String transitionName = ViewCompat.getTransitionName(listImageView);
         
         CharacterDetailFragment characterDetailFragment = CharacterDetailFragment.newInstance(character);
@@ -154,7 +152,7 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     }
     
     private void initRecyclerView() {
-        characterListAdapter = new CharacterListAdapter(getContext(), imageLoader);
+        characterListAdapter = new CharacterListAdapter(getContext());
         characterListAdapter.setCharacterClickListener(this);
         
         final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

@@ -5,8 +5,8 @@
 package com.futureworkshops.marvelheroes.domain.repositories.character
 
 import android.support.annotation.StringDef
-import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.dto.ImageDto
+import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter
 
 /**
@@ -74,6 +74,7 @@ object CharacterMapper {
     private const val SEPARATOR = "/"
     private const val DOT = "."
     
+    
     @Retention(AnnotationRetention.RUNTIME)
     @StringDef(PORTRAIT_SMALL, PORTRAIT_MEDIUM, PORTRAIT_XLARGE, PORTRAIT_FANTASTIC, PORTRAIT_UNCANNY,
             PORTRAIT_INCREDIBLE, STANDARD_SMALL, STANDARD_MEDIUM, STANDARD_LARGE, STANDARD_XLARGE,
@@ -88,9 +89,9 @@ object CharacterMapper {
                 dto.description,
                 dto.modified,
                 dto.resourceUri,
-                getThumbnailUrl(dto.thumbnail),
-                getImageUrl(dto.thumbnail),
-                getLandscapeImageUrl(dto.thumbnail)
+                dto.thumbnail?.let { getThumbnailUrl(it) },
+                dto.thumbnail?.let { getImageUrl(it) },
+                dto.thumbnail?.let { getLandscapeImageUrl(it) }
         )
     }
     
@@ -102,17 +103,17 @@ object CharacterMapper {
         }
     }
     
-    private fun getThumbnailUrl(imageDto: ImageDto?): String {
-        return getImageUrl(imageDto!!, PORTRAIT_UNCANNY)
+    private fun getThumbnailUrl(imageDto: ImageDto): String {
+        return getImageUrl(imageDto, PORTRAIT_UNCANNY)
     }
     
-    private fun getImageUrl(imageDto: ImageDto?): String {
-        return getImageUrl(imageDto!!, FULLSIZE)
+    private fun getImageUrl(imageDto: ImageDto): String {
+        return getImageUrl(imageDto, FULLSIZE)
         
     }
     
-    private fun getLandscapeImageUrl(imageDto: ImageDto?): String {
-        return getImageUrl(imageDto!!, LANDSCAPE_INCREDIBLE)
+    private fun getLandscapeImageUrl(imageDto: ImageDto): String {
+        return getImageUrl(imageDto, LANDSCAPE_INCREDIBLE)
     }
     
     

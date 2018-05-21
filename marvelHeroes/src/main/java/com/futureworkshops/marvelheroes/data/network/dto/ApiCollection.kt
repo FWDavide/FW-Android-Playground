@@ -18,7 +18,4 @@ data class ApiCollection<T>(
         @SerializedName("limit") val limit: Int,
         @SerializedName("total") val total: Int,
         @SerializedName("count") val count: Int,
-        @SerializedName("results") val response: T?) {
-    
-    constructor(apiCollection: ApiCollection<T>) : this(apiCollection.offset, apiCollection.limit, apiCollection.total, apiCollection.count, apiCollection.response)
-}
+        @SerializedName("results") val response: T?)

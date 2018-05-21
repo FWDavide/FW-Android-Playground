@@ -23,7 +23,7 @@ import javax.inject.Inject
 class Navigator @Inject
 constructor(private val baseActivity: Activity) {
     
-    fun showCharacterScreen() {
+    fun showCharactersScreen() {
         baseActivity.startActivity(Intent(baseActivity, CharactersActivity::class.java))
     }
 }
