@@ -2,22 +2,14 @@
 *.iml
 *.ipr
 *.iws
-/.idea/*
-
-# IDEA/Android Studio Ignore exceptions
-!/.idea/vcs.xml
-!/.idea/fileTemplates/
-!/.idea/inspectionProfiles/
-!/.idea/scopes/
-!/.idea/codeStyleSettings.xml
-!/.idea/encodings.xml
-!/.idea/copyright/
-!/.idea/compiler.xml
+/.idea/
 
 #Gradle
 .gradle
+/gradle/
 local.properties
 build
 
 #Other
 .DS_Store
+/art/

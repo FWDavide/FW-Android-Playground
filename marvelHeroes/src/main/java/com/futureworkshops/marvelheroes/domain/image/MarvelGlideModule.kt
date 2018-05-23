@@ -15,4 +15,4 @@ import com.bumptech.glide.module.AppGlideModule
  * Created by stelian on 20/03/2018.
  */
 @GlideModule
-class DatacapGlideModule : AppGlideModule()
+class MarvelGlideModule : AppGlideModule()
