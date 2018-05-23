@@ -15,9 +15,8 @@ import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashScreenContract.View {
     
-    
     @Inject
-    private var splashScreenPresenter: SplashScreenPresenter? = null
+    lateinit var splashScreenPresenter: SplashScreenPresenter
     
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
