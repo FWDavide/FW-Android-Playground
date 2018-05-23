@@ -31,17 +31,14 @@ abstract class SplashscreenModule {
     @Binds
     internal abstract fun providesContractView(activity: SplashActivity): SplashScreenContract.View
     
-    companion object {
-        
-        @Provides
-        internal fun providesNavigator(activity: SplashActivity): Navigator {
-            return Navigator(activity)
-        }
-        
-        @Provides
-        internal fun providesPresenter(navigator: Navigator, view: SplashScreenContract.View): SplashScreenContract.Presenter {
-            return SplashScreenPresenter(navigator, view)
-        }
+    @Provides
+    internal fun providesNavigator(activity: SplashActivity): Navigator {
+        return Navigator(activity)
+    }
+    
+    @Provides
+    internal fun providesPresenter(navigator: Navigator, view: SplashScreenContract.View): SplashScreenContract.Presenter {
+        return SplashScreenPresenter(navigator, view)
     }
     
 }
