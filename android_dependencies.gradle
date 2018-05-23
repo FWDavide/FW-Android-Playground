@@ -1,6 +1,5 @@
 rootProject.ext {
     
-    butterKnifeVersion = '8.4.0'
     supportLibraryVersion = '27.0.2'
     constraintlayoutVersion = '1.0.2'
     gsonVersion = '2.8.0'
@@ -34,10 +33,6 @@ rootProject.ext {
     
     uiDependencies = [
         
-        butterKnife      :
-            "com.jakewharton:butterknife:$butterKnifeVersion",
-        butterKnifeApt   :
-            "com.jakewharton:butterknife-compiler:$butterKnifeVersion",
         recyclerView     :
             "com.android.support:recyclerview-v7:$supportLibraryVersion",
         gridLayout       :

@@ -3,6 +3,7 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply from: '../android_commons.gradle'
@@ -53,14 +54,12 @@ dependencies {
     
     implementation domainDependencies.kotlinStdLib
     
-    kapt uiDependencies.butterKnifeApt
     kapt uiDependencies.glideProcessor
     
     implementation uiDependencies.appCompat
     implementation uiDependencies.designCompat
     implementation uiDependencies.cardView
     implementation uiDependencies.constraintLayout
-    implementation uiDependencies.butterKnife
     implementation uiDependencies.fillableLoaders
     implementation uiDependencies.glide
     
