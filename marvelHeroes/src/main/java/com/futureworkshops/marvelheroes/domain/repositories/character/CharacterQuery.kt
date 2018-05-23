@@ -41,19 +41,17 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
     /**
      * Builder used for simplifying the MarvelCharacter querying process.
      */
-    class Builder {
-        
-        private var name: String? = null
-        private var nameStartWith: String? = null
-        private var modifiedSince: Date? = null
-        private val comics = ArrayList<Int>()
-        private val series = ArrayList<Int>()
-        private val events = ArrayList<Int>()
-        private val stories = ArrayList<Int>()
-        private var orderBy: String? = null
-        private var orderAsscending = false
-        private var limit: Int = 0
-        private var offset: Int = 0
+    class Builder(var name: String? = null,
+                  var nameStartWith: String? = null,
+                  var modifiedSince: Date? = null,
+                  var comics: MutableList<Int> = mutableListOf(),
+                  var series: MutableList<Int> = mutableListOf(),
+                  var events: MutableList<Int> = mutableListOf(),
+                  var stories: MutableList<Int> = mutableListOf(),
+                  var orderBy: String? = null,
+                  var orderAscending: Boolean = false,
+                  var limit: Int = 0,
+                  var offset: Int = 0) {
         
         fun name(name: String): Builder {
             this.name = name
@@ -116,13 +114,13 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
         
         fun orderByName(asscending: Boolean): Builder {
             orderBy = ORDER_BY_NAME
-            orderAsscending = asscending
+            orderAscending = asscending
             return this
         }
         
         fun orderByLastModified(asscending: Boolean): Builder {
             orderBy = ORDER_BY_MODIFIED
-            orderAsscending = asscending
+            orderAscending = asscending
             return this
         }
         
@@ -147,7 +145,7 @@ class CharacterQuery(private val name: String?, private val nameStartWith: Strin
             val plainEvents = convertToList(events)
             val plainSeries = convertToList(series)
             val plainStories = convertToList(stories)
-            val plainOrderBy = convertOrderBy(orderBy, orderAsscending)
+            val plainOrderBy = convertOrderBy(orderBy, orderAscending)
             
             return CharacterQuery(this.name, this.nameStartWith, plainModifedSince,
                     plainComics, plainSeries, plainEvents, plainStories, plainOrderBy,

@@ -32,9 +32,6 @@ import butterknife.ButterKnife;
 
 public class CharacterListAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
     
-    /**
-     * Specialised interface to listen for MarvelCharacter click events.
-     */
     public interface CharacterClickListener {
         
         void onCharacterClicked(MarvelCharacter character, ImageView listImageView);

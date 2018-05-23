@@ -39,24 +39,13 @@ import dagger.android.support.AndroidSupportInjection;
 
 public class CharacterListFragment extends Fragment implements CharactersListContract.View, CharacterClickListener {
     
-    public interface CharacterDetailListener {
-        
-        void onShowCharacterDetail(@NonNull MarvelCharacter character, @NonNull ImageView thumbnail);
-        
-    }
-    
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    
-    
     @BindView(R.id.characterRv)
     RecyclerView characterRv;
-    
     @Inject
     CharacterListPresenter characterListPresenter;
-    
     private CharacterListAdapter characterListAdapter;
-    
     private CharacterDetailListener characterDetailListener;
     
     public static CharacterListFragment newInstance() {
@@ -87,6 +76,26 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
         super.onStart();
         
         loadAvengersCharacters();
+    }
+    
+    private void initSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            loadAvengersCharacters();
+        });
+    }
+    
+    private void initRecyclerView() {
+        characterListAdapter = new CharacterListAdapter(getContext());
+        characterListAdapter.setCharacterClickListener(this);
+        
+        final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        
+        characterRv.setLayoutManager(layoutManager);
+        characterRv.setAdapter(characterListAdapter);
+    }
+    
+    private void loadAvengersCharacters() {
+        characterListPresenter.loadAvengerCharacters();
     }
     
     public void setCharacterDetailListener(CharacterDetailListener characterDetailListener) {
@@ -135,9 +144,9 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
     
     @Override
     public void onCharacterClicked(MarvelCharacter character, ImageView listImageView) {
-//        if (characterDetailListener != null) {
-//            characterDetailListener.onShowCharacterDetail(character, listImageView);
-//        }
+        if (characterDetailListener != null) {
+            characterDetailListener.onShowCharacterDetail(character, listImageView);
+        }
         
         final String transitionName = ViewCompat.getTransitionName(listImageView);
         
@@ -151,23 +160,9 @@ public class CharacterListFragment extends Fragment implements CharactersListCon
         
     }
     
-    private void initRecyclerView() {
-        characterListAdapter = new CharacterListAdapter(getContext());
-        characterListAdapter.setCharacterClickListener(this);
+    public interface CharacterDetailListener {
         
-        final GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        void onShowCharacterDetail(@NonNull MarvelCharacter character, @NonNull ImageView thumbnail);
         
-        characterRv.setLayoutManager(layoutManager);
-        characterRv.setAdapter(characterListAdapter);
-    }
-    
-    private void initSwipeRefreshLayout() {
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            loadAvengersCharacters();
-        });
-    }
-    
-    private void loadAvengersCharacters() {
-        characterListPresenter.loadAvengerCharacters();
     }
 }
