@@ -9,7 +9,6 @@ import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterD
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment;
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailInteractor;
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailPresenter;
-import com.futureworkshops.marvelheroes.presentation.character.list.CharactersListContract;
 
 import dagger.Binds;
 import dagger.Module;

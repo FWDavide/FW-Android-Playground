@@ -45,7 +45,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
     
     fun appComponent(): AppComponent = MarvelHeroesApp.appComponent
     
-    override fun setPresenter(presenter: Presenter<*>) {
+    override fun attachPresenter(presenter: Presenter<*>) {
         this.presenter = presenter
     }
     

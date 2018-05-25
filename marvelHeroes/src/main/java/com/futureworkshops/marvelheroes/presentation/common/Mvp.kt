@@ -12,7 +12,7 @@ package com.futureworkshops.marvelheroes.presentation.common
 
 interface MvpView {
     
-    fun setPresenter(presenter : Presenter<*>)
+    fun attachPresenter(presenter : Presenter<*>)
 }
 
 interface Presenter<VIEW : MvpView> {

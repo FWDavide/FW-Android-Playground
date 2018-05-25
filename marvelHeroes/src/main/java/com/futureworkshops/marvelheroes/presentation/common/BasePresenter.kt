@@ -20,7 +20,7 @@ open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: Co
     override fun onAttachView(view: VIEW) {
         if (!isViewAttached) {
             weakReference = WeakReference(view)
-            view.setPresenter(this)
+            view.attachPresenter(this)
         }
     }
     

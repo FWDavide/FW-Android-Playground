@@ -15,8 +15,8 @@ import com.futureworkshops.marvelheroes.R
 import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter
 import com.futureworkshops.marvelheroes.presentation.character.detail.CharacterDetailFragment
 import com.futureworkshops.marvelheroes.presentation.character.favorite.FavoriteCharactersFragment
+import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterDetailListener
 import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment
-import com.futureworkshops.marvelheroes.presentation.character.list.view.CharacterListFragment.CharacterDetailListener
 import com.futureworkshops.marvelheroes.presentation.common.BaseActivity
 import kotlinx.android.synthetic.main.activity_characters.*
 import timber.log.Timber
