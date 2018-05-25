@@ -34,7 +34,7 @@ class RestManager(
     private val restApiService: RestApi
     
     
-    private val httpLogginInterceptor: Interceptor = HttpLoggingInterceptor().apply {
+    private val httpLoggingInterceptor: Interceptor = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
         } else {
@@ -45,7 +45,7 @@ class RestManager(
     init {
         val client = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(networkConfig.accessKey, networkConfig.apiSecret))
-                .addInterceptor(httpLogginInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .build()
         
         val retrofit = Retrofit.Builder()

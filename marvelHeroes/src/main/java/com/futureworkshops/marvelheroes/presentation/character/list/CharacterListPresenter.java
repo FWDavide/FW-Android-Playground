@@ -55,7 +55,7 @@ public class CharacterListPresenter implements CharactersListContract.Presenter 
     }
     
     @Override
-    public void showCharacterDetaislScreen(int characterId) {
+    public void showCharacterDetailsScreen(int characterId) {
     
     }
 }
