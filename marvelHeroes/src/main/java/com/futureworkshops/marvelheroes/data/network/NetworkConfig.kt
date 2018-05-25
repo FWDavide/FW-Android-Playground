@@ -6,12 +6,13 @@ package com.futureworkshops.marvelheroes.data.network
 
 
 import com.futureworkshops.marvelheroes.BuildConfig
+import javax.inject.Inject
 
 /**
  * Simple interface that defines parameters required to configure the network module.
  */
 
-class NetworkConfig {
+class NetworkConfig @Inject constructor() {
     
     /**
      * Return the endpoint the Rest client will connect to.
