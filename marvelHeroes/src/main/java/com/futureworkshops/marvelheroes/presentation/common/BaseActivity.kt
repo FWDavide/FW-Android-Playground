@@ -27,21 +27,11 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onActivityInject()
+        inject()
         adjustThemeColours()
     }
     
-    override fun onResume() {
-        super.onResume()
-        presenter?.onSubscribe()
-    }
-    
-    override fun onPause() {
-        super.onPause()
-        presenter?.onUnsubscribe()
-    }
-    
-    abstract fun onActivityInject()
+    abstract fun inject()
     
     fun appComponent(): AppComponent = MarvelHeroesApp.appComponent
     
@@ -65,7 +55,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
         }
     }
     
-    fun setupToolbar(toolbar: Toolbar, showHomeAsUp: Boolean) {
+    protected fun setupToolbar(toolbar: Toolbar, showHomeAsUp: Boolean) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(showHomeAsUp)
         supportActionBar?.setDisplayShowHomeEnabled(false)

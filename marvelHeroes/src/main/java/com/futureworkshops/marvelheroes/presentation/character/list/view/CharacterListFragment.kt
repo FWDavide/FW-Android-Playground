@@ -21,7 +21,6 @@ import com.futureworkshops.marvelheroes.presentation.character.list.dagger.Chara
 import com.futureworkshops.marvelheroes.presentation.character.list.dagger.DaggerCharacterListComponent
 import com.futureworkshops.marvelheroes.presentation.common.BaseFragment
 import com.futureworkshops.marvelheroes.presentation.common.MvpView
-import kotlinx.android.synthetic.main.fragment_character_list.*
 import javax.inject.Inject
 
 /**
@@ -62,12 +61,12 @@ class CharacterListFragment : BaseFragment(), CharacterListView, CharacterClickL
     
     private lateinit var characterDetailListener: CharacterDetailListener
     
-    override fun onFragmentInject() {
+    override fun inject() {
         DaggerCharacterListComponent.builder()
                 .appComponent(appComponent())
                 .characterListModule(CharacterListModule(this@CharacterListFragment))
                 .build().inject(this)
-        characterListPresenter.onAttachView(this)
+        characterListPresenter.bindView(this)
     }
     
     override fun onAttach(context: Context?) {

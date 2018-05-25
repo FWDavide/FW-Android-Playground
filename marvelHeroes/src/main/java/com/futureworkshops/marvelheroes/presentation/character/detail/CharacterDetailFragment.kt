@@ -41,7 +41,7 @@ class CharacterDetailFragment : BaseFragment(), CharacterDetailView, RequestList
     @Inject
     lateinit var characterDetailPresenter: CharacterDetailPresenter
     
-    override fun onFragmentInject() {
+    override fun inject() {
         DaggerCharacterDetailsComponent.builder()
                 .appComponent(appComponent())
                 .characterDetailsModule(CharacterDetailsModule())

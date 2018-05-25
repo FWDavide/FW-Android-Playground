@@ -34,14 +34,15 @@ class ApplicationModule(val app: Application) {
     @Provides
     fun bindContext(): Context = app
     
+    @Singleton
     @Provides
     fun provideRes(): Resources = app.resources
     
+    @Singleton
     @Provides
     fun provideSharedPrefs(): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
     
     @Provides
-    @Singleton
     fun provideCompositeDisposable() = CompositeDisposable()
     
     @Provides

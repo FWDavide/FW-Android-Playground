@@ -23,7 +23,7 @@ import timber.log.Timber
 
 class CharactersActivity : BaseActivity(), OnNavigationItemSelectedListener, OnNavigationItemReselectedListener, CharacterDetailListener {
     
-    override fun onActivityInject() {
+    override fun inject() {
         /* No injection needed for this Activity */
     }
     

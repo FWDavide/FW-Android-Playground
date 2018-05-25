@@ -17,7 +17,7 @@ open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: Co
     
     private var weakReference: WeakReference<VIEW>? = null
     
-    override fun onAttachView(view: VIEW) {
+    override fun bindView(view: VIEW) {
         if (!isViewAttached) {
             weakReference = WeakReference(view)
             view.attachPresenter(this)

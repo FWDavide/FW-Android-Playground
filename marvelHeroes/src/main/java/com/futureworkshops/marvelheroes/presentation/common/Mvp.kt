@@ -17,7 +17,7 @@ interface MvpView {
 
 interface Presenter<VIEW : MvpView> {
     
-    fun onAttachView(view : VIEW)
+    fun bindView(view : VIEW)
     
     fun onSubscribe()
     

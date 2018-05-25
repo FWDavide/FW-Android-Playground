@@ -21,10 +21,10 @@ abstract class BaseFragment : Fragment(), MvpView {
     
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        onFragmentInject()
+        inject()
     }
     
-    abstract fun onFragmentInject()
+    abstract fun inject()
     
     fun appComponent(): AppComponent = MarvelHeroesApp.appComponent
     
