@@ -63,13 +63,13 @@ class RestManager(
         return restApiService.getCharacters(characterQuery)
                 .flatMap { response -> Single.just<ApiCollection<List<MarvelCharacterDto>>>(response.response) }
                 .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
-                .compose(SingleWorkerTransformer(schedulersProvider))
+                .subscribeOn(schedulersProvider.io())
     }
     
     fun getCharacterDetails(characterId: String): Single<List<MarvelCharacterDto>> {
         return restApiService.getCharacter(characterId)
                 .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
-                .compose(SingleWorkerTransformer(schedulersProvider))
+                .subscribeOn(schedulersProvider.io())
     }
     
 }

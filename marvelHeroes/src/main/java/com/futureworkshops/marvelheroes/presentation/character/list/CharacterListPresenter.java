@@ -10,6 +10,7 @@ import com.futureworkshops.marvelheroes.domain.navigator.Navigator;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import timber.log.Timber;
 
 
@@ -32,6 +33,7 @@ public class CharacterListPresenter implements CharactersListContract.Presenter 
     public void loadAvengerCharacters() {
         view.showRefreshing();
         characterListInteractor.loadAvengersCharacters()
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe((characters, throwable) -> {
                 view.hideRefreshing();
                 if (throwable != null) {
