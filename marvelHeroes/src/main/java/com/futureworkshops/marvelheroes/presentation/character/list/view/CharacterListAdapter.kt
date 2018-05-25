@@ -12,8 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.futureworkshops.marvelheroes.R
-import com.futureworkshops.marvelheroes.domain.image.GlideApp
 import com.futureworkshops.marvelheroes.domain.model.MarvelCharacter
+import com.futureworkshops.marvelheroes.extension.loadThumbnail
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.list_item_character.*
 import java.util.*
@@ -56,14 +56,9 @@ class CharacterViewHolder(override val containerView: View?) : ViewHolder(contai
     fun bind(character: MarvelCharacter, characterClickListener: CharacterClickListener) {
         characterName.text = character.name
         
-        // load character thumbnail
-        //TODO replace below with extension fun when we refactor the View Layer to Kotlin.
-        GlideApp.with(itemView)
-                .load(character.thumbnailUrl)
-                .placeholder(R.drawable.default_thumbnail_placeholder)
-                .centerCrop()
-                .into(characterImage)
-        
+        character.thumbnailUrl?.let {
+            characterImage.loadThumbnail(it)
+        }
         //        ViewCompat.setTransitionName(viewHolder.image, "transition23234");
         
         itemView.setOnClickListener { v ->
