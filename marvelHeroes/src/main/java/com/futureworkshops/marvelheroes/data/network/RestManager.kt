@@ -8,7 +8,6 @@ import com.futureworkshops.marvelheroes.BuildConfig
 import com.futureworkshops.marvelheroes.data.network.dto.ApiCollection
 import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider
-import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer
 import com.futureworkshops.marvelheroes.extension.md5
 import com.google.gson.Gson
 import io.reactivex.Single
