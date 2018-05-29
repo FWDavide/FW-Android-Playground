@@ -22,7 +22,7 @@ class SplashActivity : BaseActivity(), SplashView {
     @Inject
     lateinit var splashscreenPresenter: SplashscreenPresenter
     
-    override fun inject() {
+    fun inject() {
         DaggerSplashComponent.builder()
                 .appComponent(appComponent())
                 .splashScreenModule(SplashScreenModule(this@SplashActivity))
@@ -34,6 +34,7 @@ class SplashActivity : BaseActivity(), SplashView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+        inject()
         setupFillableLoader()
     }
     

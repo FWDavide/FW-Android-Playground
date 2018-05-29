@@ -23,10 +23,6 @@ import timber.log.Timber
 
 class CharactersActivity : BaseActivity(), OnNavigationItemSelectedListener, OnNavigationItemReselectedListener, CharacterDetailListener {
     
-    override fun inject() {
-        /* No injection needed for this Activity */
-    }
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         postponeEnterTransition()

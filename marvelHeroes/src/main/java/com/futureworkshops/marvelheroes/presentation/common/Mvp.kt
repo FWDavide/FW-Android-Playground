@@ -10,18 +10,14 @@ package com.futureworkshops.marvelheroes.presentation.common
  * All rights reserved.
  */
 
-interface MvpView {
-    
-    fun attachPresenter(presenter : Presenter<*>)
-}
+interface MvpView
 
 interface Presenter<VIEW : MvpView> {
     
-    fun bindView(view : VIEW)
+    fun bindView(view: VIEW)
     
     fun onSubscribe()
     
     fun onUnsubscribe()
     
-    fun onDetachView()
 }

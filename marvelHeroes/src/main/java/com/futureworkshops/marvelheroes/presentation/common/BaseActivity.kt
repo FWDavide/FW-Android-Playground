@@ -21,29 +21,14 @@ import com.futureworkshops.marvelheroes.presentation.MarvelHeroesApp
  * All rights reserved.
  */
 
-abstract class BaseActivity : AppCompatActivity(), MvpView {
-    
-    private var presenter: Presenter<*>? = null
+abstract class BaseActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        inject()
         adjustThemeColours()
     }
     
-    abstract fun inject()
-    
     fun appComponent(): AppComponent = MarvelHeroesApp.appComponent
-    
-    override fun attachPresenter(presenter: Presenter<*>) {
-        this.presenter = presenter
-    }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter?.onDetachView()
-        presenter = null
-    }
     
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {

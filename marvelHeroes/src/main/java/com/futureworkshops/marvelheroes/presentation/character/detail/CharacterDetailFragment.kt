@@ -41,7 +41,7 @@ class CharacterDetailFragment : BaseFragment(), CharacterDetailView, RequestList
     @Inject
     lateinit var characterDetailPresenter: CharacterDetailPresenter
     
-    override fun inject() {
+    fun inject() {
         DaggerCharacterDetailsComponent.builder()
                 .appComponent(appComponent())
                 .characterDetailsModule(CharacterDetailsModule())
@@ -50,6 +50,7 @@ class CharacterDetailFragment : BaseFragment(), CharacterDetailView, RequestList
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        inject()
         postponeEnterTransition()
         sharedElementEnterTransition = TransitionInflater.from(context)
                 .inflateTransition(android.R.transition.move)

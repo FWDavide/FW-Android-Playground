@@ -19,7 +19,6 @@ open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: Co
     
     override fun bindView(view: VIEW) {
         weakReference = WeakReference(view)
-        view.attachPresenter(this)
     }
     
     override fun onUnsubscribe() {
@@ -28,11 +27,6 @@ open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: Co
     
     override fun onSubscribe() {
         //nothing for now
-    }
-    
-    override fun onDetachView() {
-        weakReference.clear()
-        compositeDisposable.clear()
     }
     
     val view: VIEW?

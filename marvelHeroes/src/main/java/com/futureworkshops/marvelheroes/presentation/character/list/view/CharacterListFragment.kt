@@ -62,7 +62,7 @@ class CharacterListFragment : BaseFragment(), CharacterListView, CharacterClickL
     
     private lateinit var characterDetailListener: CharacterDetailListener
     
-    override fun inject() {
+    fun inject() {
         DaggerCharacterListComponent.builder()
                 .appComponent(appComponent())
                 .characterListModule(CharacterListModule(this@CharacterListFragment))
@@ -72,6 +72,7 @@ class CharacterListFragment : BaseFragment(), CharacterListView, CharacterClickL
     
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        inject()
         characterDetailListener = context as CharacterDetailListener
     }
     
@@ -88,7 +89,13 @@ class CharacterListFragment : BaseFragment(), CharacterListView, CharacterClickL
     
     override fun onStart() {
         super.onStart()
+        characterListPresenter.onSubscribe()
         loadAvengersCharacters()
+    }
+    
+    override fun onStop() {
+        super.onStop()
+        characterListPresenter.onUnsubscribe()
     }
     
     private fun loadAvengersCharacters() {
