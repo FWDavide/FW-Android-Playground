@@ -41,7 +41,7 @@ public class CharactersListContract {
         
         void searchCharacterByName(@NonNull String query);
         
-        void showCharacterDetaislScreen(int characterId);
+        void showCharacterDetailsScreen(int characterId);
         
     }
 }

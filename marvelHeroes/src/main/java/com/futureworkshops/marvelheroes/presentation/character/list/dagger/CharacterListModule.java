@@ -4,6 +4,7 @@
 
 package com.futureworkshops.marvelheroes.presentation.character.list.dagger;
 
+import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider;
 import com.futureworkshops.marvelheroes.domain.navigator.Navigator;
 import com.futureworkshops.marvelheroes.domain.repositories.character.MarvelCharacterRepository;
 import com.futureworkshops.marvelheroes.presentation.character.list.CharacterListInteractor;
@@ -36,7 +37,7 @@ public abstract class CharacterListModule {
     
     @Provides
     static CharacterListPresenter providesPresenter(CharacterListInteractor interactor, Navigator navigator,
-                                                    CharactersListContract.View view) {
-        return new CharacterListPresenter(interactor, navigator, view);
+                                                    CharactersListContract.View view, SchedulersProvider schedulersProvider) {
+        return new CharacterListPresenter(interactor, navigator, view, schedulersProvider);
     }
 }

@@ -8,7 +8,6 @@ import com.futureworkshops.marvelheroes.BuildConfig
 import com.futureworkshops.marvelheroes.data.network.dto.ApiCollection
 import com.futureworkshops.marvelheroes.data.network.dto.MarvelCharacterDto
 import com.futureworkshops.marvelheroes.data.network.rx.scheduler.SchedulersProvider
-import com.futureworkshops.marvelheroes.data.network.rx.transformers.SingleWorkerTransformer
 import com.futureworkshops.marvelheroes.extension.md5
 import com.google.gson.Gson
 import io.reactivex.Single
@@ -35,7 +34,7 @@ class RestManager(
     private val restApiService: RestApi
     
     
-    private val httpLogginInterceptor: Interceptor = HttpLoggingInterceptor().apply {
+    private val httpLoggingInterceptor: Interceptor = HttpLoggingInterceptor().apply {
         level = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor.Level.BODY
         } else {
@@ -46,7 +45,7 @@ class RestManager(
     init {
         val client = OkHttpClient.Builder()
                 .addInterceptor(AuthInterceptor(networkConfig.accessKey, networkConfig.apiSecret))
-                .addInterceptor(httpLogginInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .build()
         
         val retrofit = Retrofit.Builder()
@@ -63,13 +62,13 @@ class RestManager(
         return restApiService.getCharacters(characterQuery)
                 .flatMap { response -> Single.just<ApiCollection<List<MarvelCharacterDto>>>(response.response) }
                 .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
-                .compose(SingleWorkerTransformer(schedulersProvider))
+                .subscribeOn(schedulersProvider.io())
     }
     
     fun getCharacterDetails(characterId: String): Single<List<MarvelCharacterDto>> {
         return restApiService.getCharacter(characterId)
                 .flatMap { response -> Single.just<List<MarvelCharacterDto>>(response.response) }
-                .compose(SingleWorkerTransformer(schedulersProvider))
+                .subscribeOn(schedulersProvider.io())
     }
     
 }
