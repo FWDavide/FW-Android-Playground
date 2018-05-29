@@ -55,7 +55,7 @@ abstract class BaseActivity : AppCompatActivity(), MvpView {
         }
     }
     
-    protected fun setupToolbar(toolbar: Toolbar, showHomeAsUp: Boolean) {
+    fun setupToolbar(toolbar: Toolbar, showHomeAsUp: Boolean) {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(showHomeAsUp)
         supportActionBar?.setDisplayShowHomeEnabled(false)

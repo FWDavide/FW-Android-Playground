@@ -7,11 +7,11 @@ package com.futureworkshops.marvelheroes.presentation.splashscreen
 
 import android.os.Bundle
 import com.futureworkshops.marvelheroes.R
-import com.futureworkshops.marvelheroes.R.id.fillableLoader
 import com.futureworkshops.marvelheroes.presentation.common.BaseActivity
 import com.futureworkshops.marvelheroes.presentation.common.MvpView
 import com.futureworkshops.marvelheroes.presentation.splashscreen.dagger.DaggerSplashComponent
 import com.futureworkshops.marvelheroes.presentation.splashscreen.dagger.SplashScreenModule
+import kotlinx.android.synthetic.main.activity_splash.*
 import timber.log.Timber
 import javax.inject.Inject
 

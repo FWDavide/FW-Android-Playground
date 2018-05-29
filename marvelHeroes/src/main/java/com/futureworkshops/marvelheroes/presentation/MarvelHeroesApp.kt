@@ -84,6 +84,6 @@ class ReleaseLogTree : Timber.Tree() {
     }
     
     override fun isLoggable(tag: String?, priority: Int): Boolean {
-        return !(priority == Log.VERBOSE || priority == Log.DEBUG || priority == Log.INFO)
+        return priority >= Log.WARN
     }
 }

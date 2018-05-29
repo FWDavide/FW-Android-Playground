@@ -15,13 +15,11 @@ import java.lang.ref.WeakReference
 
 open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: CompositeDisposable) : Presenter<VIEW> {
     
-    private var weakReference: WeakReference<VIEW>? = null
+    lateinit var weakReference: WeakReference<VIEW>
     
     override fun bindView(view: VIEW) {
-        if (!isViewAttached) {
-            weakReference = WeakReference(view)
-            view.attachPresenter(this)
-        }
+        weakReference = WeakReference(view)
+        view.attachPresenter(this)
     }
     
     override fun onUnsubscribe() {
@@ -33,14 +31,11 @@ open class BasePresenter<VIEW : MvpView> constructor(val compositeDisposable: Co
     }
     
     override fun onDetachView() {
-        weakReference?.clear()
-        weakReference = null
+        weakReference.clear()
         compositeDisposable.clear()
     }
     
     val view: VIEW?
-        get() = weakReference?.get()
+        get() = weakReference.get()
     
-    private val isViewAttached: Boolean
-        get() = weakReference != null && weakReference!!.get() != null
 }

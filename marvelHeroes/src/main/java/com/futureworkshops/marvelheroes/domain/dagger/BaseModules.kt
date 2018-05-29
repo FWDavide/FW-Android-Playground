@@ -36,10 +36,6 @@ class ApplicationModule(val app: Application) {
     
     @Singleton
     @Provides
-    fun provideRes(): Resources = app.resources
-    
-    @Singleton
-    @Provides
     fun provideSharedPrefs(): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
     
     @Provides

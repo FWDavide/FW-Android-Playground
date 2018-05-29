@@ -21,6 +21,7 @@ import com.futureworkshops.marvelheroes.presentation.character.list.dagger.Chara
 import com.futureworkshops.marvelheroes.presentation.character.list.dagger.DaggerCharacterListComponent
 import com.futureworkshops.marvelheroes.presentation.common.BaseFragment
 import com.futureworkshops.marvelheroes.presentation.common.MvpView
+import kotlinx.android.synthetic.main.fragment_character_list.*
 import javax.inject.Inject
 
 /**
