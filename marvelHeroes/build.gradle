@@ -4,6 +4,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../android_commons.gradle'
 apply from: '../android_dependencies.gradle'
@@ -40,6 +41,10 @@ android {
             buildConfigField "String", "MARVEL_HEROES_CLIENT_ID", project.property('marvelHeroes.clientId')
             buildConfigField "String", "MARVEL_HEROES_CLIENT_SECRET", project.property('marvelHeroes.clientSecret')
         }
+    }
+    
+    androidExtensions {
+        experimental = true
     }
     
 }
