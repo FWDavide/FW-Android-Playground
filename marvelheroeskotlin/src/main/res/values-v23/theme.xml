@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2018 FutureWorkshops. All rights reserved.
+  -->
+
+<resources>
+  
+  <!-- Marvel theme for API > 23. -->
+  <style name="MarvelTheme" parent="BaseTheme">
+    <item name="android:windowLightStatusBar">true</item>
+  </style>
+  
+  <style name="MarvelTheme.Splashscreen" parent="SplashscreenBase">
+    <item name="android:windowLightStatusBar">false</item>
+  </style>
+
+</resources>

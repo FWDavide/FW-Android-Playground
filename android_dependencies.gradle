@@ -94,6 +94,7 @@ rootProject.ext {
         
             timber               :
                 "com.jakewharton.timber:timber:$timberVersion",
+            kotlinStdLib          : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]
 
     testDependencies = [
