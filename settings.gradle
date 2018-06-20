@@ -1,2 +1,3 @@
-include  /*':fwandroidarchitecture',*/ ':marvelHeroes'
+include ':marvelheroeskotlin'
+include ':marvelHeroes'
 

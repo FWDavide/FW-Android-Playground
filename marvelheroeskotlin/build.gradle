@@ -1,0 +1,92 @@
+/*
+ * Copyright (c) 2018 FutureWorkshops. All rights reserved.
+ */
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../android_commons.gradle'
+apply from: '../android_dependencies.gradle'
+
+
+
+android {
+    
+    defaultConfig {
+        
+        applicationId "com.futureworkshops.marvelheroeskotlin"
+        
+        versionCode Integer.parseInt(project.property('project.buildnumber'))
+        versionName project.property('project.buildversion')
+        
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+    }
+    
+    buildTypes {
+        debug {
+            buildConfigField "String", "MARVEL_HEROES_ENDPOINT", project.property('marvelHeroes.endpoint')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_ID", project.property('marvelHeroes.clientId')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_SECRET", project.property('marvelHeroes.clientSecret')
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "MARVEL_HEROES_ENDPOINT", project.property('marvelHeroes.endpoint')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_ID", project.property('marvelHeroes.clientId')
+            buildConfigField "String", "MARVEL_HEROES_CLIENT_SECRET", project.property('marvelHeroes.clientSecret')
+        }
+    }
+    
+    androidExtensions {
+        experimental = true
+    }
+    
+}
+
+dependencies {
+    def uiDependencies = rootProject.ext.uiDependencies
+    def domainDependencies = rootProject.ext.domainDependencies
+    def testDependencies = rootProject.ext.testDependencies
+    
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    
+    implementation domainDependencies.kotlinStdLib
+    
+    kapt uiDependencies.glideProcessor
+    
+    implementation uiDependencies.appCompat
+    implementation uiDependencies.designCompat
+    implementation uiDependencies.cardView
+    implementation uiDependencies.constraintLayout
+    implementation uiDependencies.fillableLoaders
+    implementation uiDependencies.glide
+    
+    implementation domainDependencies.timber
+    
+    implementation domainDependencies.dagger
+    kapt domainDependencies.daggerCompiler
+    
+    implementation domainDependencies.daggerAndroid
+    implementation domainDependencies.daggerAndroidSupport
+    kapt domainDependencies.daggerAndroidProcessor
+    
+    implementation domainDependencies.gson
+    implementation domainDependencies.okHttp
+    implementation domainDependencies.okHttpUrlConnection
+    implementation domainDependencies.okHttpLogger
+    implementation domainDependencies.retrofitGsonConverter
+    implementation domainDependencies.retrofitRxAdapter
+    implementation domainDependencies.rxJava
+    implementation domainDependencies.rxAndroid
+    
+    // Test dependencies
+    testImplementation testDependencies.junit
+    testImplementation testDependencies.mockito
+    androidTestImplementation testDependencies.espressoCore
+    androidTestImplementation testDependencies.testRunner
+}
